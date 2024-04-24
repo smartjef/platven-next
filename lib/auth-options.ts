@@ -2,6 +2,8 @@ import { NextAuthOptions } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialProvider from "next-auth/providers/credentials";
+import prisma from "@/prisma/client";
+import bcrypt from "bcrypt";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -20,23 +22,46 @@ export const authOptions: NextAuthOptions = {
           type: "email",
           placeholder: "example@gmail.com",
         },
+        password: {
+          label: "password:",
+          type: "password",
+        },
       },
       async authorize(credentials, req) {
-        const user = { id: "1", name: "John", email: credentials?.email };
-        if (user) {
-          // Any object returned will be saved in `user` property of the JWT
-          return user;
-        } else {
-          // If you return null then an error will be displayed advising the user to check their details.
-          return null;
+        console.log(
+          "************************************",
+          credentials,
+          "************************************",
+        );
 
-          // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
+        try {
+          const user = await prisma.user.findFirst({
+            where: {
+              email: credentials!.email,
+            },
+          });
+
+          if (!user || !user?.password) {
+            throw new Error("Invalid credentials");
+          }
+
+          const isCorrectPassword = await bcrypt.compare(
+            credentials!.password,
+            user.password,
+          );
+
+          if (!isCorrectPassword) {
+            throw new Error("Invalid credentials");
+          }
+          return { ...user, password: null };
+        } catch (error) {
+          console.log(error);
         }
+        return null;
       },
     }),
   ],
   pages: {
     signIn: "/", //sigin page
   },
-  
 };

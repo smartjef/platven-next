@@ -20,6 +20,7 @@ import GoogleSignInButton from "../google-login-button";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Enter a valid email address" }),
+  password: z.string().min(4, { message: "Invalid password" }),
 });
 
 type UserFormValue = z.infer<typeof formSchema>;
@@ -28,12 +29,10 @@ export default function UserAuthForm() {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl");
   const [loading, setLoading] = useState(false);
-  const defaultValues = {
-    email: "demo@gmail.com",
-  };
+
   const form = useForm<UserFormValue>({
     resolver: zodResolver(formSchema),
-    defaultValues,
+    defaultValues: { email: "", password: "" },
   });
 
   const onSubmit = async (data: UserFormValue) => {
@@ -60,6 +59,24 @@ export default function UserAuthForm() {
                   <Input
                     type="email"
                     placeholder="Enter your email..."
+                    disabled={loading}
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Password</FormLabel>
+                <FormControl>
+                  <Input
+                    type="password"
+                    placeholder="********"
                     disabled={loading}
                     {...field}
                   />
