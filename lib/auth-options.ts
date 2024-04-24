@@ -2,8 +2,10 @@ import { NextAuthOptions } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialProvider from "next-auth/providers/credentials";
+import EmailProvider from "next-auth/providers/email";
 import prisma from "@/prisma/client";
 import bcrypt from "bcrypt";
+import { PrismaAdapter } from "@auth/prisma-adapter";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -15,6 +17,7 @@ export const authOptions: NextAuthOptions = {
       clientId: process.env.GOOGLE_CLIENT_ID ?? "",
       clientSecret: process.env.GOOGLE_CLIENT_SECRETE ?? "",
     }),
+
     CredentialProvider({
       credentials: {
         email: {
@@ -25,6 +28,7 @@ export const authOptions: NextAuthOptions = {
         password: {
           label: "password:",
           type: "password",
+          placeholder: "*********",
         },
       },
       async authorize(credentials, req) {
@@ -60,8 +64,22 @@ export const authOptions: NextAuthOptions = {
         return null;
       },
     }),
+    EmailProvider({
+      server: {
+        host: process.env.EMAIL_HOST,
+        port: process.env.EMAIL_PORT,
+
+        auth: {
+          user: process.env.EMAIL_HOST_USER,
+          pass: process.env.EMAIL_HOST_PASSWORD,
+        },
+      },
+      from: process.env.EMAIL_FROM,
+    }),
   ],
   pages: {
-    signIn: "/", //sigin page
+    // signIn: "sign-in", //sigin page
   },
+
+  adapter: PrismaAdapter(prisma) as any,
 };
