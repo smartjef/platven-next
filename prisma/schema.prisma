@@ -13,41 +13,105 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model PropertyType {
-  id        String   @id @default(uuid()) @db.Uuid
-  title     String
-  isActive  Boolean @default(true)
-  icon      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
+model Account {
+  id                String   @id @default(uuid()) @db.Uuid
+  userId            String   @db.Uuid
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  provider          String
+  providerAccountId String   @default(cuid())
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 
+  @@unique([provider, providerAccountId])
+}
 
 model User {
+  id          String     @id @default(uuid()) @db.Uuid
+  name        String?
+  email       String
+  phoneNumber String?
+  address     String?
+  password    String?    @db.VarChar(256)
+  isActive    Boolean    @default(true)
+  isStaff     Boolean    @default(false)
+  image       String
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  team        Team?
+  properties  Property[]
+  accounts    Account[]
+}
+
+model Team {
   id        String   @id @default(uuid()) @db.Uuid
-  name     String
-  email String
-  isActive  Boolean @default(true)
-  image      String
+  userId    String   @unique @db.Uuid
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  isActive  Boolean  @default(true)
+  image     String
+  position  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-model Agent {
-  id        String   @id @default(uuid()) @db.Uuid
-  title     String
-  isActive  Boolean @default(true)
-  icon      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model Contact {
+  id          String   @id @default(uuid()) @db.Uuid
+  // userId    String   @unique @db.Uuid
+  // user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  isAddressed Boolean  @default(false)
+  name        String
+  email       String
+  subject     String
+  message     String   @db.Text
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
+model PropertyType {
+  id         String     @id @default(uuid()) @db.Uuid
+  title      String
+  isActive   Boolean    @default(true)
+  icon       String
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  properties Property[]
+}
 
 model Property {
-   id        String   @id @default(uuid()) @db.Uuid
+  id        String         @id @default(uuid()) @db.Uuid
   title     String
-  isActive  Boolean @default(true)
+  userId    String         @db.Uuid
+  user      User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  typeId    String         @db.Uuid
+  type      PropertyType   @relation(fields: [typeId], onDelete: Cascade, references: [id])
+  status    PropertyStatus @default(onRent)
+  price     Decimal        @db.Money
+  features  String?        @db.Text
+  county    String
+  subCounty String
+  images    String[]
+  listed    Boolean        @default(true)
+
+  isActive  Boolean           @default(true)
   icon      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+  requests  PropertyRequest[]
+}
+
+enum PropertyStatus {
+  onRent
+  onSale
+}
+
+model PropertyRequest {
+  id          String   @id @default(uuid()) @db.Uuid
+  propertyId  String   @db.Uuid
+  property    Property @relation(fields: [propertyId], onDelete: Cascade, references: [id])
+  name        String
+  email       String
+  phoneNumber String
+  isActive    Boolean  @default(true)
+  message     String?  @db.Text
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
