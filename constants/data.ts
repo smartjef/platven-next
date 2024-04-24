@@ -183,7 +183,7 @@ export const publicNavItems: NavItem[] = [
   },
   {
     title: "Login",
-    href: "/",
+    href: "/sign-in",
     icon: "login",
     label: "login",
   },
