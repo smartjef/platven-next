@@ -149,3 +149,42 @@ export const navItems: NavItem[] = [
     label: "login",
   },
 ];
+
+export const publicNavItems: NavItem[] = [
+  {
+    title: "Home",
+    href: "/",
+    icon: "dashboard",
+    label: "Dashboard",
+  },
+  {
+    title: "Properties",
+    href: "/properties",
+    icon: "user",
+    label: "user",
+  },
+  {
+    title: "Agents",
+    href: "/agents",
+    icon: "employee",
+    label: "employee",
+  },
+  {
+    title: "About",
+    href: "/about",
+    icon: "profile",
+    label: "profile",
+  },
+  {
+    title: "Contact",
+    href: "/contact",
+    icon: "kanban",
+    label: "kanban",
+  },
+  {
+    title: "Login",
+    href: "/",
+    icon: "login",
+    label: "login",
+  },
+];

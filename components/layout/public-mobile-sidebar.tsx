@@ -1,18 +1,16 @@
 "use client";
-import { DashboardNav } from "@/components/dashboard-nav";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { navItems } from "@/constants/data";
+
 import { MenuIcon } from "lucide-react";
 import { useState } from "react";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import PublicNav from "../public-nav";
+import { publicNavItems } from "@/constants/data";
 
-// import { Playlist } from "../data/playlists";
+type Props = {};
 
-interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
-  // playlists: Playlist[];
-}
-
-export function MobileSidebar({ className }: SidebarProps) {
+const PublicMobileSidebar = (props: Props) => {
   const [open, setOpen] = useState(false);
+
   return (
     <>
       <Sheet open={open} onOpenChange={setOpen}>
@@ -26,7 +24,7 @@ export function MobileSidebar({ className }: SidebarProps) {
                 Platven
               </h2>
               <div className="space-y-1">
-                <DashboardNav items={navItems} setOpen={setOpen} />
+                <PublicNav items={publicNavItems} setOpen={setOpen} />
               </div>
             </div>
           </div>
@@ -34,4 +32,6 @@ export function MobileSidebar({ className }: SidebarProps) {
       </Sheet>
     </>
   );
-}
+};
+
+export default PublicMobileSidebar;
