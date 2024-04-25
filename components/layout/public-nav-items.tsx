@@ -16,7 +16,9 @@ const PublicNavItems: React.FC<Props> = ({}) => {
     return null;
   }
   return (
-    <nav className={`grid items-start gap-2 grid-cols-${publicNavItems.length}`}>
+    <nav
+      className={`grid items-start gap-2 grid-cols-${publicNavItems.length}`}
+    >
       {publicNavItems.map((item, index) => {
         const Icon = Icons[item.icon || "arrowRight"];
         return (
