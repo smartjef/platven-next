@@ -4,6 +4,9 @@ import { sign, verify } from "jsonwebtoken";
 import { authCookieConfig } from "@/constants";
 import { NextRequest, NextResponse } from "next/server";
 import { serialize } from "cookie";
+import slugify from "slugify";
+import path from "path/posix";
+import fs from "fs";
 
 export const checkPassword = async (userPassword: string, password: string) => {
   const bcrypt = await import("bcrypt");
@@ -92,4 +95,34 @@ export async function getSessionUser() {
   const userId = await getUserIdFromToken();
   if (!userId) return null;
   return await prisma.prisma.user.findUnique({ where: { id: userId } });
+}
+
+export function saveMediaFileName(
+  uploadPath: string,
+  fileName: string,
+  extension?: string,
+) {
+  const mediaPath = path.join(process.cwd(), "public", "media", uploadPath);
+  if (!fs.existsSync(mediaPath)) {
+    fs.mkdirSync(mediaPath, { recursive: true });
+  }
+
+  let name;
+  if (extension) {
+    const fileNameWithoutExtension = fileName.slice(
+      0,
+      fileName.lastIndexOf("."),
+    );
+    name = `${fileNameWithoutExtension}.${extension}`;
+  } else name = fileName;
+
+  const parsedName = `patven-${Date.now()}-${slugify(name, {
+    lower: true,
+    trim: true,
+  })}`;
+
+  return {
+    absolutePath: path.join(mediaPath, parsedName),
+    relativePath: path.join("media", uploadPath, parsedName),
+  };
 }

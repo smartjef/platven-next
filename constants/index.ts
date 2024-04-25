@@ -1,5 +1,4 @@
 import { CookieSerializeOptions } from "cookie";
-
 export const authCookieConfig = {
   name: "session-token",
   config: {
