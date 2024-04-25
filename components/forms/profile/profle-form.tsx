@@ -20,6 +20,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { FileInput } from "@/components/filedropzone";
+import { objectToFormData } from "@/lib/utils";
+import Image from "next/image";
+import { User2 } from "lucide-react";
 
 type Props = {
   user?: User;
@@ -46,7 +49,7 @@ const ProfileForm: FC<Props> = ({ user }) => {
     try {
       const response = await fetch("/api/profile", {
         method: "POST",
-        body: JSON.stringify(data),
+        body: objectToFormData({ ...data, image }),
         redirect: "follow",
       });
       if (response.ok) {
@@ -160,6 +163,21 @@ const ProfileForm: FC<Props> = ({ user }) => {
                 </CardHeader>
 
                 <CardContent>
+                  <div className="w-28 h-28 bg-accent rounded-full overflow-clip mb-3">
+                    {user?.image ? (
+                      <Image
+                        src={{
+                          src: `/${user?.image}`,
+                          width: 100,
+                          height: 100,
+                        }}
+                        className="w-full h-full object-cover"
+                        alt="profile picture"
+                      />
+                    ) : (
+                      <User2 className="w-full h-full opacity-70" />
+                    )}
+                  </div>
                   <FileInput
                     maxFiles={1}
                     value={image ? [image] : []}
