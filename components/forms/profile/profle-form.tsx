@@ -23,6 +23,8 @@ import { FileInput } from "@/components/filedropzone";
 import { objectToFormData } from "@/lib/utils";
 import Image from "next/image";
 import { User2 } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
+import { useRouter } from "next/navigation";
 
 type Props = {
   user?: User;
@@ -34,6 +36,7 @@ type UserFormValue = z.infer<typeof formSchema>;
 
 const ProfileForm: FC<Props> = ({ user }) => {
   const { setUser } = useSessionContext();
+  const { refresh } = useRouter();
   const [image, setImage] = useState<File>();
   const form = useForm<UserFormValue>({
     resolver: zodResolver(formSchema),
@@ -44,6 +47,7 @@ const ProfileForm: FC<Props> = ({ user }) => {
       phoneNumber: user?.phoneNumber ?? "",
     },
   });
+  const { toast } = useToast();
 
   const onSubmit = async (data: UserFormValue) => {
     try {
@@ -55,6 +59,13 @@ const ProfileForm: FC<Props> = ({ user }) => {
       if (response.ok) {
         const user: User = await response.json();
         setUser(user);
+        refresh();
+        setImage(undefined);
+        toast({
+          variant: "default",
+          title: "Success!.",
+          description: "Profile updated successfully!.",
+        });
       } else {
         if (response.status === 400) {
           const errors = await response.json();
