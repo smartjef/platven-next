@@ -4,6 +4,7 @@ import { Active, DataRef, Over } from "@dnd-kit/core";
 import { ColumnDragData } from "@/components/kanban/board-column";
 import { TaskDragData } from "@/components/kanban/task-card";
 
+
 type DraggableData = ColumnDragData | TaskDragData;
 
 export function cn(...inputs: ClassValue[]) {
@@ -27,3 +28,5 @@ export function hasDraggableData<T extends Active | Over>(
 
   return false;
 }
+
+

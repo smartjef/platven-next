@@ -109,6 +109,12 @@ CREATE TABLE "PropertyRequest" (
 CREATE UNIQUE INDEX "Account_provider_providerAccountId_key" ON "Account"("provider", "providerAccountId");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_phoneNumber_key" ON "User"("phoneNumber");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "Team_userId_key" ON "Team"("userId");
 
 -- AddForeignKey

@@ -34,7 +34,7 @@ model User {
   password    String?    @db.VarChar(256)
   isActive    Boolean    @default(true)
   isStaff     Boolean    @default(false)
-  image       String
+  image       String?
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
   team        Team?
