@@ -152,6 +152,12 @@ export const navItems: NavItem[] = [
 
 export const publicNavItems: NavItem[] = [
   {
+    title: "Dashboard",
+    href: "/dashboard",
+    icon: "dashboard",
+    label: "Dashboard",
+  },
+  {
     title: "Home",
     href: "/",
     icon: "dashboard",
@@ -180,11 +186,5 @@ export const publicNavItems: NavItem[] = [
     href: "/contact",
     icon: "kanban",
     label: "kanban",
-  },
-  {
-    title: "Login",
-    href: "/sign-in",
-    icon: "login",
-    label: "login",
   },
 ];

@@ -1,10 +1,22 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ThemeProvider from "./ThemeToggle/theme-provider";
 import { Session, SessionContextProvider } from "@/context";
 import { User } from "@prisma/client";
 export default function Providers({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User>();
+  useEffect(() => {
+    (async () => {
+      const response = await fetch("/api/profile");
+      if (response.ok) {
+        const user: User = await response.json();
+        setUser(user);
+      }else {
+        
+      }
+    })();
+  }, []);
+
   return (
     <>
       <ThemeProvider attribute="class" defaultTheme="system" enableSystem>

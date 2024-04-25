@@ -3,7 +3,7 @@ import { createContext } from "react";
 
 export interface Session {
   user?: User;
-  setUser: (user: User) => void;
+  setUser: (user?: User) => void;
 }
 
 export const SessionContext = createContext<Session>({ setUser(user) {} });
