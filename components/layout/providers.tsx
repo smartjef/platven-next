@@ -1,18 +1,16 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import ThemeProvider from "./ThemeToggle/theme-provider";
-import { SessionProvider, SessionProviderProps } from "next-auth/react";
-export default function Providers({
-  session,
-  children,
-}: {
-  session: SessionProviderProps["session"];
-  children: React.ReactNode;
-}) {
+import { Session, SessionContextProvider } from "@/context";
+import { User } from "@prisma/client";
+export default function Providers({ children }: { children: React.ReactNode }) {
+  const [user, setUser] = useState<User>();
   return (
     <>
       <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-        <SessionProvider session={session}>{children}</SessionProvider>
+        <SessionContextProvider value={{ user, setUser }}>
+          {children}
+        </SessionContextProvider>
       </ThemeProvider>
     </>
   );
