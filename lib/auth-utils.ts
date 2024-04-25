@@ -1,17 +1,18 @@
-import bcrypt from "bcrypt";
 import { User } from "@prisma/client";
 import { pick } from "lodash";
-import { sign } from "jsonwebtoken";
+import { sign, verify } from "jsonwebtoken";
 import { authCookieConfig } from "@/constants";
 import { NextRequest, NextResponse } from "next/server";
 import { serialize } from "cookie";
 
 export const checkPassword = async (userPassword: string, password: string) => {
+  const bcrypt = await import("bcrypt");
   const valid = await bcrypt.compare(password, userPassword);
   return valid;
 };
 
 export const hashPassword = async (password: string) => {
+  const bcrypt = await import("bcrypt");
   const salt = await bcrypt.genSalt(10);
   const hash = await bcrypt.hash(password, salt);
   return hash;
@@ -67,3 +68,28 @@ export const redirectToAuth = (request: NextRequest) => {
     { headers },
   );
 };
+
+export async function getUserIdFromToken() {
+  const cookiesModule = await import("next/headers");
+  const userCookie = cookiesModule.cookies().get(authCookieConfig.name)?.value;
+
+  if (!userCookie) {
+    return null;
+  }
+  try {
+    const { id }: any = verify(
+      userCookie as string,
+      process.env.NEXTAUTH_SECRET as string,
+    );
+    return id as string;
+  } catch (error) {
+    return null;
+  }
+}
+
+export async function getSessionUser() {
+  const prisma = await import("@/prisma/client");
+  const userId = await getUserIdFromToken();
+  if (!userId) return null;
+  return await prisma.prisma.user.findUnique({ where: { id: userId } });
+}
