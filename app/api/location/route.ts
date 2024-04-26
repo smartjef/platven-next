@@ -10,5 +10,5 @@ export const GET = async (request: NextRequest) => {
       subscounties: { select: { code: true, countyCode: true, name: true } },
     },
   });
-  return NextResponse.json({ counties });
+  return NextResponse.json(counties);
 };

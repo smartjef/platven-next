@@ -25,6 +25,7 @@ export const GET = async (request: NextRequest) => {
       process.env.NEXTAUTH_SECRET as string,
     );
     const user = await prisma.user.findUnique({ where: { id } });
+    if (!user) throw Error("");
     return NextResponse.json(user);
   } catch (error) {
     let detail;

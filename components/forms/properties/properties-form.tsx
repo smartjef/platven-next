@@ -25,14 +25,9 @@ import Image from "next/image";
 
 import { Checkbox } from "@/components/ui/checkbox";
 
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+
 import PropertyLocationPicker from "./location-picker";
+import TypeStatusInput from "./type-status";
 
 type Props = {
   property?: Property;
@@ -92,6 +87,7 @@ const PropertyForm: FC<Props> = ({ property }) => {
       console.log(e);
     }
   };
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2 w-full">
@@ -137,79 +133,9 @@ const PropertyForm: FC<Props> = ({ property }) => {
                 )}
               />
 
-              <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-3">
-                <FormField
-                  control={form.control}
-                  name="typeId"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Property Type</FormLabel>
-                      <Select
-                        // disabled={loading}
-                        onValueChange={field.onChange}
-                        value={field.value}
-                        defaultValue={field.value}
-                      >
-                        <FormControl>
-                          <SelectTrigger>
-                            <SelectValue
-                              defaultValue={field.value}
-                              placeholder="Select a country"
-                            />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          {/* @ts-ignore  */}
-                          {[{ name: "Home", id: "1" }].map((country) => (
-                            <SelectItem key={country.id} value={country.id}>
-                              {country.name}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="status"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Property Status</FormLabel>
-                      <Select
-                        // disabled={loading}
-                        onValueChange={field.onChange}
-                        value={field.value}
-                        defaultValue={field.value}
-                      >
-                        <FormControl>
-                          <SelectTrigger>
-                            <SelectValue
-                              defaultValue={field.value}
-                              placeholder="Select a city"
-                            />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          {/* @ts-ignore  */}
-                          {[
-                            { name: "On Rent", id: "onRent" },
-                            { name: "On Sale", id: "onSale" },
-                          ].map((city) => (
-                            <SelectItem key={city.id} value={city.id}>
-                              {city.name}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
+              <TypeStatusInput/>
 
-             <PropertyLocationPicker/>
+              <PropertyLocationPicker />
 
               <FormField
                 control={form.control}
