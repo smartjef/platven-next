@@ -13,6 +13,20 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model County {
+  code         String      @id @unique
+  name         String
+  capital      String
+  subscounties SubCounty[]
+}
+
+model SubCounty {
+  code         String @id @unique
+  countyNumber String
+  county       County @relation(fields: [countyNumber], onDelete: Cascade, references: [code])
+  name         String
+}
+
 model Account {
   id                String   @id @default(uuid()) @db.Uuid
   userId            String   @db.Uuid

@@ -695,29 +695,7 @@
             }
         ]
     },
-    {
-        "name": "West Pokot",
-        "number": "24",
-        "capital": "Kapenguria",
-        "constituencies": [
-            {
-                "name":"Kapenguria",
-                "code": "129"
-            },
-            {
-                "name": "Sigor",
-                "code": "130"
-            },
-            {
-                "name": "Kacheliba",
-                "code": "131"
-            },
-            {
-                "name": "Pokot South",
-                "code": "132"
-            }
-        ]
-    },
+
     {
         "name": "Samburu",
         "number": "25",
@@ -1439,7 +1417,7 @@
     },
     {
         "name": "Nairobi",
-        "number": "46",
+        "number": "47",
         "capital": "Nairobi City",
         "constituencies": [
             {

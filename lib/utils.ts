@@ -75,3 +75,41 @@ export const objectToFormData = (
   }
   return formData;
 };
+
+function findRepeated<T>(data: T[], predicate: (a: T, b: T) => boolean): T[] {
+  /**
+   This function finds elements that are repeated in an array based on a predicate.
+
+    Args:
+        data: The array to search for repeated elements.
+        predicate: A function that takes two elements from the array and returns True
+            if they are considered the same based on the predicate.
+
+    Returns:
+        A list of elements that appear multiple times in the array based on the predicate.
+
+  */
+
+  const repeatedElements: Set<T> = new Set();
+
+  for (let i = 0; i < data.length; i++) {
+    const element = data[i];
+
+    // Check if element has already been seen (excluding itself)
+    if (repeatedElements.has(element)) {
+      continue;
+    }
+
+    // Efficiently check for duplicates within remaining elements
+    for (let j = i + 1; j < data.length; j++) {
+      const otherElement = data[j];
+      if (predicate(element, otherElement)) {
+        repeatedElements.add(element);
+        repeatedElements.add(otherElement);
+        break;
+      }
+    }
+  }
+
+  return Array.from(repeatedElements); // Convert Set to array
+}
