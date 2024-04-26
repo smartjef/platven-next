@@ -71,8 +71,9 @@ const ProfileForm: FC<Props> = ({ user }) => {
           const errors = await response.json();
 
           for (const key in errors) {
+            const errorMessage = (errors[key]._errors as string[]).join(",");
             form.setError(key as any, {
-              message: (errors[key]._errors as string[]).join(","),
+              message: errorMessage,
             });
           }
         }
@@ -164,7 +165,6 @@ const ProfileForm: FC<Props> = ({ user }) => {
                       </FormItem>
                     )}
                   />
-                  
                 </CardContent>
               </Card>
             </div>

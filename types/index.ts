@@ -30,3 +30,11 @@ export interface FooterItem {
 export type MainNavItem = NavItemWithOptionalChildren;
 
 export type SidebarNavItem = NavItemWithChildren;
+
+export interface PropsWithSearchParams {
+  searchParams?: Record<string, string>;
+}
+
+export interface PropsWithPathParams {
+  params: Record<string, string>;
+}

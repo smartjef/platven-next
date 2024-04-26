@@ -11,7 +11,10 @@ export const propertyFormSchema = z.object({
   listed: z.boolean({ coerce: true }),
 });
 
-export const propertyTypeSchema = z.object({
-  title: z.string().min(1, { message: "Title is required" }),
-  isActive: z.boolean({ coerce: true }),
-});
+export const propertyTypeSchema = z
+  .object({
+    title: z.string().min(1, { message: "Title is required" }),
+    isActive: z.boolean({ coerce: true }),
+    // .transform(str => str === 'true' ? true : str === 'false' ? false : undefined),
+  })
+  ;

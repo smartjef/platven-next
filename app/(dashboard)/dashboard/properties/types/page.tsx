@@ -12,6 +12,7 @@ import moment from "moment/moment";
 import Image from "next/image";
 import Link from "next/link";
 import React, { FC } from "react";
+import TypeCardControlls from "./type-card-controls";
 
 const breadcrumbItems = [
   { title: "Properties", link: "/dashboard/properties" },
@@ -43,8 +44,9 @@ const PropertiesTypes: FC<Props> = async ({}) => {
           </Button>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
-          {propertiesTypes.map(
-            ({ id, isActive, icon, createdAt, title, updatedAt }) => (
+          {propertiesTypes.map((type_) => {
+            const { id, isActive, icon, createdAt, title, updatedAt } = type_;
+            return (
               <div
                 key={id}
                 className="shadow-lg flex space-x-4 relative rounded-sm overflow-hidden bg-accent"
@@ -61,29 +63,10 @@ const PropertiesTypes: FC<Props> = async ({}) => {
                     {moment(createdAt).format("Do dd MMM yyy")}
                   </p>
                 </div>
-                <Badge
-                  className={clsx("absolute bottom-2 right-2 cursor-pointer", {
-                    "bg-destructive": isActive,
-                    "bg-green-900": !isActive,
-                  })}
-                >
-                  {isActive ? "Deactivate" : "Activate"}
-                </Badge>
-                <div className="absolute top-2 right-2 flex space-x-2">
-                  <Button
-                    variant={"default"}
-                    size={"icon"}
-                    className="bg-green-600"
-                  >
-                    <PencilLine />
-                  </Button>
-                  <Button variant={"destructive"} size={"icon"}>
-                    <Trash2 />
-                  </Button>
-                </div>
+                <TypeCardControlls type={type_} />
               </div>
-            ),
-          )}
+            );
+          })}
         </div>
       </div>
     </ScrollArea>

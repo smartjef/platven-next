@@ -36,7 +36,7 @@ type UserFormValue = z.infer<typeof formSchema>;
 
 const PropertyTypeForm: FC<Props> = ({ propertyType }) => {
   const [image, setImage] = useState<File>();
-  const { push } = useRouter();
+  const { replace } = useRouter();
 
   const form = useForm<UserFormValue>({
     resolver: zodResolver(formSchema),
@@ -49,14 +49,22 @@ const PropertyTypeForm: FC<Props> = ({ propertyType }) => {
 
   const onSubmit = async (data: UserFormValue) => {
     try {
-      const response = await fetch("/api/property-types", {
-        method: "POST",
-        body: objectToFormData({ ...data, icon: image }),
-        redirect: "follow",
-      });
+      let response;
+      if (propertyType)
+        response = await fetch(`/api/property-types/${propertyType.id}`, {
+          method: "PUT",
+          body: objectToFormData({ ...data, icon: image }),
+          redirect: "follow",
+        });
+      else
+        response = await fetch("/api/property-types", {
+          method: "POST",
+          body: objectToFormData({ ...data, icon: image }),
+          redirect: "follow",
+        });
       if (response.ok) {
         const propertyType: PropertyType = await response.json();
-        push("/dashboard/properties/types");
+        replace("/dashboard/properties/types");
         toast({
           variant: "default",
           title: "Success!.",
@@ -67,10 +75,16 @@ const PropertyTypeForm: FC<Props> = ({ propertyType }) => {
       } else {
         if (response.status === 400) {
           const errors = await response.json();
-
           for (const key in errors) {
+            const errorMessage = (errors[key]._errors as string[]).join(",");
+            if (key === "icon")
+              toast({
+                variant: "destructive",
+                title: "Failure!.",
+                description: `${errorMessage}`,
+              });
             form.setError(key as any, {
-              message: (errors[key]._errors as string[]).join(","),
+              message: errorMessage,
             });
           }
         }

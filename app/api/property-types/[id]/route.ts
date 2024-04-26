@@ -1,17 +1,41 @@
-import { propertyTypeSchema } from "@/components/forms/properties/schema";
-import { saveMediaFileName, strToBool } from "@/lib/auth-utils";
 import prisma from "@/prisma/client";
 import { NextRequest, NextResponse } from "next/server";
+import { string, z } from "zod";
+import { propertyTypeSchema } from "@/components/forms/properties/schema";
 import sharp from "sharp";
+import { saveMediaFileName, strToBool } from "@/lib/auth-utils";
 
-export const GET = async (request: NextRequest) => {
-  const propertyTypes = await prisma.propertyType.findMany({
-    where: { isActive: true },
+export const DELETE = async (
+  request: NextRequest,
+  { params: { id } }: { params: { id: string } },
+) => {
+  if (
+    !z.string().uuid().safeParse(id).success ||
+    !(await prisma.propertyType.findUnique({ where: { id } }))
+  )
+    return NextResponse.json(
+      { detail: "Property type not found" },
+      { status: 404 },
+    );
+
+  const propertyTypes = await prisma.propertyType.delete({
+    where: { id: id as string },
   });
   return NextResponse.json(propertyTypes);
 };
+export const PUT = async (
+  request: NextRequest,
+  { params: { id } }: { params: { id: string } },
+) => {
+  if (
+    !z.string().uuid().safeParse(id).success ||
+    !(await prisma.propertyType.findUnique({ where: { id } }))
+  )
+    return NextResponse.json(
+      { detail: "Property type not found" },
+      { status: 404 },
+    );
 
-export const POST = async (request: NextRequest) => {
   const formData = await request.formData();
   const data = Array.from(formData.entries()).reduce<any>(
     (prev, [key, value]) => {
@@ -20,7 +44,6 @@ export const POST = async (request: NextRequest) => {
     },
     {},
   );
-  console.log(data);
 
   const validation = await propertyTypeSchema.safeParseAsync({
     ...data,
@@ -43,14 +66,10 @@ export const POST = async (request: NextRequest) => {
       .toFormat("jpeg", { mozjpeg: true })
       .resize(800, 800, { fit: "cover" })
       .toFile(absolutePath);
-  } else {
-    return NextResponse.json(
-      { icon: { _errors: ["Icon required"] } },
-      { status: 400 },
-    );
   }
 
-  const propertyType = await prisma.propertyType.create({
+  const propertyType = await prisma.propertyType.update({
+    where: { id },
     data: { ...validation.data, icon: image },
   });
   return NextResponse.json(propertyType);

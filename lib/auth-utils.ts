@@ -126,3 +126,6 @@ export function saveMediaFileName(
     relativePath: path.join("media", uploadPath, parsedName),
   };
 }
+
+export const strToBool = (bool: string) =>
+  bool === "true" ? true : bool === "false" ? false : undefined;
