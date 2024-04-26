@@ -1,22 +1,24 @@
 import BreadCrumb from "@/components/breadcrumb";
-import PropertyForm from "@/components/forms/properties/properties-form";
-import { Card, CardHeader, CardTitle } from "@/components/ui/card";
+import PropertyTypeForm from "@/components/forms/properties/property-type-form";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import React from "react";
+import React, { FC } from "react";
+
+type Props = {};
 
 const breadcrumbItems = [
   { title: "Properties", link: "/dashboard/properties" },
-  { title: "Add", link: "/dashboard/properties/add" },
+  { title: "Types", link: "/dashboard/properties/types" },
+  { title: "Add", link: "/dashboard/properties/types/add" },
 ];
-const AddProperty = () => {
+const PropertyTypeAddPage: FC<Props> = ({}) => {
   return (
     <ScrollArea className="h-full">
       <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
         <BreadCrumb items={breadcrumbItems} />
-        <PropertyForm />
+        <PropertyTypeForm />
       </div>
     </ScrollArea>
   );
 };
 
-export default AddProperty;
+export default PropertyTypeAddPage;

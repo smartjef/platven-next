@@ -10,3 +10,8 @@ export const propertyFormSchema = z.object({
   subCounty: z.string(),
   listed: z.boolean({ coerce: true }),
 });
+
+export const propertyTypeSchema = z.object({
+  title: z.string().min(1, { message: "Title is required" }),
+  isActive: z.boolean({ coerce: true }),
+});
