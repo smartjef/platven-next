@@ -31,7 +31,6 @@ async function seedKenyanDemographicUnits() {
           createMany: { data: constituencies },
         },
       },
-      include: { subscounties: true, _count: true },
     }),
   );
   return await Promise.all(tasks);

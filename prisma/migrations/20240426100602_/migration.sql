@@ -2,6 +2,24 @@
 CREATE TYPE "PropertyStatus" AS ENUM ('onRent', 'onSale');
 
 -- CreateTable
+CREATE TABLE "County" (
+    "code" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "capital" TEXT NOT NULL,
+
+    CONSTRAINT "County_pkey" PRIMARY KEY ("code")
+);
+
+-- CreateTable
+CREATE TABLE "SubCounty" (
+    "code" TEXT NOT NULL,
+    "countyCode" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+
+    CONSTRAINT "SubCounty_pkey" PRIMARY KEY ("code")
+);
+
+-- CreateTable
 CREATE TABLE "Account" (
     "id" UUID NOT NULL,
     "userId" UUID NOT NULL,
@@ -23,7 +41,7 @@ CREATE TABLE "User" (
     "password" VARCHAR(256),
     "isActive" BOOLEAN NOT NULL DEFAULT true,
     "isStaff" BOOLEAN NOT NULL DEFAULT false,
-    "image" TEXT NOT NULL,
+    "image" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -80,10 +98,9 @@ CREATE TABLE "Property" (
     "features" TEXT,
     "county" TEXT NOT NULL,
     "subCounty" TEXT NOT NULL,
-    "images" TEXT[],
+    "images" TEXT[] DEFAULT ARRAY[]::TEXT[],
     "listed" BOOLEAN NOT NULL DEFAULT true,
     "isActive" BOOLEAN NOT NULL DEFAULT true,
-    "icon" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -106,6 +123,12 @@ CREATE TABLE "PropertyRequest" (
 );
 
 -- CreateIndex
+CREATE UNIQUE INDEX "County_code_key" ON "County"("code");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "SubCounty_code_key" ON "SubCounty"("code");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "Account_provider_providerAccountId_key" ON "Account"("provider", "providerAccountId");
 
 -- CreateIndex
@@ -116,6 +139,9 @@ CREATE UNIQUE INDEX "User_phoneNumber_key" ON "User"("phoneNumber");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Team_userId_key" ON "Team"("userId");
+
+-- AddForeignKey
+ALTER TABLE "SubCounty" ADD CONSTRAINT "SubCounty_countyCode_fkey" FOREIGN KEY ("countyCode") REFERENCES "County"("code") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Account" ADD CONSTRAINT "Account_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;

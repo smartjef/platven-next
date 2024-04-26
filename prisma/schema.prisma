@@ -21,10 +21,10 @@ model County {
 }
 
 model SubCounty {
-  code         String @id @unique
-  countyNumber String
-  county       County @relation(fields: [countyNumber], onDelete: Cascade, references: [code])
-  name         String
+  code       String @id @unique
+  countyCode String
+  county     County @relation(fields: [countyCode], onDelete: Cascade, references: [code])
+  name       String
 }
 
 model Account {
