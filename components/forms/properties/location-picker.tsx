@@ -53,8 +53,10 @@ const PropertyLocationPicker: FC<Props> = ({}) => {
   }, [search]);
 
   useEffect(() => {
-    form.setValue("county", selectedCounty?.name ?? "");
-    form.setValue("subCounty", selectedSubCounty?.name ?? "");
+    if (selectedCounty) {
+      form.setValue("county", selectedCounty?.name ?? "");
+      form.setValue("subCounty", selectedSubCounty?.name ?? "");
+    }
   }, [selectedCounty, selectedSubCounty]);
 
   return (
@@ -73,13 +75,18 @@ const PropertyLocationPicker: FC<Props> = ({}) => {
                 onInputChange={setSearch}
                 isLoading={loading}
                 value={{
-                  label: selectedCounty?.name,
-                  value: selectedCounty?.name,
+                  label: selectedCounty?.name ?? field.value,
+                  value: selectedCounty?.name ?? field.value,
                 }}
-                options={counties.map((county) => ({
-                  label: county.name,
-                  value: county.name,
-                }))}
+                options={[
+                  ...counties.map((county) => ({
+                    label: county.name,
+                    value: county.name,
+                  })),
+                  ...(!selectedCounty && field.value
+                    ? [{ label: field.value, value: field.value }]
+                    : []),
+                ]}
                 onChange={(newValue: any, action) => {
                   setSelectedCounty(
                     counties.find((c) => c.name === newValue?.value),
@@ -106,15 +113,19 @@ const PropertyLocationPicker: FC<Props> = ({}) => {
                 className="dark:text-primary-foreground"
                 isSearchable
                 value={{
-                  label: selectedSubCounty?.name,
-                  value: selectedSubCounty?.name,
+                  label: selectedSubCounty?.name ?? field.value,
+                  value: selectedSubCounty?.name ?? field.value,
                 }}
-                options={(selectedCounty?.subscounties ?? []).map(
-                  (subcounty) => ({
+                defaultInputValue={field.value}
+                options={[
+                  ...(selectedCounty?.subscounties ?? []).map((subcounty) => ({
                     label: subcounty.name,
                     value: subcounty.name,
-                  }),
-                )}
+                  })),
+                  ...(!selectedCounty && field.value
+                    ? [{ label: field.value, value: field.value }]
+                    : []),
+                ]}
                 onChange={(newValue: any, action) => {
                   setSelectedSubCounty(
                     selectedCounty?.subscounties.find(

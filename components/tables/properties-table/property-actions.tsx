@@ -22,6 +22,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Property } from "@prisma/client";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 type Props = {
   property: Property;
@@ -29,6 +31,7 @@ type Props = {
 
 const PropertyActions: FC<Props> = ({ property }) => {
   const [showPrompt, setShowPrompt] = useState(false);
+  const { push } = useRouter();
   return (
     <>
       <DropdownMenu>
@@ -48,7 +51,11 @@ const PropertyActions: FC<Props> = ({ property }) => {
           )}
           <DropdownMenuSeparator />
           <DropdownMenuItem>View Property</DropdownMenuItem>
-          <DropdownMenuItem>Update property</DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={() => push(`/dashboard/properties/${property.id}`)}
+          >
+            Update property
+          </DropdownMenuItem>
           <DropdownMenuItem>Delete Property</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

@@ -197,9 +197,12 @@ const PropertyForm: FC<Props> = ({ property }) => {
               <CardTitle>Property images</CardTitle>
             </CardHeader>
             <CardContent>
-              <div>
+              <div className="flex space-x-3 overflow-x-auto">
                 {property?.images.map((image, index) => (
-                  <div className="w-28 h-28 bg-accent rounded-full overflow-clip mb-3">
+                  <div
+                    key={index}
+                    className="w-28 h-28 bg-accent rounded-full overflow-clip mb-3"
+                  >
                     <Image
                       src={{
                         src: `/${image}`,
