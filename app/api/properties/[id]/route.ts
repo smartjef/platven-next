@@ -8,16 +8,27 @@ import {
 import prisma from "@/prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 import sharp from "sharp";
+import { z } from "zod";
 
 // export const GET = async (request: NextRequest) => {};
 
-export const POST = async (request: NextRequest) => {
+export const PUT = async (
+  request: NextRequest,
+  { params: { id } }: { params: { id: string } },
+) => {
   const user = await getSessionUser();
   if (!user)
     return NextResponse.json(
       { detail: "Unauthorized" },
       { status: 401, headers: getExpiredCookieHeader(request) },
     );
+
+  if (
+    !z.string().uuid().safeParse(id).success ||
+    !(await prisma.property.findUnique({ where: { id, userId: user.id } }))
+  )
+    return NextResponse.json({ detail: "Property not found" }, { status: 404 });
+
   const formData = await request.formData();
   const data = Array.from(formData.entries()).reduce<any>(
     (prev, [key, value]) => {
@@ -51,15 +62,34 @@ export const POST = async (request: NextRequest) => {
         .toFile(paths[index].absolutePath),
     );
     await Promise.all(asyncTasks);
-  } else {
-    return NextResponse.json(
-      { images: { _errors: ["Atleast one image required"] } },
-      { status: 400 },
-    );
   }
+  //   TODO Properly file updates weather update or overried
 
-  const properties = await prisma.property.create({
-    data: { ...validation.data, images, userId: user!.id },
+  const properties = await prisma.property.update({
+    where: { id: id },
+    data: { ...validation.data, images },
   });
   return NextResponse.json(properties);
+};
+
+export const DELETE = async (
+  request: NextRequest,
+  { params: { id } }: { params: { id: string } },
+) => {
+  const user = await getSessionUser();
+  if (!user)
+    return NextResponse.json(
+      { detail: "Unauthorized" },
+      { status: 401, headers: getExpiredCookieHeader(request) },
+    );
+  if (
+    !z.string().uuid().safeParse(id).success ||
+    !(await prisma.property.findUnique({ where: { id, userId: user.id } }))
+  )
+    return NextResponse.json({ detail: "Property not found" }, { status: 404 });
+
+  const propertyTypes = await prisma.property.delete({
+    where: { id: id as string },
+  });
+  return NextResponse.json(propertyTypes);
 };
