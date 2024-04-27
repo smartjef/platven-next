@@ -3,18 +3,13 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+
 import { Property, PropertyType } from "@prisma/client";
 import { ColumnDef } from "@tanstack/react-table";
+import clsx from "clsx";
 import { MoreHorizontal, BadgeCheck, BadgeX } from "lucide-react";
 import moment from "moment";
+import PropertyActions from "./property-actions";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -74,6 +69,23 @@ export const columns: ColumnDef<Property & { type: PropertyType }>[] = [
     header: "Status",
   },
   {
+    accessorKey: "payment.complete",
+    header: "Payment Status",
+    cell(props) {
+      const paymentComplete = props.renderValue() as boolean;
+      return (
+        <Badge
+          className={clsx({
+            "bg-destructive": !paymentComplete,
+            "bg-green-800": paymentComplete,
+          })}
+        >
+          {paymentComplete ? "Complete" : "Pending"}
+        </Badge>
+      );
+    },
+  },
+  {
     accessorKey: "county",
     header: "County",
   },
@@ -103,29 +115,7 @@ export const columns: ColumnDef<Property & { type: PropertyType }>[] = [
     enableHiding: false,
     cell: ({ row }) => {
       const property = row.original;
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() =>
-                navigator.clipboard.writeText(property.id!.toString())
-              }
-            >
-              Copy payment ID
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>View customer</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
+      return <PropertyActions property={property} />;
     },
   },
 ];
