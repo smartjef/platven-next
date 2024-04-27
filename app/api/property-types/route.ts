@@ -20,7 +20,6 @@ export const POST = async (request: NextRequest) => {
     },
     {},
   );
-  console.log(data);
 
   const validation = await propertyTypeSchema.safeParseAsync({
     ...data,
@@ -28,8 +27,6 @@ export const POST = async (request: NextRequest) => {
   });
   if (!validation.success)
     return NextResponse.json(validation.error.format(), { status: 400 });
-  console.log(validation.data);
-
   let image;
   const imageFile = formData.get("icon");
   if (imageFile) {

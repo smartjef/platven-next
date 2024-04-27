@@ -29,11 +29,11 @@ const PropertiesTypes: FC<Props> = async ({}) => {
     <ScrollArea className="h-full">
       <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
         <BreadCrumb items={breadcrumbItems} />
-        <div className="flex justify-between shadow-md p-4 items-center">
-          <div className="w-[400px]">
+        <div className="flex flex-col lg:flex-row lg:justify-between shadow-md p-4 lg:items-center space-y-3 lg:space-x-3 ">
+          <div className="w-full lg:w-[400px]">
             <Input placeholder="Search ..." />
           </div>
-          <Button>
+          <Button className="w-full lg:w-[200px]">
             <Link
               href={"/dashboard/properties/types/add"}
               className="flex space-x-3 items-center"

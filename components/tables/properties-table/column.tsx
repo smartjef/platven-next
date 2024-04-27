@@ -13,9 +13,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Property, PropertyType } from "@prisma/client";
 import { ColumnDef } from "@tanstack/react-table";
-import { MoreHorizontal } from "lucide-react";
+import { MoreHorizontal, BadgeCheck, BadgeX } from "lucide-react";
 import moment from "moment";
-import Image from "next/image";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -43,21 +42,21 @@ export const columns: ColumnDef<Property & { type: PropertyType }>[] = [
     enableSorting: false,
     enableHiding: false,
   },
-  {
-    accessorKey: "images",
-    header: "Image",
-    cell: ({ row, renderValue }) => {
-      return (
-        <Image
-          alt={row.getValue("title")}
-          src={`/${(renderValue() as string[])[0]}`}
-          width={100}
-          height={100}
-          className="h-20 w-40 object-cover rounded-xl"
-        />
-      );
-    },
-  },
+  // {
+  //   accessorKey: "images",
+  //   header: "Image",
+  //   cell: ({ row, renderValue }) => {
+  //     return (
+  //       <Image
+  //         alt={row.getValue("title")}
+  //         src={`/${(renderValue() as string[])[0]}`}
+  //         width={100}
+  //         height={100}
+  //         className="h-20 w-40 object-cover rounded-xl"
+  //       />
+  //     );
+  //   },
+  // },
   {
     accessorKey: "title",
     header: "Title",
@@ -65,6 +64,33 @@ export const columns: ColumnDef<Property & { type: PropertyType }>[] = [
   {
     accessorKey: "type.title",
     header: "Types",
+  },
+  {
+    accessorKey: "price",
+    header: "Price",
+  },
+  {
+    accessorKey: "status",
+    header: "Status",
+  },
+  {
+    accessorKey: "county",
+    header: "County",
+  },
+  {
+    accessorKey: "subCounty",
+    header: "Sub county",
+  },
+  {
+    accessorKey: "listed",
+    header: "Is listed",
+    cell(props) {
+      return props.renderValue() ? (
+        <BadgeCheck className="text-green-600" />
+      ) : (
+        <BadgeX className="text-destructive" />
+      );
+    },
   },
   {
     accessorKey: "createdAt",

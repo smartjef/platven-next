@@ -64,7 +64,7 @@ const FilterHeader: React.FC<Props> = ({}) => {
     <div className="flex flex-col md:flex-row md:space-x-2 max-md:space-y-2">
       <div className="flex-1">
         <Input
-          className="min-w-[350px]"
+          className="min-w-[200px]"
           placeholder="Search...."
           onChange={({ target: { value } }) => {
             handleSearch(value);

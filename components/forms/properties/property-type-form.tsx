@@ -184,7 +184,7 @@ const PropertyTypeForm: FC<Props> = ({ propertyType }) => {
             className="ml-auto w-full"
             type="submit"
           >
-            Update
+            Submit
           </Button>
         </div>
       </form>

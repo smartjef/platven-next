@@ -70,7 +70,7 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 overflow-x-auto">
       <div className="flex flex-col max-lg:space-y-2  lg:flex-row lg:items-center lg:space-x-2 lg:overflow-y-auto">
         <div className="flex-1">
           <FilterHeader />

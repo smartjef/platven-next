@@ -25,9 +25,9 @@ import Image from "next/image";
 
 import { Checkbox } from "@/components/ui/checkbox";
 
-
 import PropertyLocationPicker from "./location-picker";
 import TypeStatusInput from "./type-status";
+import { Textarea } from "@/components/ui/textarea";
 
 type Props = {
   property?: Property;
@@ -56,11 +56,19 @@ const PropertyForm: FC<Props> = ({ property }) => {
 
   const onSubmit = async (data: UserFormValue) => {
     try {
-      const response = await fetch("/api/profile", {
-        method: "POST",
-        body: objectToFormData({ ...data, images }),
-        redirect: "follow",
-      });
+      let response;
+      if (property)
+        response = await fetch(`/api/properties/${property.id}`, {
+          method: "PUT",
+          body: objectToFormData({ ...data, images }),
+          redirect: "follow",
+        });
+      else
+        response = await fetch("/api/properties", {
+          method: "POST",
+          body: objectToFormData({ ...data, images }),
+          redirect: "follow",
+        });
       if (response.ok) {
         const property: Property = await response.json();
         push("/dashboard/properties");
@@ -74,10 +82,16 @@ const PropertyForm: FC<Props> = ({ property }) => {
       } else {
         if (response.status === 400) {
           const errors = await response.json();
-
           for (const key in errors) {
+            const errorMessage = (errors[key]._errors as string[]).join(",");
+            if (key === "image")
+              toast({
+                variant: "destructive",
+                title: "Success!.",
+                description: errorMessage,
+              });
             form.setError(key as any, {
-              message: (errors[key]._errors as string[]).join(","),
+              message: errorMessage,
             });
           }
         }
@@ -133,7 +147,7 @@ const PropertyForm: FC<Props> = ({ property }) => {
                 )}
               />
 
-              <TypeStatusInput/>
+              <TypeStatusInput />
 
               <PropertyLocationPicker />
 
@@ -154,6 +168,25 @@ const PropertyForm: FC<Props> = ({ property }) => {
                         Make it visible and accessible by the public
                       </FormDescription>
                     </div>
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="features"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Features</FormLabel>
+                    <FormControl>
+                      <Textarea
+                        placeholder="Enter features ...."
+                        rows={8}
+                        disabled={form.formState.isSubmitting}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -182,10 +215,22 @@ const PropertyForm: FC<Props> = ({ property }) => {
               <FileInput
                 maxFiles={6}
                 value={images}
-                onValueChange={setImages}
+                onValueChange={(files) => {
+                  if (files.length <= 6)
+                    setImages(
+                      files.filter((file) => file.type.includes("image")),
+                    );
+                }}
               />
             </CardContent>
           </Card>
+          <Button
+            disabled={form.formState.isSubmitting}
+            className="ml-auto w-full"
+            type="submit"
+          >
+            Submit
+          </Button>
         </div>
       </form>
     </Form>
