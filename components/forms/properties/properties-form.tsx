@@ -108,6 +108,41 @@ const PropertyForm: FC<Props> = ({ property }) => {
         <div className="flex flex-col space-y-4">
           <Card>
             <CardHeader>
+              <CardTitle>Property images</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex space-x-3 overflow-x-auto">
+                {property?.images.map((image, index) => (
+                  <div
+                    key={index}
+                    className="w-28 h-28 bg-accent rounded-full overflow-clip mb-3"
+                  >
+                    <Image
+                      src={{
+                        src: `/${image}`,
+                        width: 100,
+                        height: 100,
+                      }}
+                      className="w-full h-full object-cover"
+                      alt="profile picture"
+                    />
+                  </div>
+                ))}
+              </div>
+              <FileInput
+                maxFiles={6}
+                value={images}
+                onValueChange={(files) => {
+                  if (files.length <= 6)
+                    setImages(
+                      files.filter((file) => file.type.includes("image")),
+                    );
+                }}
+              />
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
               <CardTitle>Property Details</CardTitle>
             </CardHeader>
             <CardContent>
@@ -192,41 +227,7 @@ const PropertyForm: FC<Props> = ({ property }) => {
               />
             </CardContent>
           </Card>
-          <Card>
-            <CardHeader>
-              <CardTitle>Property images</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex space-x-3 overflow-x-auto">
-                {property?.images.map((image, index) => (
-                  <div
-                    key={index}
-                    className="w-28 h-28 bg-accent rounded-full overflow-clip mb-3"
-                  >
-                    <Image
-                      src={{
-                        src: `/${image}`,
-                        width: 100,
-                        height: 100,
-                      }}
-                      className="w-full h-full object-cover"
-                      alt="profile picture"
-                    />
-                  </div>
-                ))}
-              </div>
-              <FileInput
-                maxFiles={6}
-                value={images}
-                onValueChange={(files) => {
-                  if (files.length <= 6)
-                    setImages(
-                      files.filter((file) => file.type.includes("image")),
-                    );
-                }}
-              />
-            </CardContent>
-          </Card>
+
           <Button
             disabled={form.formState.isSubmitting}
             className="ml-auto w-full"

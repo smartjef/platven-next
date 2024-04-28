@@ -137,6 +137,12 @@ export const navItems: NavItem[] = [
     label: "property-type",
   },
   {
+    title: "Property Request",
+    href: "/dashboard/properties/types",
+    icon: "property",
+    label: "property-type",
+  },
+  {
     title: "Employee",
     href: "/dashboard/employee",
     icon: "employee",

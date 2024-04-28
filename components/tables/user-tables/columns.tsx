@@ -1,9 +1,10 @@
 "use client";
 import { ColumnDef } from "@tanstack/react-table";
 import { CellAction } from "./cell-action";
-import { User } from "@/constants/data";
 import { Checkbox } from "@/components/ui/checkbox";
-
+import { User } from "@prisma/client";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 export const columns: ColumnDef<User>[] = [
   {
     id: "select",
@@ -25,21 +26,56 @@ export const columns: ColumnDef<User>[] = [
     enableHiding: false,
   },
   {
+    accessorKey: "image",
+    header: "Image",
+    cell(props) {
+      const user = props.row.original;
+      return (
+        <Avatar>
+          <AvatarImage
+            src={user.image ? `/${user.image}` : undefined}
+            alt="avatar"
+          />
+          <AvatarFallback>
+            {(user.name ?? user.email)[0].toUpperCase()}
+          </AvatarFallback>
+        </Avatar>
+      );
+    },
+  },
+  {
     accessorKey: "name",
     header: "NAME",
+    cell(props) {
+      const name = props.renderValue() as string | undefined;
+      return <span>{name ? name : "-"}</span>;
+    },
   },
   {
-    accessorKey: "company",
-    header: "COMPANY",
+    accessorKey: "email",
+    header: "EMAIL",
   },
   {
-    accessorKey: "role",
-    header: "ROLE",
+    accessorKey: "phoneNumber",
+    header: "PHONE NUMBER",
   },
   {
-    accessorKey: "status",
-    header: "STATUS",
+    accessorKey: "isStaff",
+    header: "Role",
+    cell(props) {
+      const isStaf = props.renderValue();
+      return <Badge>{isStaf ? "Staff" : "Client"}</Badge>;
+    },
   },
+  {
+    accessorKey: "address",
+    header: "ADDRESS",
+    cell(props) {
+      const name = props.renderValue() as string | undefined;
+      return <span>{name ? name : "-"}</span>;
+    },
+  },
+
   {
     id: "actions",
     cell: ({ row }) => <CellAction data={row.original} />,
