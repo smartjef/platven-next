@@ -30,7 +30,7 @@ import Image from "next/image";
 
 const formSchema = staffFormSchema;
 
-type ProductFormValues = z.infer<typeof formSchema>;
+type StaffFormValue = z.infer<typeof formSchema>;
 
 interface Props {
   user?: User & { team?: Team };
@@ -38,10 +38,10 @@ interface Props {
 
 const StaffForm: FC<Props> = ({ user }) => {
   const [image, setImage] = useState<File>();
-  const { refresh } = useRouter();
+  const { replace } = useRouter();
   const { toast } = useToast();
 
-  const form = useForm<ProductFormValues>({
+  const form = useForm<StaffFormValue>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       address: user?.address ?? "",
@@ -49,19 +49,28 @@ const StaffForm: FC<Props> = ({ user }) => {
       name: user?.name ?? "",
       phoneNumber: user?.phoneNumber ?? "",
       position: user?.team?.position ?? "",
+      isActive: user?.team?.isActive ?? true,
     },
   });
 
-  const onSubmit = async (data: ProductFormValues) => {
+  const onSubmit = async (data: StaffFormValue) => {
     try {
-      const response = await fetch("/api/profile", {
-        method: "POST",
-        body: objectToFormData({ ...data, image }),
-        redirect: "follow",
-      });
+      let response;
+      if (user)
+        response = await fetch(`/api/staff/${user.id}`, {
+          method: "PUT",
+          body: objectToFormData({ ...data, image }),
+          redirect: "follow",
+        });
+      else
+        response = await fetch("/api/staff", {
+          method: "POST",
+          body: objectToFormData({ ...data, image }),
+          redirect: "follow",
+        });
       if (response.ok) {
         const user: User = await response.json();
-        refresh();
+        replace("/dashboard/staff");
         setImage(undefined);
         toast({
           variant: "default",
@@ -74,6 +83,12 @@ const StaffForm: FC<Props> = ({ user }) => {
 
           for (const key in errors) {
             const errorMessage = (errors[key]._errors as string[]).join(",");
+            if (key === "image")
+              toast({
+                variant: "destructive",
+                title: "Failure!.",
+                description: errorMessage,
+              });
             form.setError(key as any, {
               message: errorMessage,
             });
@@ -98,10 +113,10 @@ const StaffForm: FC<Props> = ({ user }) => {
           className="space-y-8 w-full"
         >
           <div className="w-28 h-28 bg-accent rounded-full overflow-clip mb-3">
-            {user?.image ? (
+            {user?.team?.image ? (
               <Image
                 src={{
-                  src: `/${user?.image}`,
+                  src: `/${user!.team.image}`,
                   width: 100,
                   height: 100,
                 }}
@@ -143,7 +158,7 @@ const StaffForm: FC<Props> = ({ user }) => {
           />
           <FormField
             control={form.control}
-            name="isStaff"
+            name="isActive"
             render={({ field }) => (
               <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4 my-2">
                 <FormControl>

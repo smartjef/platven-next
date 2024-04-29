@@ -12,13 +12,7 @@ interface Props {
 const UsersDataTable: FC<Props> = ({ users }) => {
   const router = useRouter();
 
-  return (
-    <DataTable
-      columns={columns}
-      data={users}
-      onAdd={() => router.push(`/dashboard/user/add`)}
-    />
-  );
+  return <DataTable columns={columns()} data={users} />;
 };
 
 export default UsersDataTable;

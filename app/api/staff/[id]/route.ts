@@ -38,7 +38,7 @@ export const PUT = async (
   );
   const validation = await staffFormSchema.safeParseAsync({
     ...data,
-    isStaff: strToBool(data.isStaff),
+    isActive: strToBool(data.isActive),
   });
 
   if (!validation.success)
@@ -46,7 +46,7 @@ export const PUT = async (
 
   const currUser = await prisma.user.findUnique({ where: { id } });
 
-  const { position, email, phoneNumber, address, isStaff, name } =
+  const { position, email, phoneNumber, address, isActive, name } =
     validation.data;
 
   const errors: any = {};
@@ -85,9 +85,10 @@ export const PUT = async (
       email,
       phoneNumber,
       address,
+      isStaff: true,
+
       name,
-      isStaff,
-      team: { update: { image, position } },
+      team: { update: { image, position, isActive } },
     },
   });
 

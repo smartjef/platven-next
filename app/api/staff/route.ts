@@ -24,13 +24,13 @@ export const POST = async (request: NextRequest) => {
   );
   const validation = await staffFormSchema.safeParseAsync({
     ...data,
-    isStaff: strToBool(data.isStaff),
+    isActive: strToBool(data.isActive),
   });
 
   if (!validation.success)
     return NextResponse.json(validation.error.format(), { status: 400 });
 
-  const { position, email, phoneNumber, address, isStaff, name } =
+  const { position, email, phoneNumber, address, isActive, name } =
     validation.data;
 
   const errors: any = {};
@@ -79,8 +79,8 @@ export const POST = async (request: NextRequest) => {
       phoneNumber,
       address,
       name,
-      isStaff,
-      team: { create: { image, position, isActive: true } },
+      isStaff:true,
+      team: { create: { image, position, isActive: isActive } },
       password: hash,
     },
   });

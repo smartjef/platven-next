@@ -13,7 +13,7 @@ const StaffDataTable: FC<Props> = ({ users }) => {
   const router = useRouter();
   return (
     <DataTable
-      columns={columns}
+      columns={columns(true)}
       data={users}
       onAdd={() => router.push(`/dashboard/staff/add`)}
     />

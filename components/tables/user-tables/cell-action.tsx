@@ -43,18 +43,22 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
 
-          <DropdownMenuItem
-            onClick={() => {
-              if (pathName.startsWith("/dashboard/user"))
-                router.push(`/dashboard/user/${data.id}`);
-              else router.push(`/dashboard/staff/${data.id}`);
-            }}
-          >
-            <Edit className="mr-2 h-4 w-4" /> Update
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setOpen(true)}>
-            <Trash className="mr-2 h-4 w-4" /> Delete
-          </DropdownMenuItem>
+          {pathName.startsWith("/dashboard/staff") && (
+            <DropdownMenuItem
+              onClick={() => {
+                if (pathName.startsWith("/dashboard/user"))
+                  router.push(`/dashboard/user/${data.id}`);
+                else router.push(`/dashboard/staff/${data.id}`);
+              }}
+            >
+              <Edit className="mr-2 h-4 w-4" /> Update
+            </DropdownMenuItem>
+          )}
+          {pathName.startsWith("/dashboard/staff") && (
+            <DropdownMenuItem onClick={() => setOpen(true)}>
+              <Trash className="mr-2 h-4 w-4" /> Delete
+            </DropdownMenuItem>
+          )}
         </DropdownMenuContent>
       </DropdownMenu>
     </>
