@@ -48,7 +48,7 @@ export const PUT = async (
   const imageFiles = formData.getAll("images") as File[];
   if (imageFiles.length > 0) {
     const paths = imageFiles.map((file) =>
-      saveMediaFileName("avatar", file.name ?? "", "jpeg"),
+      saveMediaFileName("properties", file.name ?? "", "jpeg"),
     );
 
     images = paths.map((path) => path.relativePath);

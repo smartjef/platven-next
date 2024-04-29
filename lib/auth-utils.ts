@@ -129,3 +129,49 @@ export function saveMediaFileName(
 
 export const strToBool = (bool: string) =>
   bool === "true" ? true : bool === "false" ? false : undefined;
+
+export function generateStrongPassword(length = 16): string {
+  /**
+  Generates a strong random password of the specified length.
+
+  Args:
+      length (int, optional): The desired length of the password. Defaults to 16.
+
+  Returns:
+      string: The generated strong random password.
+  */
+
+  const lowercaseLetters = "abcdefghijklmnopqrstuvwxyz";
+  const uppercaseLetters = lowercaseLetters.toUpperCase();
+  const digits = "0123456789";
+  const symbols = "!@#$%^&*()_+-=[]{};':\"\\|,.<>/?";
+
+  // Combine all character sets
+  const allChars = `${lowercaseLetters}${uppercaseLetters}${digits}${symbols}`;
+
+  let password = "";
+  const charSets = [lowercaseLetters, uppercaseLetters, digits, symbols];
+  let requiredSets = charSets.length;
+
+  while (password.length < length) {
+    // Choose a random character set
+    const randomSetIndex = Math.floor(Math.random() * charSets.length);
+    const randomCharSet = charSets[randomSetIndex];
+
+    // Pick a random character from the chosen set
+    const charIndex = Math.floor(Math.random() * randomCharSet.length);
+    password += randomCharSet.charAt(charIndex);
+
+    // Track used character sets
+    if (password.includes(randomCharSet[0])) {
+      requiredSets--;
+    }
+
+    // Exit loop if all required sets are included
+    if (requiredSets === 0) {
+      break;
+    }
+  }
+
+  return password;
+}

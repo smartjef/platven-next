@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { User } from "@prisma/client";
 import { Edit, MoreHorizontal, Trash } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 
 interface CellActionProps {
@@ -21,10 +21,9 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const router = useRouter();
+  const pathName = usePathname();
 
-  const onConfirm = async () => {
-    
-  };
+  const onConfirm = async () => {};
 
   return (
     <>
@@ -45,7 +44,11 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
 
           <DropdownMenuItem
-            onClick={() => router.push(`/dashboard/user/${data.id}`)}
+            onClick={() => {
+              if (pathName.startsWith("/dashboard/user"))
+                router.push(`/dashboard/user/${data.id}`);
+              else router.push(`/dashboard/staff/${data.id}`);
+            }}
           >
             <Edit className="mr-2 h-4 w-4" /> Update
           </DropdownMenuItem>
