@@ -8,8 +8,17 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useToast } from "@/components/ui/use-toast";
+import { objectToFormData } from "@/lib/utils";
 import { User } from "@prisma/client";
-import { Edit, MoreHorizontal, Trash } from "lucide-react";
+import {
+  ActivitySquare,
+  BadgeCheck,
+  BadgeX,
+  Edit,
+  MoreHorizontal,
+  Trash,
+} from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -22,6 +31,26 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const [open, setOpen] = useState(false);
   const router = useRouter();
   const pathName = usePathname();
+  const { toast } = useToast();
+  const handleTogleActivate = async () => {
+    const response = await fetch(`/api/user/${data.id}`, {
+      method: "PUT",
+      body: objectToFormData({
+        name: data.name,
+        isActive: !data.isActive,
+        address: data.address,
+        email: data.email,
+        phoneNumber: data.phoneNumber,
+      }),
+    });
+    if (response.ok) {
+      router.refresh();
+      toast({
+        title: "Success!",
+        description: "User active status updated successfully!",
+      });
+    }
+  };
 
   const onConfirm = async () => {};
 
@@ -42,7 +71,14 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-
+          <DropdownMenuItem onClick={handleTogleActivate}>
+            {data.isActive ? (
+              <BadgeX className="mr-2 h-4 w-4" />
+            ) : (
+              <BadgeCheck className="mr-2 h-4 w-4" />
+            )}
+            {data.isActive ? "Deactivate" : "Activate"}
+          </DropdownMenuItem>
           {pathName.startsWith("/dashboard/staff") && (
             <DropdownMenuItem
               onClick={() => {

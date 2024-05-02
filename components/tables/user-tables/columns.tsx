@@ -5,6 +5,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Team, User } from "@prisma/client";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import clsx from "clsx";
 
 export const columns = (isStaff = false) =>
   [
@@ -95,6 +96,20 @@ export const columns = (isStaff = false) =>
       cell(props) {
         const name = props.renderValue() as string | undefined;
         return <span>{name ? name : "-"}</span>;
+      },
+    },
+    {
+      accessorKey: "isActive",
+      header: "Is Active",
+      cell(props) {
+        const name = props.renderValue() as boolean;
+        return (
+          <Badge
+            className={clsx({ "bg-destructive": !name, "bg-green-800": name })}
+          >
+            {name ? "Active" : "Inactive"}
+          </Badge>
+        );
       },
     },
 

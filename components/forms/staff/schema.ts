@@ -10,8 +10,9 @@ export const staffFormSchema = z.object({
 });
 
 export const userFormSchema = z.object({
-  name: z.string().min(1, { message: "Name required" }),
-  email: z.string().email({ message: "Invalid email" }),
-  phoneNumber: z.string().min(1, { message: "Invalid phone number" }),
-  address: z.string().min(1, { message: "Address required" }),
+  name: z.string().min(1, { message: "Name required" }).optional(),
+  email: z.string().email({ message: "Invalid email" }).optional(),
+  phoneNumber: z.string().min(1, { message: "Invalid phone number" }).optional(),
+  address: z.string().min(1, { message: "Address required" }).optional(),
+  isActive: z.boolean({ coerce: true }).optional(),
 });

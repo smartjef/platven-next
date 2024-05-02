@@ -36,11 +36,10 @@ const AuthLayout: FC<PropsWithChildren> = ({ children }) => {
           <div className="relative z-20 mt-auto">
             <blockquote className="space-y-2">
               <p className="text-lg">
-                &ldquo;This library has saved me countless hours of work and
-                helped me deliver stunning designs to my clients faster than
-                ever before.&rdquo;
+                &ldquo;Finding property of your taste and standards has never
+                been this easy.&rdquo;
               </p>
-              <footer className="text-sm">Sofia Davis</footer>
+              <footer className="text-sm">By VSTech LTD</footer>
             </blockquote>
           </div>
         </div>
