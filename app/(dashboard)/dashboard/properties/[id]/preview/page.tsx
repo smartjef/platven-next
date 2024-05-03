@@ -6,16 +6,6 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { redirect } from "next/dist/server/api-utils";
 import { Heading } from "@/components/ui/heading";
 import { Separator } from "@/components/ui/separator";
-
-import { Card, CardContent } from "@/components/ui/card";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
-import Image from "next/image";
 import clsx from "clsx";
 import ImageDisplay from "@/components/ImageDisplay";
 import { Badge } from "@/components/ui/badge";

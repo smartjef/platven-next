@@ -66,6 +66,7 @@
     "react-dropzone": "^14.2.3",
     "react-file-icon": "^1.4.0",
     "react-hook-form": "^7.47.0",
+    "react-resizable-panels": "^2.0.19",
     "react-select": "^5.8.0",
     "recharts": "^2.9.2",
     "sharp": "^0.32.6",

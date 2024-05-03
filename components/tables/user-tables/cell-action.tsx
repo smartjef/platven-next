@@ -16,6 +16,7 @@ import {
   BadgeCheck,
   BadgeX,
   Edit,
+  Eye,
   MoreHorizontal,
   Trash,
 } from "lucide-react";
@@ -78,6 +79,12 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
               <BadgeCheck className="mr-2 h-4 w-4" />
             )}
             {data.isActive ? "Deactivate" : "Activate"}
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={() => router.push(`/dashboard/user/${data.id}/profile`)}
+          >
+            <Eye className="mr-2 h-4 w-4" />
+            View Profile
           </DropdownMenuItem>
           {pathName.startsWith("/dashboard/staff") && (
             <DropdownMenuItem

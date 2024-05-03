@@ -149,7 +149,7 @@ export const navItems: NavItem[] = [
   },
   {
     title: "Property Request",
-    href: "/dashboard/properties/request",
+    href: "/dashboard/property-requests",
     icon: "property",
     label: "property-type",
     roles: ["staff"],
@@ -166,7 +166,7 @@ export const navItems: NavItem[] = [
     href: "/dashboard/profile",
     icon: "profile",
     label: "profile",
-    roles: [],
+    roles: ["client", "staff"],
   },
   {
     title: "Kanban",
