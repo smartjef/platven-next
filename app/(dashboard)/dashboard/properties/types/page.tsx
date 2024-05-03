@@ -1,9 +1,9 @@
 import BreadCrumb from "@/components/breadcrumb";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { getSessionUser } from "@/lib/auth-utils";
 import prisma from "@/prisma/client";
 import clsx from "clsx";

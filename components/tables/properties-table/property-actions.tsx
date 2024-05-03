@@ -50,7 +50,11 @@ const PropertyActions: FC<Props> = ({ property }) => {
             </DropdownMenuItem>
           )}
           <DropdownMenuSeparator />
-          <DropdownMenuItem>View Property</DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={() => push(`/dashboard/properties/${property.id}/preview`)}
+          >
+            View Property
+          </DropdownMenuItem>
           <DropdownMenuItem
             onClick={() => push(`/dashboard/properties/${property.id}`)}
           >
