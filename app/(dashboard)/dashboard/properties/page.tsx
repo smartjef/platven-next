@@ -6,7 +6,6 @@ import { getSessionUser } from "@/lib/auth-utils";
 import prisma from "@/prisma/client";
 import React, { FC } from "react";
 
-
 import MakePaymentForm from "@/components/forms/payment/make-payment-form";
 
 type Props = {};
@@ -17,7 +16,7 @@ const breadcrumbItems = [
 const Properties: FC<Props> = async ({}) => {
   const user = await getSessionUser();
   const properties = await prisma.property.findMany({
-    where: { userId: user?.id },
+    where: { userId: user?.isActive ? undefined : user?.id },
     include: { type: true, requests: true, user: true, payment: true },
   });
   return (

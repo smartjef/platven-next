@@ -20,12 +20,14 @@ import clsx from "clsx";
 import ImageDisplay from "@/components/ImageDisplay";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { getSessionUser } from "@/lib/auth-utils";
 
 const breadcrumbItems = [
   { title: "Properties", link: "/dashboard/properties" },
   { title: "Preview", link: "" },
 ];
 const PropertyPreview: FC<PropsWithPathParams> = async ({ params: { id } }) => {
+  const user = await getSessionUser();
   const property = await prisma.property.findUnique({
     where: { id },
     include: { type: true },
@@ -87,7 +89,7 @@ const PropertyPreview: FC<PropsWithPathParams> = async ({ params: { id } }) => {
             </span>
           </div>
         </div>
-        <Button className="w-full">Actions</Button>
+        {user?.isStaff && <Button className="w-full">Actions</Button>}
       </div>
     </ScrollArea>
   );

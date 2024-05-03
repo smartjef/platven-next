@@ -24,6 +24,7 @@ import { Label } from "@/components/ui/label";
 import { Property } from "@prisma/client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import useSessionContext from "@/hooks/useSessionContext";
 
 type Props = {
   property: Property;
@@ -32,6 +33,7 @@ type Props = {
 const PropertyActions: FC<Props> = ({ property }) => {
   const [showPrompt, setShowPrompt] = useState(false);
   const { push } = useRouter();
+  const { user } = useSessionContext();
   return (
     <>
       <DropdownMenu>
