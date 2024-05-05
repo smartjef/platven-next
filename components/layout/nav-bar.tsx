@@ -58,7 +58,7 @@ const NavBar = (props: Props) => {
               <span>Hello, sign in</span>
             </div>
           </div>
-          <div className="w-1/12 bg-primary" />
+          <div className="w-1/12 bg-green-700" />
         </div>
       </nav>
     </div>

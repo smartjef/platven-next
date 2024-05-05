@@ -14,18 +14,21 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { propertyFormSchema } from "./schema";
-import { z } from "zod";
 import { useFormContext } from "react-hook-form";
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { PropertyType } from "@prisma/client";
+import clsx from "clsx";
 
-type Props = {};
+type Props = {
+  small?: boolean;
+};
 
-const formSchema = propertyFormSchema;
-type UserFormValue = z.infer<typeof formSchema>;
+type UserFormValue = {
+  typeId: string;
+  status: string;
+};
 
-const TypeStatusInput = (props: Props) => {
+const TypeStatusInput: FC<Props> = ({ small = false }) => {
   const form = useFormContext<UserFormValue>();
   const [types, setTypes] = useState<PropertyType[]>([]);
 
@@ -40,13 +43,18 @@ const TypeStatusInput = (props: Props) => {
   }, []);
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-3">
+    <div
+      className={clsx({
+        "grid grid-cols-1 lg:grid-cols-2 lg:gap-3": !small,
+        "flex flex-col space-y-2": small,
+      })}
+    >
       <FormField
         control={form.control}
         name="typeId"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Property Type</FormLabel>
+            {!small && <FormLabel>Property Type</FormLabel>}
             <Select
               // disabled={loading}
               onValueChange={field.onChange}
@@ -57,7 +65,7 @@ const TypeStatusInput = (props: Props) => {
                 <SelectTrigger>
                   <SelectValue
                     defaultValue={field.value}
-                    placeholder="Select a country"
+                    placeholder="Select type"
                   />
                 </SelectTrigger>
               </FormControl>
@@ -79,7 +87,7 @@ const TypeStatusInput = (props: Props) => {
         name="status"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Property Status</FormLabel>
+            {!small && <FormLabel>Property Status</FormLabel>}
             <Select
               // disabled={loading}
               onValueChange={field.onChange}
@@ -90,7 +98,7 @@ const TypeStatusInput = (props: Props) => {
                 <SelectTrigger>
                   <SelectValue
                     defaultValue={field.value}
-                    placeholder="Select a city"
+                    placeholder="Select status"
                   />
                 </SelectTrigger>
               </FormControl>

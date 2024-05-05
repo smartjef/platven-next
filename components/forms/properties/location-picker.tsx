@@ -14,21 +14,26 @@ import { useFormContext } from "react-hook-form";
 import dynamic from "next/dynamic";
 import { useDebouncedCallback } from "use-debounce";
 import { County, SubCounty } from "@prisma/client";
+import clsx from "clsx";
 const Select = dynamic(() => import("react-select"), {
   ssr: false, // Prevent SSR
 });
 
-type Props = {};
+type Props = {
+  small?: boolean;
+};
 
-const formSchema = propertyFormSchema;
-type UserFormValue = z.infer<typeof formSchema>;
+type UserFormValue = {
+  county: string;
+  subCounty: string;
+};
 
 type CountyDetail = County & {
   _count: { subscounties: number };
   subscounties: SubCounty[];
 };
 
-const PropertyLocationPicker: FC<Props> = ({}) => {
+const PropertyLocationPicker: FC<Props> = ({ small }) => {
   const form = useFormContext<UserFormValue>();
   const [search, setSearch] = useState<string>();
   const [loading, setLoading] = useState<boolean>(false);
@@ -60,13 +65,18 @@ const PropertyLocationPicker: FC<Props> = ({}) => {
   }, [selectedCounty, selectedSubCounty]);
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-3">
+    <div
+      className={clsx({
+        "grid grid-cols-1 lg:grid-cols-2 lg:gap-3": !small,
+        "flex flex-col space-y-2": small,
+      })}
+    >
       <FormField
         control={form.control}
         name="county"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>County</FormLabel>
+            {!small && <FormLabel>County</FormLabel>}
             <FormControl>
               <Select
                 // isClearable
@@ -104,7 +114,7 @@ const PropertyLocationPicker: FC<Props> = ({}) => {
         name="subCounty"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Sub county</FormLabel>
+            {!small && <FormLabel>Sub county</FormLabel>}
             <FormControl>
               <Select
                 isClearable
