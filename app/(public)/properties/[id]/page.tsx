@@ -12,6 +12,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import Image from "next/image";
 import React, { FC } from "react";
+import { getSessionUser } from "@/lib/auth-utils";
 
 const PropertyDetailPage: FC<PropsWithPathParams> = async ({
   params: { id },
@@ -24,6 +25,7 @@ const PropertyDetailPage: FC<PropsWithPathParams> = async ({
   const relatedProperties = await prisma.property.findMany({
     include: { type: true },
   });
+  const user = await getSessionUser();
   return (
     <div className="flex flex-col space-y-2">
       <div className="h-[60vh]">
@@ -33,7 +35,10 @@ const PropertyDetailPage: FC<PropsWithPathParams> = async ({
         sideBar={
           <div className="p-4 shadow shadow-slate-300 dark:shadow-slate-800 rounded-md space-y-4">
             <h1 className="font-bold text-xl">Request Property</h1>
-            <PropertyRequestForm property={property as any} />
+            <PropertyRequestForm
+              property={property as any}
+              user={user as any}
+            />
           </div>
         }
         reverse
