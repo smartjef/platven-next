@@ -8,7 +8,9 @@ import prisma from "@/prisma/client";
 import { PropsWithPathParams } from "@/types";
 import { Bookmark, Calendar, Heart } from "lucide-react";
 import moment from "moment/moment";
+import Link from "next/link";
 import { redirect } from "next/navigation";
+import Image from "next/image";
 import React, { FC } from "react";
 
 const PropertyDetailPage: FC<PropsWithPathParams> = async ({
@@ -19,6 +21,9 @@ const PropertyDetailPage: FC<PropsWithPathParams> = async ({
     include: { type: true },
   });
   if (!property) redirect("/not-found");
+  const relatedProperties = await prisma.property.findMany({
+    include: { type: true },
+  });
   return (
     <div className="flex flex-col space-y-2">
       <div className="h-[60vh]">
@@ -64,6 +69,63 @@ const PropertyDetailPage: FC<PropsWithPathParams> = async ({
           <div className="p-4 shadow  shadow-slate-300 dark:shadow-slate-800  rounded-md space-y-4">
             <p className="font-bold text-xl">Property detail</p>
             <p className="opacity-50">{property.features}</p>
+          </div>
+          <div className="p-4 space-y-4">
+            <p className="font-bold text-xl">Related properties</p>
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-2 lg:gap-4">
+              {relatedProperties.map(
+                (
+                  {
+                    id,
+                    title,
+                    images,
+                    price,
+                    county,
+                    subCounty,
+                    type: { title: type },
+                    status,
+                  },
+                  index,
+                ) => (
+                  <div
+                    key={index}
+                    className="w-full border  rounded-lg shadow relative"
+                  >
+                    <Badge className="absolute top-2 left-2 bg-green-700">
+                      {status === "onRent" ? "On rent" : "On sales"}
+                    </Badge>
+                    <Link href={`/properties/${id}`}>
+                      <Image
+                        className="rounded-t-lg"
+                        src={{ src: `/${images[0]}`, height: 500, width: 800 }}
+                        alt="product image"
+                      />
+                    </Link>
+                    <div className="px-5 pb-5">
+                      <Link href={`/properties/${id}`}>
+                        <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
+                          {`${title}`}
+                        </h5>
+                      </Link>
+                      <div className="flex flex-col justify-center mt-2.5 mb-5">
+                        {`${county} ${subCounty}`}
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-xl font-bold text-gray-900 dark:text-white">
+                          {formartCurrency(Number(price))}
+                        </span>
+                        <Link
+                          href={`/properties/${id}`}
+                          className="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        >
+                          View Detail
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                ),
+              )}
+            </div>
           </div>
         </div>
       </ListLayoutWithSideBar>
