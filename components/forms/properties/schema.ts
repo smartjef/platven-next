@@ -26,3 +26,14 @@ export const propertyFilterSchema = z.object({
   minPrice: z.number({ coerce: true }).optional(),
   maxPrice: z.number({ coerce: true }).optional(),
 });
+
+export const propertyRequestFormSchema = z.object({
+  propertyId: z.string().uuid(),
+  name: z.string().min(1, { message: "Name required" }),
+  email: z.string().email(),
+  phoneNumber: z
+    .string()
+    .min(1, { message: "Phone number required" })
+    .max(9, { message: "Invalid phone number" }),
+  message: z.string().min(1, { message: "You must leave your message" }),
+});

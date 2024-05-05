@@ -49,7 +49,7 @@ const FilterForm = () => {
   const amenitiesParams = searchParams.get("amenities")?.split(",") ?? [];
 
   return (
-    <Card className="border-none shadow-md shadow-indigo-400">
+    <div className="w-full border rounded-lg shadow">
       {/* Header */}
       <div className="p-2 ">
         <div className="w-full flex justify-between items-center mb-2 ">
@@ -207,7 +207,7 @@ const FilterForm = () => {
           </AccordionItem>
         </Accordion>
       </div>
-    </Card>
+    </div>
   );
 };
 

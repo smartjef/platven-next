@@ -6,8 +6,7 @@ const PublicLayout: React.FC<PropsWithChildren> = ({ children }) => {
   return (
     <div className="w-full h-screen overflow-y-auto">
       <NavBar />
-      <LowerNavBar />
-      <main className="w-full pt-16">{children}</main>
+      <main className="w-full pt-16 lg:pt-32">{children}</main>
     </div>
   );
 };

@@ -11,7 +11,7 @@ type Props = {};
 
 const HomePage = (props: Props) => {
   return (
-    <div className="overflow-y-auto">
+    <div className=" p-3">
       <PropertyTypesSlider />
       <div className="flex flex-col lg:flex-row lg:space-x-4 max-lg:space-y-2 justify-center">
         <div className="bg-black h-9/12 w-6/12 rounded-md relative overflow-clip">

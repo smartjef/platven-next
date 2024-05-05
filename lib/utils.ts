@@ -113,3 +113,12 @@ function findRepeated<T>(data: T[], predicate: (a: T, b: T) => boolean): T[] {
 
   return Array.from(repeatedElements); // Convert Set to array
 }
+
+
+export const formartCurrency = (amount: number) => {
+  const formatted = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "KES",
+  }).format(amount);
+  return formatted;
+};

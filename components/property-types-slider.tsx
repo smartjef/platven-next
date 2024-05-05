@@ -10,7 +10,7 @@ const PropertyTypesSlider = async () => {
     <div
       className={`grid grid-cols-${
         propertyTypes.length + 4
-      } gap-2 lg:mt-10 p-3 `}
+      } gap-2 `}
     >
       <div />
       <div />
