@@ -10,6 +10,11 @@ import prisma from "@/prisma/client";
 import Link from "next/link";
 import { formartCurrency } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
+import aboutImage from "@/public/about.png";
+import trust from "@/public/trust.png";
+import budget from "@/public/money-bag.png";
+import searchproperty from "@/public/search-house.png";
+import clsx from "clsx";
 
 type Props = {};
 
@@ -21,6 +26,7 @@ const HomePage = async (props: Props) => {
     <div className="flex justify-center">
       <div className="p-3 flex flex-col space-y-10 items-center lg:max-w-[80%]">
         <PropertyTypesSlider />
+        {/* Banner */}
         <div className="w-full grid grid-cols-1 lg:grid-cols-5 gap-3">
           <div className="lg:col-span-4 bg-black rounded-md relative overflow-clip max-lg:h-96">
             <Image
@@ -52,7 +58,64 @@ const HomePage = async (props: Props) => {
             <HomeFilterForm />
           </div>
         </div>
+        {/* Banner */}
 
+        {/* Why us */}
+        <div>
+          <h1 className="font-bold text-3xl">Why Us</h1>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-10 py-10">
+          <div className="flex flex-col justify-between">
+            <p className={clsx("text-2xl")}>
+              We Provide Latest Properties For Our Valuable Clients.
+            </p>
+            <Image src={aboutImage} alt="about" />
+          </div>
+          <div className="grid grid-cols-1 max-w-[400px]  gap-10">
+            <p>
+              Huge number of propreties availabe here for buy, sell and Rent.
+              Also you find here co-living property so lots opportunity you have
+              to choose here and enjoy huge discount.
+            </p>
+            <div className="flex space-x-2 items-center">
+              <Image
+                src={searchproperty}
+                alt="search property"
+                className="w-24 h-24"
+              />
+              <div className="flex flex-col space-y-2 justify-center">
+                <h1 className="text-xl font-bold">Find Property with ease</h1>
+                <p className="text-sm">
+                  Properties are most budget friendly so you have opportunity to
+                  find the best one
+                </p>
+              </div>
+            </div>
+            <div className="flex space-x-2  items-center">
+              <Image src={budget} alt="search property" className="w-24 h-24" />
+              <div className="flex flex-col space-y-2 justify-center">
+                <h1 className="text-xl font-bold">Budget Friendly</h1>
+                <p className="text-sm">
+                  Properties are most budget friendly so you have opportunity to
+                  find the best one
+                </p>
+              </div>
+            </div>
+            <div className="flex space-x-2  items-center">
+              <Image src={trust} alt="search property" className="w-24 h-24" />
+              <div className="flex flex-col space-y-2 justify-center">
+                <h1 className="text-xl font-bold">Trusted By Thousand</h1>
+                <p className="text-sm">
+                  Properties are most budget friendly so you have opportunity to
+                  find the best one
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* Why us */}
+        {/* Popular Properties */}
         <div className="my-10">
           <h1 className="font-bold text-3xl">Popular Properties</h1>
         </div>
@@ -110,6 +173,28 @@ const HomePage = async (props: Props) => {
             ),
           )}
         </div>
+        {/* Popular properties */}
+        {/* Call to action */}
+        <section className="mx-auto py-16">
+          <div className="mx-auto flex w-full flex-col items-center justify-center sm:max-w-screen-sm md:max-w-screen-md lg:flex-row">
+            <div className="text-center">
+              <h2 className="bg-clip-text text-3xl font-extrabold text-gray-700 sm:text-5xl">
+                Get in touch
+              </h2>
+              <p className="bg-gradient-to-r from-green-500 to-slate-950 bg-clip-text text-4xl font-extrabold text-transparent sm:text-6xl">
+                Let's take your business to the moon
+              </p>
+              <a
+                href="#"
+                className="shadow-green-600/30 mt-10 inline-flex h-12 items-center rounded-full bg-green-500 px-6 py-3 text-xl font-light text-white shadow-md transition hover:translate-y-1 hover:scale-105 hover:bg-slate-600 hover:shadow-lg"
+              >
+                Contact Us
+              </a>
+            </div>
+          </div>
+        </section>
+
+        {/* Call to action */}
       </div>
     </div>
   );

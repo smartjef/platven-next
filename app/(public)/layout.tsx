@@ -1,3 +1,4 @@
+import Footer from "@/components/layout/footer";
 import LowerNavBar from "@/components/layout/lower-nav";
 import NavBar from "@/components/layout/nav-bar";
 import React, { PropsWithChildren } from "react";
@@ -7,6 +8,7 @@ const PublicLayout: React.FC<PropsWithChildren> = ({ children }) => {
     <div className="w-full h-screen overflow-y-auto">
       <NavBar />
       <main className="w-full pt-16 lg:pt-32">{children}</main>
+      <Footer />
     </div>
   );
 };
