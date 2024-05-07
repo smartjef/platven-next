@@ -36,6 +36,7 @@ const ContactForm: FC<Props> = ({ user }) => {
       phoneNumber: user?.phoneNumber ?? "",
       message: "",
       name: user?.name ?? "",
+      subject: "",
     },
   });
 
@@ -52,6 +53,7 @@ const ContactForm: FC<Props> = ({ user }) => {
           title: "Success!!",
           description: "Message submition success.",
         });
+        form.reset();
       } else {
         if (response.status === 400) {
           const errors = await response.json();
@@ -75,7 +77,7 @@ const ContactForm: FC<Props> = ({ user }) => {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-6 w-full"
+          className="space-y-4 w-full"
         >
           <FormField
             control={form.control}
@@ -134,6 +136,25 @@ const ContactForm: FC<Props> = ({ user }) => {
               )}
             />
           </div>
+          <FormField
+            control={form.control}
+            name="subject"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Subject</FormLabel>
+                <FormControl>
+                  <Input
+                    type="text"
+                    placeholder="Message subject..."
+                    disabled={form.formState.isSubmitting}
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
           <FormField
             control={form.control}
             name="message"

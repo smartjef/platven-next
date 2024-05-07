@@ -74,6 +74,7 @@ model Contact {
   isAddressed Boolean  @default(false)
   name        String
   email       String
+  phoneNumber String
   subject     String
   message     String   @db.Text
   createdAt   DateTime @default(now())
