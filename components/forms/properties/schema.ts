@@ -36,4 +36,5 @@ export const propertyRequestFormSchema = z.object({
     .min(1, { message: "Phone number required" })
     .max(9, { message: "Invalid phone number" }),
   message: z.string().min(1, { message: "You must leave your message" }),
+  isActive: z.boolean().optional(),
 });

@@ -200,13 +200,6 @@ export const publicNavItems: NavItem[] = [
     roles: [],
   },
   {
-    title: "Agents",
-    href: "/agents",
-    icon: "employee",
-    label: "employee",
-    roles: [],
-  },
-  {
     title: "About",
     href: "/about",
     icon: "profile",
