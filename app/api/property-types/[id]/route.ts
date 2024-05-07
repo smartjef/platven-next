@@ -3,12 +3,28 @@ import { NextRequest, NextResponse } from "next/server";
 import { string, z } from "zod";
 import { propertyTypeSchema } from "@/components/forms/properties/schema";
 import sharp from "sharp";
-import { saveMediaFileName, strToBool } from "@/lib/auth-utils";
+import {
+  getExpiredCookieHeader,
+  getSessionUser,
+  saveMediaFileName,
+  strToBool,
+} from "@/lib/auth-utils";
 
 export const DELETE = async (
   request: NextRequest,
   { params: { id } }: { params: { id: string } },
 ) => {
+  const user = await getSessionUser();
+  if (!user)
+    return NextResponse.json(
+      { detail: "Unauthorized" },
+      { status: 401, headers: getExpiredCookieHeader(request) },
+    );
+  if (!user.isStaff)
+    return NextResponse.json(
+      { detail: "You have no permision to delete property type" },
+      { status: 403 },
+    );
   if (
     !z.string().uuid().safeParse(id).success ||
     !(await prisma.propertyType.findUnique({ where: { id } }))
