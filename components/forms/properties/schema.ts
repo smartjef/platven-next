@@ -38,3 +38,7 @@ export const propertyRequestFormSchema = z.object({
   message: z.string().min(1, { message: "You must leave your message" }),
   isActive: z.boolean().optional(),
 });
+
+export const propertyRejectionSchema = z.object({
+  reason:z.string().min(1 {message: "Reason for rejection required"})
+})

@@ -20,7 +20,7 @@ const PropertyPreview: FC<PropsWithPathParams> = async ({ params: { id } }) => {
   const user = await getSessionUser();
   const property = await prisma.property.findUnique({
     where: { id },
-    include: { type: true },
+    include: { type: true, user: true },
   });
   if (!property) return <div>Not found!</div>;
   return (
@@ -75,6 +75,36 @@ const PropertyPreview: FC<PropsWithPathParams> = async ({ params: { id } }) => {
                 <Badge>Listed</Badge>
               ) : (
                 <Badge>Unlisted</Badge>
+              )}
+            </span>
+          </div>
+        </div>
+        <div className="shadow-md p-4 space-y-3  shadow-slate-400 dark:shadow-slate-700">
+          <h1 className="text-2xl">Owner Details</h1>
+          <div className="grid grid-cols-2">
+            <span>Name</span>
+            <span>{property.user.name}</span>
+          </div>
+          <div className="grid grid-cols-2">
+            <span>Email</span>
+            <span>{property.user.email}</span>
+          </div>
+          <div className="grid grid-cols-2">
+            <span>Phone number</span>
+            <span>{property.user.phoneNumber}</span>
+          </div>
+          <div className="grid grid-cols-2">
+            <span>Address</span>
+            <span>{property.user.address}</span>
+          </div>
+
+          <div className="grid grid-cols-2">
+            <span>IsActive</span>
+            <span>
+              {property.user.isActive ? (
+                <Badge>Active</Badge>
+              ) : (
+                <Badge>Inactive</Badge>
               )}
             </span>
           </div>
