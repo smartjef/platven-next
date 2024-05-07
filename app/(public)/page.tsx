@@ -100,10 +100,10 @@ const HomePage = async (props: Props) => {
           </div>
           <div className="grid grid-cols-1 max-w-[400px]  gap-10">
             <p>
-              At Platven, we prioritize offering properties that fit your budget
+              {`At Platven, we prioritize offering properties that fit your budget
               while presenting excellent opportunities. It's our main
               responsibility to ensure that our clients receive the best value
-              and discover properties that align with their goals.
+              and discover properties that align with their goals.`}
             </p>
             {whyUs.map(({ title, icon, description }, index) => (
               <div key={index} className="flex space-x-2 items-center">

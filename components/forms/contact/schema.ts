@@ -9,4 +9,5 @@ export const contactFormSchema = z.object({
     .max(9, { message: "Invalid phone number" }),
   subject: z.string().min(1, { message: "Subject required" }),
   message: z.string().min(1, { message: "You must leave your message" }),
+  isAddressed: z.boolean().optional(),
 });

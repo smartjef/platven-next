@@ -1,8 +1,4 @@
 import React from "react";
-
-import item1 from "@/public/poly.jpg";
-import Image from "next/image";
-
 const Patners = () => {
   return (
     <div className="p-5">

@@ -18,9 +18,9 @@ const ContactUs = async () => {
           <section className="flex-flex-col space-y-8">
             <h1 className="text-4xl">Send message</h1>
             <p className="max-w-[600px]">
-              Get in touch with our friendly team for any inquiries, assistance,
+              {`Get in touch with our friendly team for any inquiries, assistance,
               or guidance. We're here to help you navigate your property journey
-              smoothly.
+              smoothly.`}
             </p>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               <div className="w-full h-full shadow shadow-slate-400 dark:shadow-slate-700 lg:col-span-2 rounded-md p-8">

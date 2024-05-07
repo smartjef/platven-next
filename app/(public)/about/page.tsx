@@ -102,7 +102,7 @@ also you can find here co-living property"
                 { id, image, user: { name, email, phoneNumber }, position },
                 index,
               ) => (
-                <div className="text-center group mb-[30px]" key={index}>
+                <div key={index} className="text-center group mb-[30px]" >
                   <div className="relative rounded-[6px_6px_0px_0px]">
                     <a href="agent-details.html">
                       <img
