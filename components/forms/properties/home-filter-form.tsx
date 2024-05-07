@@ -31,7 +31,7 @@ const HomeFilterForm = () => {
       county: "",
       search: "",
       subCounty: "",
-      
+
       // status: "onRent",
       // typeId: "",
     },
@@ -100,11 +100,11 @@ const HomeFilterForm = () => {
             />
 
             <TypeStatusInput small />
-            <PropertyLocationPicker small />
+            {/* <PropertyLocationPicker small /> */}
             <div className="row justify-start text-white">
               <Button
                 disabled={form.formState.isSubmitting}
-                className="ml-auto w-fit flex items-center space-x-2 bg-green-700"
+                className="ml-auto w-fit flex items-center space-x-2 bg-green-700 mt-5"
                 type="submit"
               >
                 Find property

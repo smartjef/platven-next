@@ -82,7 +82,7 @@ also you can find here co-living property"
                     </div>
                     <h3 className="text-2xl font-bold md:text-xl">{title}</h3>
                   </div>
-                  <p className="text-gray-700">{description}</p>
+                  <p className="text-sm">{description}</p>
                 </div>
               ))}
             </div>

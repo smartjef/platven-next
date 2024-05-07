@@ -1,6 +1,8 @@
 import { Icons } from "@/components/icons";
 import { NavItem, SidebarNavItem } from "@/types";
-
+import trust from "@/public/trust.png";
+import budget from "@/public/money-bag.png";
+import searchproperty from "@/public/search-house.png";
 export type User = {
   id: number;
   name: string;
@@ -218,17 +220,85 @@ export const publicNavItems: NavItem[] = [
 export const services = [
   {
     id: "1",
-    title: "Sale property",
-    description: "Provide prperty sale option oppotunity to find the best",
+    title: "Property Listings and Search",
+    description:
+      "An extensive, regularly updated database of available properties, including residential, commercial, and land listings.",
   },
   {
     id: "2",
-    title: "Buy property",
-    description: "Provide prperty sale option oppotunity to find the best",
+    title: "Property Valuation Services",
+    description:
+      " Accurate property valuation reports to help sellers set realistic prices and buyers make informed offers.",
+  },
+  {
+    id: "3",
+    title: "Legal and Paperwork Assistance",
+    description:
+      "Facilitation of legal procedures and documentation, ensuring a smooth property transaction process.",
+  },
+  {
+    id: "4",
+    title: "Agent Support and Consultancy",
+    description:
+      " Personalized support from experienced agents for buyers and sellers, helping with negotiations, viewings, and deal closures.",
+  },
+  {
+    id: "5",
+    title: "Property Management Services",
+    description:
+      "Full-service management for landlords and property owners, including tenant screening, rent collection, and maintenance coordination.",
+  },
+  {
+    id: "6",
+    title: "Investment Advisory",
+    description:
+      "Strategic advice for real estate investors seeking to diversify their portfolios or maximize returns.",
+  },
+];
+export const steps = [
+  {
+    id: "1",
+    title: "Browse Properties",
+    icon: "search",
+    description:
+      " Use filters like location, price, and type to find your perfect match from our diverse selection.",
   },
   {
     id: "2",
-    title: "Rent property",
-    description: "Provide prperty sale option oppotunity to find the best",
+    icon: "house",
+    title: "Select a Property",
+    description:
+      "View detailed pages and request more info or schedule a viewing",
+  },
+  {
+    id: "3",
+    icon: "handShake",
+    title: "Let Our Agents Facilitate",
+    description:
+      "Our agents will handle the process, from visits to negotiations and paperwork.",
+  },
+];
+
+export const whyUs = [
+  {
+    id: "1",
+    icon: searchproperty,
+    title: "Find Property with ease",
+    description:
+      "Our user-friendly platform, comprehensive listings, and intuitive search tools make finding your perfect property effortless, whether you’re looking to rent or buy.",
+  },
+  {
+    id: "2",
+    icon: budget,
+    title: "Budget Friendly",
+    description:
+      "With our transparent pricing and cost-effective solutions, we help you find properties that suit your financial goals without compromising on quality.      ",
+  },
+  {
+    id: "2",
+    icon: trust,
+    title: "Trusted By Thousand",
+    description:
+      "Our commitment to service excellence and integrity has earned us the trust of thousands of clients who rely on us for their real estate needs.",
   },
 ];

@@ -11,10 +11,11 @@ import Link from "next/link";
 import { formartCurrency } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import aboutImage from "@/public/about.png";
-import trust from "@/public/trust.png";
-import budget from "@/public/money-bag.png";
-import searchproperty from "@/public/search-house.png";
+
 import clsx from "clsx";
+import Patners from "@/components/patners";
+import { steps, whyUs } from "@/constants/data";
+import { Icons } from "@/components/icons";
 
 type Props = {};
 
@@ -35,21 +36,25 @@ const HomePage = async (props: Props) => {
               className="absolute w-full h-full object-cover"
             />
             <div className="absolute bg-black opacity-50 w-full h-full" />
-            <div className="absolute w-full h-full flex flex-col p-10 text-white font-bold space-y-2">
+            <div className="absolute w-full h-full flex flex-col p-10 text-white font-bold justify-center space-y-10">
               <p>This Week Only for World Premier</p>
               <p className="text-4xl">
                 New Top Product
                 <br />
                 High Quality
               </p>
-              <Button className="flex items-center w-fit space-x-2 bg-green-700">
-                Shope now <ArrowRight />
+              <Button className=" w-fit space-x-2 bg-green-700">
+                <Link
+                  href={"/properties"}
+                  className="flex items-center space-x-2"
+                >
+                  Find Now <ArrowRight />
+                </Link>
               </Button>
             </div>
           </div>
           <div className="bg-accent dark:bg-gray-900 rounded-md p-2 flex flex-col space-y-2">
             <div className="flex space-x-2">
-              <Image src={img} alt="building" className="w-16 h-16" />
               <div className="flex flex-col justify-center space-y-2">
                 <p>Over 1000 properties</p>
                 <p className="font-bold text-lg">Find property</p>
@@ -64,21 +69,21 @@ const HomePage = async (props: Props) => {
           <h1 className="font-bold text-3xl">How it works</h1>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 text-center">
-          {Array.from({ length: 3 }).map((_, index) => (
-            <div
-              className="flex flex-col space-y-6 items-center max-w-[320px]"
-              key={index}
-            >
-              <div className="bg-green-700 w-28 h-28 rounded-full bg-opacity-10 text-green-700 flex flex-col justify-center items-center">
-                <Home className="w-8 h-8" />
+          {steps.map(({ description, title, icon }, index) => {
+            const Icon = (Icons as any)[icon];
+            return (
+              <div
+                className="flex flex-col space-y-6 items-center max-w-[320px]"
+                key={index}
+              >
+                <div className="bg-green-700 w-28 h-28 rounded-full bg-opacity-10 text-green-700 flex flex-col justify-center items-center">
+                  <Icon className="w-8 h-8" />
+                </div>
+                <h1 className="font-bold">{title}</h1>
+                <p className="text-sm">{description}</p>
               </div>
-              <h1 className="font-bold">Evaluate Property</h1>
-              <p>
-                If the distribution of letters and words is random, the reader
-                will not be distracted from making.
-              </p>
-            </div>
-          ))}
+            );
+          })}
         </div>
         {/* How it works */}
         {/* Why us */}
@@ -95,44 +100,20 @@ const HomePage = async (props: Props) => {
           </div>
           <div className="grid grid-cols-1 max-w-[400px]  gap-10">
             <p>
-              Huge number of propreties availabe here for buy, sell and Rent.
-              Also you find here co-living property so lots opportunity you have
-              to choose here and enjoy huge discount.
+              At Platven, we prioritize offering properties that fit your budget
+              while presenting excellent opportunities. It's our main
+              responsibility to ensure that our clients receive the best value
+              and discover properties that align with their goals.
             </p>
-            <div className="flex space-x-2 items-center">
-              <Image
-                src={searchproperty}
-                alt="search property"
-                className="w-24 h-24"
-              />
-              <div className="flex flex-col space-y-2 justify-center">
-                <h1 className="text-xl font-bold">Find Property with ease</h1>
-                <p className="text-sm">
-                  Properties are most budget friendly so you have opportunity to
-                  find the best one
-                </p>
+            {whyUs.map(({ title, icon, description }, index) => (
+              <div key={index} className="flex space-x-2 items-center">
+                <Image src={icon} alt="search property" className="w-24 h-24" />
+                <div className="flex flex-col space-y-2 justify-center">
+                  <h1 className="text-xl font-bold">{title}</h1>
+                  <p className="text-sm">{description}</p>
+                </div>
               </div>
-            </div>
-            <div className="flex space-x-2  items-center">
-              <Image src={budget} alt="search property" className="w-24 h-24" />
-              <div className="flex flex-col space-y-2 justify-center">
-                <h1 className="text-xl font-bold">Budget Friendly</h1>
-                <p className="text-sm">
-                  Properties are most budget friendly so you have opportunity to
-                  find the best one
-                </p>
-              </div>
-            </div>
-            <div className="flex space-x-2  items-center">
-              <Image src={trust} alt="search property" className="w-24 h-24" />
-              <div className="flex flex-col space-y-2 justify-center">
-                <h1 className="text-xl font-bold">Trusted By Thousand</h1>
-                <p className="text-sm">
-                  Properties are most budget friendly so you have opportunity to
-                  find the best one
-                </p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
         {/* Why us */}
@@ -196,6 +177,7 @@ const HomePage = async (props: Props) => {
         </div>
         {/* Popular properties */}
         {/* Call to action */}
+
         <section className="mx-auto py-16">
           <div className="mx-auto flex w-full flex-col items-center justify-center sm:max-w-screen-sm md:max-w-screen-md lg:flex-row">
             <div className="text-center">
@@ -216,6 +198,9 @@ const HomePage = async (props: Props) => {
         </section>
 
         {/* Call to action */}
+        <div className="w-[90vw]">
+          <Patners />
+        </div>
       </div>
     </div>
   );
