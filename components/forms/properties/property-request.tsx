@@ -54,6 +54,7 @@ const PropertyRequestForm: FC<Props> = ({ property, user }) => {
           title: "Success!!",
           description: "Property request submition success.",
         });
+        form.reset();
       } else {
         if (response.status === 400) {
           const errors = await response.json();
