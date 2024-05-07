@@ -9,6 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useToast } from "@/components/ui/use-toast";
+import useSessionContext from "@/hooks/useSessionContext";
 import { Property, PropertyRequest } from "@prisma/client";
 import { MoreHorizontal } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -19,6 +20,7 @@ interface Props {
   message: PropertyRequest & { property: Property };
 }
 const PropertyRequestAction: FC<Props> = ({ message }) => {
+  const { user } = useSessionContext();
   const router = useRouter();
   const { toast } = useToast();
   const handleToggle = async () => {
@@ -38,6 +40,18 @@ const PropertyRequestAction: FC<Props> = ({ message }) => {
       toast({
         title: "Success!",
         description: "Message addresed status updated successfully!",
+      });
+    }
+  };
+  const handleDelete = async () => {
+    const response = await fetch(`/api/property-request/${message.id}`, {
+      method: "DELETE",
+    });
+    if (response.ok) {
+      router.refresh();
+      toast({
+        title: "Success!",
+        description: "Property deleted successfully!",
       });
     }
   };
@@ -65,6 +79,9 @@ const PropertyRequestAction: FC<Props> = ({ message }) => {
         <DropdownMenuItem onClick={handleToggle}>
           {message.isActive ? "Mark Un addressed" : "Mark as Addressed"}
         </DropdownMenuItem>
+        {user?.isStaff && (
+          <DropdownMenuItem onClick={handleDelete}>Delete</DropdownMenuItem>
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   );

@@ -89,7 +89,10 @@ export const DELETE = async (
     return NextResponse.json({ detail: "Property not found" }, { status: 404 });
 
   const propertyTypes = await prisma.property.delete({
-    where: { id: id as string },
+    where: {
+      id: id,
+      userId: user.isStaff ? undefined : user.id,
+    },
   });
   return NextResponse.json(propertyTypes);
 };

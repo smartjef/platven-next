@@ -36,3 +36,30 @@ export const PUT = async (
   });
   return NextResponse.json(contact);
 };
+
+export const DELETE = async (
+  request: NextRequest,
+  { params: { id } }: { params: { id: string } },
+) => {
+  const user = await getSessionUser();
+  if (!user)
+    return NextResponse.json(
+      { detail: "Unauthorized" },
+      { status: 401, headers: getExpiredCookieHeader(request) },
+    );
+  if (!user.isStaff)
+    return NextResponse.json(
+      { detail: "You have no permision to delete message" },
+      { status: 403 },
+    );
+  if (
+    !z.string().uuid().safeParse(id).success ||
+    !(await prisma.contact.findUnique({ where: { id } }))
+  )
+    return NextResponse.json({ detail: "message not found" }, { status: 404 });
+
+  const propertyTypes = await prisma.contact.delete({
+    where: { id: id as string },
+  });
+  return NextResponse.json(propertyTypes);
+};

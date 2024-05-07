@@ -20,6 +20,7 @@ import {
 import { Property } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import useSessionContext from "@/hooks/useSessionContext";
+import { useToast } from "@/components/ui/use-toast";
 
 type Props = {
   property: Property;
@@ -27,8 +28,22 @@ type Props = {
 
 const PropertyActions: FC<Props> = ({ property }) => {
   const [showPrompt, setShowPrompt] = useState(false);
-  const { push } = useRouter();
+  const { push, refresh } = useRouter();
   const { user } = useSessionContext();
+  const { toast } = useToast();
+
+  const handleDelete = async () => {
+    const response = await fetch(`/api/properties/${property.id}`, {
+      method: "DELETE",
+    });
+    if (response.ok) {
+      refresh();
+      toast({
+        title: "Success!",
+        description: "Property deleted successfully!",
+      });
+    }
+  };
   return (
     <>
       <DropdownMenu>
@@ -57,7 +72,9 @@ const PropertyActions: FC<Props> = ({ property }) => {
           >
             Update property
           </DropdownMenuItem>
-          <DropdownMenuItem>Delete Property</DropdownMenuItem>
+          <DropdownMenuItem onClick={handleDelete}>
+            Delete Property
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
       <Dialog open={showPrompt} onOpenChange={setShowPrompt}>
