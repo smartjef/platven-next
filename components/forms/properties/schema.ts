@@ -40,5 +40,5 @@ export const propertyRequestFormSchema = z.object({
 });
 
 export const propertyRejectionSchema = z.object({
-  reason:z.string().min(1 {message: "Reason for rejection required"})
-})
+  reason: z.string().min(1, { message: "Reason for rejection required" }),
+});

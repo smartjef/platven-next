@@ -3,14 +3,12 @@ import { PropsWithPathParams } from "@/types";
 import React, { FC } from "react";
 import BreadCrumb from "@/components/breadcrumb";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { redirect } from "next/dist/server/api-utils";
 import { Heading } from "@/components/ui/heading";
 import { Separator } from "@/components/ui/separator";
-import clsx from "clsx";
 import ImageDisplay from "@/components/ImageDisplay";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { getSessionUser } from "@/lib/auth-utils";
+import PropertyPriviewAction from "./actions";
 
 const breadcrumbItems = [
   { title: "Properties", link: "/dashboard/properties" },
@@ -109,7 +107,12 @@ const PropertyPreview: FC<PropsWithPathParams> = async ({ params: { id } }) => {
             </span>
           </div>
         </div>
-        {user?.isStaff && <Button className="w-full">Actions</Button>}
+        {user?.isStaff && (
+          <PropertyPriviewAction
+            user={user}
+            property={JSON.parse(JSON.stringify(property))}
+          />
+        )}
       </div>
     </ScrollArea>
   );
