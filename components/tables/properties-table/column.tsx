@@ -85,6 +85,28 @@ export const columns: ColumnDef<Property & { type: PropertyType }>[] = [
     },
   },
   {
+    accessorKey: "isActive",
+    header: "Approved status",
+    cell(props) {
+      const paymentComplete = props.renderValue() as boolean;
+      const property = props.row.original;
+      return (
+        <Badge
+          className={clsx({
+            "bg-destructive": !paymentComplete,
+            "bg-green-800": paymentComplete,
+          })}
+        >
+          {paymentComplete
+            ? "Approved"
+            : property.rejectionReason
+            ? "Rejected"
+            : "Pending"}
+        </Badge>
+      );
+    },
+  },
+  {
     accessorKey: "county",
     header: "County",
   },
