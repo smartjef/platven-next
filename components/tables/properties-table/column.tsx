@@ -107,6 +107,15 @@ export const columns: ColumnDef<Property & { type: PropertyType }>[] = [
     },
   },
   {
+    accessorKey: "rejectionReason",
+    header: "Rejection Reason",
+    cell(props) {
+      const paymentComplete = props.renderValue() as string | null;
+      const property = props.row.original;
+      return <span>{paymentComplete ? paymentComplete : "-"}</span>;
+    },
+  },
+  {
     accessorKey: "county",
     header: "County",
   },

@@ -9,6 +9,7 @@ import ImageDisplay from "@/components/ImageDisplay";
 import { Badge } from "@/components/ui/badge";
 import { getSessionUser } from "@/lib/auth-utils";
 import PropertyPriviewAction from "./actions";
+import clsx from "clsx";
 
 const breadcrumbItems = [
   { title: "Properties", link: "/dashboard/properties" },
@@ -57,13 +58,20 @@ const PropertyPreview: FC<PropsWithPathParams> = async ({ params: { id } }) => {
             <span>{property.type.title}</span>
           </div>
           <div className="grid grid-cols-2">
-            <span>IsActive</span>
+            <span>Approved status</span>
             <span>
-              {property.isActive ? (
-                <Badge>Active</Badge>
-              ) : (
-                <Badge>Inactive</Badge>
-              )}
+              <Badge
+                className={clsx({
+                  "bg-destructive": !property.isActive,
+                  "bg-green-800": property.isActive,
+                })}
+              >
+                {property.isActive
+                  ? "Approved"
+                  : property.rejectionReason
+                  ? "Rejected"
+                  : "Pending"}
+              </Badge>
             </span>
           </div>
           <div className="grid grid-cols-2">
@@ -77,6 +85,12 @@ const PropertyPreview: FC<PropsWithPathParams> = async ({ params: { id } }) => {
             </span>
           </div>
         </div>
+        {!property.isActive && property.rejectionReason && (
+          <div className="shadow-md p-4 space-y-3 shadow-slate-400 dark:shadow-slate-700">
+            <h1 className="text-2xl">Rejection Reason</h1>
+            <p className="opacity-50">{property.rejectionReason}</p>
+          </div>
+        )}
         <div className="shadow-md p-4 space-y-3  shadow-slate-400 dark:shadow-slate-700">
           <h1 className="text-2xl">Owner Details</h1>
           <div className="grid grid-cols-2">
