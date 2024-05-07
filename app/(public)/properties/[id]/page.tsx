@@ -33,7 +33,7 @@ const PropertyDetailPage: FC<PropsWithPathParams> = async ({
       </div>
       <ListLayoutWithSideBar
         sideBar={
-          <div className="p-4 shadow shadow-slate-300 dark:shadow-slate-800 rounded-md space-y-4">
+          <div className="p-4 shadow shadow-slate-300 dark:shadow-slate-700 rounded-md space-y-4">
             <h1 className="font-bold text-xl">Request Property</h1>
             <PropertyRequestForm
               property={property as any}
@@ -44,7 +44,7 @@ const PropertyDetailPage: FC<PropsWithPathParams> = async ({
         reverse
       >
         <div className="flex flex-col space-y-2">
-          <div className="p-4 shadow shadow-slate-300 dark:shadow-slate-800 rounded-md space-y-4">
+          <div className="p-4 shadow shadow-slate-300 dark:shadow-slate-700 rounded-md space-y-4">
             <div className="flex justify-between items-center">
               <p className="font-bold text-xl">{property.title}</p>
               <div className="flex space-x-2 items-center">
@@ -71,7 +71,7 @@ const PropertyDetailPage: FC<PropsWithPathParams> = async ({
               {formartCurrency(Number(property.price))}
             </p>
           </div>
-          <div className="p-4 shadow  shadow-slate-300 dark:shadow-slate-800  rounded-md space-y-4">
+          <div className="p-4 shadow  shadow-slate-300 dark:shadow-slate-700  rounded-md space-y-4">
             <p className="font-bold text-xl">Property detail</p>
             <p className="opacity-50">{property.features}</p>
           </div>

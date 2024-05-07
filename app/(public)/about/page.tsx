@@ -72,7 +72,7 @@ also you can find here co-living property"
             <div className="grid gap-10 pb-20 sm:grid-cols-2 lg:grid-cols-3">
               {services.map(({ description, id, title }, index) => (
                 <div
-                  className="rounded-md p-8 shadow shadow-slate-300 dark:shadow-slate-800"
+                  className="rounded-md p-8 shadow shadow-slate-300 dark:shadow-slate-700"
                   key={index}
                 >
                   <div className="my-4 flex items-center">
