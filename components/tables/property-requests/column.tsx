@@ -3,18 +3,22 @@
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 
-import { Contact, Property, PropertyType } from "@prisma/client";
+import {
+  Contact,
+  Property,
+  PropertyRequest,
+  PropertyType,
+} from "@prisma/client";
 import { ColumnDef } from "@tanstack/react-table";
 import clsx from "clsx";
 import { BadgeCheck, BadgeX } from "lucide-react";
 import moment from "moment";
-import PropertyActions from "../properties-table/property-actions";
-import MessageAction from "./cell-action";
+import PropertyRequestAction from "./cell-action";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
 
-export const columns: ColumnDef<Contact>[] = [
+export const columns: ColumnDef<PropertyRequest>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -59,7 +63,7 @@ export const columns: ColumnDef<Contact>[] = [
       const recode = props.row.original;
       const renderValue = props.renderValue();
       return (
-        <span className={clsx({ "font-bold": !recode.isAddressed })}>
+        <span className={clsx({ "font-bold": !recode.isActive })}>
           {renderValue as any}
         </span>
       );
@@ -72,7 +76,7 @@ export const columns: ColumnDef<Contact>[] = [
       const recode = props.row.original;
       const renderValue = props.renderValue();
       return (
-        <span className={clsx({ "font-bold": !recode.isAddressed })}>
+        <span className={clsx({ "font-bold": !recode.isActive })}>
           {renderValue as any}
         </span>
       );
@@ -85,28 +89,28 @@ export const columns: ColumnDef<Contact>[] = [
       const recode = props.row.original;
       const renderValue = props.renderValue();
       return (
-        <span className={clsx({ "font-bold": !recode.isAddressed })}>
+        <span className={clsx({ "font-bold": !recode.isActive })}>
           {renderValue as any}
         </span>
       );
     },
   },
   {
-    accessorKey: "subject",
-    header: "Subject",
+    accessorKey: "message",
+    header: "Message",
     cell(props) {
       const recode = props.row.original;
       const renderValue = props.renderValue();
       return (
-        <span className={clsx({ "font-bold": !recode.isAddressed })}>
+        <span className={clsx({ "font-bold": !recode.isActive })}>
           {renderValue as any}
         </span>
       );
     },
   },
   {
-    accessorKey: "isAddressed",
-    header: "Is Address",
+    accessorKey: "isActive",
+    header: "Address status",
     cell(props) {
       const paymentComplete = props.renderValue() as boolean;
       return (
@@ -132,7 +136,7 @@ export const columns: ColumnDef<Contact>[] = [
     enableHiding: false,
     cell: ({ row }) => {
       const property = row.original;
-      return <MessageAction message={property} />;
+      return <PropertyRequestAction message={property as any} />;
     },
   },
 ];

@@ -2,7 +2,7 @@ import { propertyRequestFormSchema } from "@/components/forms/properties/schema"
 import prisma from "@/prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-
+// TODO LIMIT ALL EDITS TO STAFFS ONLY
 export const PUT = async (
   request: NextRequest,
   { params: { id } }: { params: { id: string } },
