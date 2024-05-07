@@ -5,8 +5,7 @@ import { usePathname } from "next/navigation";
 
 import { Icons } from "@/components/icons";
 import { cn } from "@/lib/utils";
-import { NavItem } from "@/types";
-import { Dispatch, FC, SetStateAction, useState } from "react";
+import { FC, useState } from "react";
 
 type Props = {
   href: string;

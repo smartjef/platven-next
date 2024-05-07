@@ -1,11 +1,5 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import UserAuthForm from "@/components/forms/user-auth-form";
-import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-import Logo from "@/components/Logo";
-import Image from "next/image";
-import bg from "@/public/r-architecture-2gDwlIim3Uw-unsplash.jpg";
 import LoginForm from "@/components/forms/auth/LoginForm";
 
 export const metadata: Metadata = {
@@ -26,7 +20,7 @@ export default function AuthenticationPage() {
       </div>
       <LoginForm />
       <div className="flex pt-4 space-x-2 ">
-        <p>Don't have an account?</p>
+        <p>{`Don't have an account?`}</p>
         <Link href="/sign-up" className="underline opacity-50">
           Sign up
         </Link>

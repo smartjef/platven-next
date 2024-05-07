@@ -221,3 +221,21 @@ export const publicNavItems: NavItem[] = [
     roles: [],
   },
 ];
+
+export const services = [
+  {
+    id: "1",
+    title: "Sale property",
+    description: "Provide prperty sale option oppotunity to find the best",
+  },
+  {
+    id: "2",
+    title: "Buy property",
+    description: "Provide prperty sale option oppotunity to find the best",
+  },
+  {
+    id: "2",
+    title: "Rent property",
+    description: "Provide prperty sale option oppotunity to find the best",
+  },
+];

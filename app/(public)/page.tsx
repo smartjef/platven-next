@@ -3,7 +3,7 @@ import React from "react";
 import Image from "next/image";
 import bg from "@/public/r-architecture-2gDwlIim3Uw-unsplash.jpg";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Home } from "lucide-react";
 import img from "@/public/building.png";
 import HomeFilterForm from "@/components/forms/properties/home-filter-form";
 import prisma from "@/prisma/client";
@@ -59,7 +59,28 @@ const HomePage = async (props: Props) => {
           </div>
         </div>
         {/* Banner */}
-
+        {/* How it works */}
+        <div className="my-10">
+          <h1 className="font-bold text-3xl">How it works</h1>
+        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 text-center">
+          {Array.from({ length: 3 }).map((_, index) => (
+            <div
+              className="flex flex-col space-y-6 items-center max-w-[320px]"
+              key={index}
+            >
+              <div className="bg-green-700 w-28 h-28 rounded-full bg-opacity-10 text-green-700 flex flex-col justify-center items-center">
+                <Home className="w-8 h-8" />
+              </div>
+              <h1 className="font-bold">Evaluate Property</h1>
+              <p>
+                If the distribution of letters and words is random, the reader
+                will not be distracted from making.
+              </p>
+            </div>
+          ))}
+        </div>
+        {/* How it works */}
         {/* Why us */}
         <div>
           <h1 className="font-bold text-3xl">Why Us</h1>
@@ -182,7 +203,7 @@ const HomePage = async (props: Props) => {
                 Get in touch
               </h2>
               <p className="bg-gradient-to-r from-green-500 to-slate-950 bg-clip-text text-4xl font-extrabold text-transparent sm:text-6xl">
-                Let's take your business to the moon
+                {`Let's take your business to the moon`}
               </p>
               <a
                 href="#"

@@ -76,7 +76,10 @@ export const objectToFormData = (
   return formData;
 };
 
-function findRepeated<T>(data: T[], predicate: (a: T, b: T) => boolean): T[] {
+export function findRepeated<T>(
+  data: T[],
+  predicate: (a: T, b: T) => boolean,
+): T[] {
   /**
    This function finds elements that are repeated in an array based on a predicate.
 
@@ -113,7 +116,6 @@ function findRepeated<T>(data: T[], predicate: (a: T, b: T) => boolean): T[] {
 
   return Array.from(repeatedElements); // Convert Set to array
 }
-
 
 export const formartCurrency = (amount: number) => {
   const formatted = new Intl.NumberFormat("en-US", {

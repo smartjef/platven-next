@@ -1,12 +1,10 @@
 import BreadCrumb from "@/components/breadcrumb";
 import PropertyTable from "@/components/tables/properties-table/property-table";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { getSessionUser } from "@/lib/auth-utils";
 import prisma from "@/prisma/client";
 import React, { FC } from "react";
 
-import MakePaymentForm from "@/components/forms/payment/make-payment-form";
 
 type Props = {};
 const breadcrumbItems = [

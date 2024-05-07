@@ -1,13 +1,12 @@
 "use client";
 
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 
 import { Property, PropertyType } from "@prisma/client";
 import { ColumnDef } from "@tanstack/react-table";
 import clsx from "clsx";
-import { MoreHorizontal, BadgeCheck, BadgeX } from "lucide-react";
+import { BadgeCheck, BadgeX } from "lucide-react";
 import moment from "moment";
 import PropertyActions from "./property-actions";
 

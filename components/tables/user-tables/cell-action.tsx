@@ -12,7 +12,6 @@ import { useToast } from "@/components/ui/use-toast";
 import { objectToFormData } from "@/lib/utils";
 import { User } from "@prisma/client";
 import {
-  ActivitySquare,
   BadgeCheck,
   BadgeX,
   Edit,

@@ -9,7 +9,6 @@ import {
   getSortedRowModel,
   useReactTable,
   VisibilityState,
-  Row,
 } from "@tanstack/react-table";
 
 import {

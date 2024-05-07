@@ -1,13 +1,10 @@
 import BreadCrumb from "@/components/breadcrumb";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { getSessionUser } from "@/lib/auth-utils";
 import prisma from "@/prisma/client";
-import clsx from "clsx";
-import { Plus, Trash2, PencilLine } from "lucide-react";
+import { Plus } from "lucide-react";
 import moment from "moment/moment";
 import Image from "next/image";
 import Link from "next/link";

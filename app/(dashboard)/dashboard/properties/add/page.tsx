@@ -1,6 +1,5 @@
 import BreadCrumb from "@/components/breadcrumb";
 import PropertyForm from "@/components/forms/properties/properties-form";
-import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import React from "react";
 

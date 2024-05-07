@@ -31,11 +31,14 @@ const HomeFilterForm = () => {
       county: "",
       search: "",
       subCounty: "",
-      status: "onRent",
-      typeId: "",
+      
+      // status: "onRent",
+      // typeId: "",
     },
   });
-  const onSubmit = async (data: UserFormValue) => {};
+  const onSubmit = async (data: UserFormValue) => {
+    console.log(data);
+  };
   return (
     <div>
       <Form {...form}>
