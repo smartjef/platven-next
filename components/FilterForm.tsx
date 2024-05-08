@@ -24,6 +24,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useDebouncedCallback } from "use-debounce";
+import { PropertyType } from "@prisma/client";
 const ReactSelect = dynamic(() => import("react-select"), {
   ssr: false, // Prevent SSR
 });
@@ -36,6 +37,18 @@ const FilterForm = () => {
   const { replace } = useRouter();
   const pathName = usePathname();
 
+  const [types, setTypes] = useState<PropertyType[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      const response = await fetch("/api/property-types");
+      if (response.ok) {
+        const data: PropertyType[] = await response.json();
+        setTypes(data);
+      }
+    })();
+  }, []);
+
   const handleSearch = useDebouncedCallback((key, value) => {
     const queryParams = new URLSearchParams(searchParams);
     if (value) {
@@ -45,8 +58,6 @@ const FilterForm = () => {
     }
     replace(`${pathName}?${queryParams.toString()}`);
   }, 300);
-
-  const amenitiesParams = searchParams.get("amenities")?.split(",") ?? [];
 
   return (
     <div className="w-full border rounded-lg shadow">
@@ -65,56 +76,54 @@ const FilterForm = () => {
           defaultValue={searchParams.get("search") ?? ""}
           onChange={({ target: { value, name } }) => handleSearch(name, value)}
         />
-        <div className="w-full my-4">
-          <ReactSelect
-            className="dark:text-primary-foreground"
-            placeholder="Type tags..."
-            defaultValue={(searchParams.get("tags")?.split(",") ?? []).map(
-              (val) => ({
-                label: val,
-                value: val,
-              }),
-            )}
-            options={[].map(({ id, label }) => ({
-              label,
-              value: id,
-            }))}
-            onChange={(newValues: any) =>
-              handleSearch(
-                "tags",
-                newValues.map((val: any) => val.value).join(","),
-              )
-            }
-            //   inputValue={search}
-            //   onInputChange={(value) => setSearch(value)}
-            //   value={{ label: selected?.display, value: selected?.display }}
 
-            isMulti={true}
-            //   isLoading={loading}
-            //   options={places.map((place) => ({
-            //     value: place.display,
-            //     label: place.display,
-            //   }))}
-          />
-        </div>
         <div className="w-full my-4">
           <Select
             name="status"
-            defaultValue={searchParams.get("status") ?? ""}
+            defaultValue={searchParams.get("status") ?? undefined}
             onValueChange={(value) => handleSearch("status", value)}
           >
             <SelectTrigger>
-              <SelectValue placeholder="Select Status" />
+              <SelectValue
+                placeholder="Select Status"
+                defaultValue={searchParams.get("status") ?? undefined}
+              />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
                 <SelectLabel>Property status</SelectLabel>
-                {[].map(({ id, label }, index) => (
+                {[
+                  { id: "onSale", label: "On sale" },
+                  { id: "onRent", label: "On rent" },
+                ].map(({ id, label }, index) => (
                   <SelectItem key={index} value={id}>
                     {label}
                   </SelectItem>
                 ))}
               </SelectGroup>
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="w-full my-4">
+          <Select
+            name="typeId"
+            // disabled={loading}
+            onValueChange={(value) => handleSearch("typeId", value)}
+            defaultValue={searchParams.get("typeId") ?? undefined}
+          >
+            <SelectTrigger>
+              <SelectValue
+                defaultValue={searchParams.get("status") ?? undefined}
+                placeholder="Select type"
+              />
+            </SelectTrigger>
+            <SelectContent>
+              {/* @ts-ignore  */}
+              {types.map((type) => (
+                <SelectItem key={type.id} value={type.id}>
+                  {type.title}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
         </div>
@@ -128,6 +137,7 @@ const FilterForm = () => {
           <Input
             name="minPrice"
             type="number"
+            placeholder="Min price"
             defaultValue={searchParams.get("minPrice") ?? ""}
             onChange={({ target: { value, name } }) =>
               handleSearch(name, value)
@@ -136,6 +146,7 @@ const FilterForm = () => {
           <Input
             type="number"
             name="maxPrice"
+            placeholder="Max price"
             defaultValue={searchParams.get("maxPrice") ?? ""}
             onChange={({ target: { value, name } }) =>
               handleSearch(name, value)
@@ -144,69 +155,6 @@ const FilterForm = () => {
         </div>
       </div>
       <Separator className="mt-4" />
-
-      {/* Categories */}
-      {/* <div className="p-2">
-        <Accordion type="single" collapsible>
-          <AccordionItem value="item-1" className="border-none">
-            <AccordionTrigger className="hover:no-underline p-0 m-0">
-              <span className="uppercase opacity-30">Type</span>
-            </AccordionTrigger>
-            <AccordionContent>
-              <ul>
-                {propertyTypes.map(({ id, label }, index) => (
-                  <li key={index} className="items-center space-x-2">
-                    <Checkbox />
-                    <span>{label}</span>
-                  </li>
-                ))}
-              </ul>
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
-      </div>
-      <Separator className="" /> */}
-
-      {/* Categories */}
-      <div className="p-2 ">
-        <Accordion type="single" collapsible>
-          <AccordionItem value="item-1" className="border-none">
-            <AccordionTrigger className="hover:no-underline p-0 m-0">
-              <span className="uppercase opacity-30">Amenities</span>
-            </AccordionTrigger>
-            <AccordionContent>
-              <ul>
-                {[].map(({ id, label }, index) => {
-                  const checked = amenitiesParams?.includes(id);
-                  return (
-                    <li key={index} className="items-center space-x-2">
-                      <Checkbox
-                        checked={checked}
-                        onClick={() => {
-                          // If checked uncheck
-                          if (checked)
-                            handleSearch(
-                              "amenities",
-                              amenitiesParams
-                                ?.filter((ame) => ame !== id)
-                                .join(","),
-                            );
-                          else
-                            handleSearch(
-                              "amenities",
-                              [...amenitiesParams, id].join(","),
-                            );
-                        }}
-                      />
-                      <span>{label}</span>
-                    </li>
-                  );
-                })}
-              </ul>
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
-      </div>
     </div>
   );
 };

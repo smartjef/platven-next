@@ -18,7 +18,8 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import TypeStatusInput from "./type-status";
 import PropertyLocationPicker from "./location-picker";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Search } from "lucide-react";
+import { pickBy } from "lodash";
 
 const formSchema = propertyFilterSchema;
 type UserFormValue = z.infer<typeof formSchema>;
@@ -37,7 +38,8 @@ const HomeFilterForm = () => {
     },
   });
   const onSubmit = async (data: UserFormValue) => {
-    console.log(data);
+    const search = new URLSearchParams(pickBy<any>(data, value=>value));
+    push(`/properties?${search.toString()}`);
   };
   return (
     <div>
