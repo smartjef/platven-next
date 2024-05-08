@@ -6,8 +6,11 @@ export const propertyFormSchema = z.object({
   status: z.enum(["onRent", "onSale"]).default("onRent"),
   price: z.number({ coerce: true }),
   features: z.string(),
-  county: z.string(),
-  subCounty: z.string(),
+  county: z.string().min(1, "County Required"),
+  subCounty: z.string().min(1, "Sub county required"),
+  landMark: z.string().min(1, "Landmark required"),
+  roadAccessNature: z.enum(["Highway", "Tarmac"]),
+  size: z.string().optional(),
   listed: z.boolean({ coerce: true }),
 });
 

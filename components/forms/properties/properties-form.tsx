@@ -29,6 +29,14 @@ import PropertyLocationPicker from "./location-picker";
 import TypeStatusInput from "./type-status";
 import { Textarea } from "@/components/ui/textarea";
 
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
 type Props = {
   property?: Property;
 };
@@ -49,7 +57,10 @@ const PropertyForm: FC<Props> = ({ property }) => {
       listed: property?.listed ?? true,
       status: property?.status ?? "onRent",
       subCounty: property?.subCounty ?? "",
-      typeId: property?.typeId ?? "",
+      landMark: property?.landMark ?? "",
+      typeId: property?.typeId ?? undefined,
+      roadAccessNature: property?.roadAccessNature ?? "Tarmac",
+      size: property?.size ?? undefined,
     },
   });
   const { toast } = useToast();
@@ -105,12 +116,12 @@ const PropertyForm: FC<Props> = ({ property }) => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2 w-full">
-        <div className="flex flex-col space-y-4">
-          <Card>
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-4">
+          <Card className="lg:col-span-2 h-fit">
             <CardHeader>
               <CardTitle>Property images</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="space-y-6">
               <div className="flex space-x-3 overflow-x-auto">
                 {property?.images.map((image, index) => (
                   <div
@@ -139,9 +150,16 @@ const PropertyForm: FC<Props> = ({ property }) => {
                     );
                 }}
               />
+              <Button
+                disabled={form.formState.isSubmitting}
+                className="ml-auto w-full"
+                type="submit"
+              >
+                Submit
+              </Button>
             </CardContent>
           </Card>
-          <Card>
+          <Card className="lg:col-span-3">
             <CardHeader>
               <CardTitle>Property Details</CardTitle>
             </CardHeader>
@@ -163,28 +181,106 @@ const PropertyForm: FC<Props> = ({ property }) => {
                   </FormItem>
                 )}
               />
-              <FormField
-                control={form.control}
-                name="price"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Price</FormLabel>
-                    <FormControl>
-                      <Input
-                        type="number"
-                        placeholder="e.g 4000"
-                        disabled={form.formState.isSubmitting}
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-3">
+                <FormField
+                  control={form.control}
+                  name="price"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Price</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="number"
+                          placeholder="e.g 4000"
+                          disabled={form.formState.isSubmitting}
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="size"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>
+                        Size (sqft size if Landed else capacity)
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          type="text"
+                          placeholder="e.g 4000"
+                          disabled={form.formState.isSubmitting}
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />{" "}
+              </div>
 
               <TypeStatusInput />
 
               <PropertyLocationPicker />
+              <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-3">
+                <FormField
+                  control={form.control}
+                  name="landMark"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Landmark</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="text"
+                          placeholder="Enter popular landmark"
+                          disabled={form.formState.isSubmitting}
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="roadAccessNature"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Nature of road access</FormLabel>
+                      <Select
+                        // disabled={loading}
+                        onValueChange={field.onChange}
+                        value={field.value}
+                        defaultValue={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue
+                              defaultValue={field.value}
+                              placeholder="Select status"
+                            />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {/* @ts-ignore  */}
+                          {[
+                            { name: "Highway", id: "Highway" },
+                            { name: "Tarmac", id: "Tarmac" },
+                          ].map((city) => (
+                            <SelectItem key={city.id} value={city.id}>
+                              {city.name}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
 
               <FormField
                 control={form.control}
@@ -227,14 +323,6 @@ const PropertyForm: FC<Props> = ({ property }) => {
               />
             </CardContent>
           </Card>
-
-          <Button
-            disabled={form.formState.isSubmitting}
-            className="ml-auto w-full"
-            type="submit"
-          >
-            Submit
-          </Button>
         </div>
       </form>
     </Form>
