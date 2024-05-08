@@ -21,12 +21,18 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import PropertyRequestTable from "@/components/tables/property-requests/property-request-table";
+import { getSessionUser } from "@/lib/auth-utils";
+import { notFound } from "next/navigation";
 
 const breadcrumbItems = [
   { title: "Properties", link: "/dashboard/properties" },
   { title: "Requests", link: "/dashboard/properties/add" },
 ];
 const PropertyRequestsPage: FC<PropsWithSearchParams> = async () => {
+  const user = await getSessionUser();
+
+  if (!user || !user.isStaff) return notFound();
+
   const propertyRequest = await prisma.propertyRequest.findMany({
     include: { property: true },
   });

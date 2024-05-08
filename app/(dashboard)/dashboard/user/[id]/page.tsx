@@ -11,6 +11,7 @@ const breadcrumbItems = [
   { title: "Update", link: "/dashboard/user/create" },
 ];
 const UpdateStaffPage: FC<PropsWithPathParams> = async ({ params: { id } }) => {
+
   const user = await prisma.user.findUnique({
     where: { id },
     include: { team: true },

@@ -3,10 +3,15 @@ import { UserClient } from "@/components/tables/user-tables/client";
 import StaffDataTable from "@/components/tables/user-tables/staffs-data-table";
 import { Heading } from "@/components/ui/heading";
 import { Separator } from "@/components/ui/separator";
+import { getSessionUser } from "@/lib/auth-utils";
 import prisma from "@/prisma/client";
+import { notFound } from "next/navigation";
 
 const breadcrumbItems = [{ title: "User", link: "/dashboard/user" }];
 export default async function page() {
+  const user = await getSessionUser();
+
+  if (!user || !user.isStaff) return notFound();
   const users = await prisma.user.findMany({
     where: { isStaff: true },
     include: { team: true },

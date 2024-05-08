@@ -5,12 +5,15 @@ import { Heading } from "@/components/ui/heading";
 import BreadCrumb from "@/components/breadcrumb";
 import MessagesTable from "@/components/tables/messages/messages-table";
 import prisma from "@/prisma/client";
+import { getSessionUser } from "@/lib/auth-utils";
+import { notFound } from "next/navigation";
 const breadcrumbItems = [{ title: "Messages", link: "/dashboard/contact" }];
 
-
-
-
 const Contact = async () => {
+  const user = await getSessionUser();
+
+  if (!user || !user.isStaff) return notFound();
+
   const contacts = await prisma.contact.findMany();
   return (
     <ScrollArea className="h-full">
