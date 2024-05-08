@@ -88,6 +88,14 @@ export const POST = async (request: NextRequest) => {
     });
     if (_user)
       errors["phoneNumber"] = { _errors: ["User with phoneNumber exists"] };
+    _user = await prisma.user.findFirst({
+      where: {
+        identificationNumber: validation.data.identificationNumber,
+        id: { not: user_.id },
+      },
+    });
+    if (_user)
+      errors["identificationNumber"] = { _errors: ["User with number exists"] };
 
     if (!isEmpty(errors)) return NextResponse.json(errors, { status: 400 });
 

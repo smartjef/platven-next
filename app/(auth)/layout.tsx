@@ -5,13 +5,12 @@ import { cn } from "@/lib/utils";
 import Logo from "@/components/Logo";
 import Image from "next/image";
 import bg from "@/public/r-architecture-2gDwlIim3Uw-unsplash.jpg";
-import { getSessionUser } from "@/lib/auth-utils";
-import { redirect } from "next/navigation";
+import AuthStateChecker from "@/components/forms/auth/AuthStateChecker";
+
 const AuthLayout: FC<PropsWithChildren> = async ({ children }) => {
-  const user = await getSessionUser();
-  if (user) redirect("/");
   return (
     <>
+      <AuthStateChecker />
       <div className="relative h-screen flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0 overflow-auto ">
         <Link
           href="/examples/authentication"

@@ -25,6 +25,13 @@ import Image from "next/image";
 import { User2 } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 type Props = {
   user?: User;
@@ -45,9 +52,13 @@ const ProfileForm: FC<Props> = ({ user }) => {
       address: user?.address ?? "",
       name: user?.name ?? "",
       phoneNumber: user?.phoneNumber ?? "",
+      identificationNumber: user?.identificationNumber ?? "",
+      type: user?.type ?? "Individual",
     },
   });
   const { toast } = useToast();
+  const { watch } = form;
+  const userType = watch("type");
 
   const onSubmit = async (data: UserFormValue) => {
     try {
@@ -89,13 +100,115 @@ const ProfileForm: FC<Props> = ({ user }) => {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2 w-full">
         <div className="flex flex-col space-y-2 ">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-3 pt-8">
+            <div className="col-span-2">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Profile picture</CardTitle>
+                </CardHeader>
+
+                <CardContent className="space-y-10">
+                  <div className="w-28 h-28 bg-accent rounded-full overflow-clip mb-3">
+                    {user?.image ? (
+                      <Image
+                        src={{
+                          src: `/${user?.image}`,
+                          width: 100,
+                          height: 100,
+                        }}
+                        className="w-full h-full object-cover"
+                        alt="profile picture"
+                      />
+                    ) : (
+                      <User2 className="w-full h-full opacity-70" />
+                    )}
+                  </div>
+                  <FileInput
+                    maxFiles={1}
+                    value={image ? [image] : []}
+                    onValueChange={(files) => {
+                      if (
+                        files.length > 0 &&
+                        files[files.length - 1].type.includes("image")
+                      )
+                        setImage(files[files.length - 1]);
+                      else setImage(undefined);
+                    }}
+                  />
+                  <Button
+                    disabled={form.formState.isSubmitting}
+                    className="ml-auto w-full"
+                    type="submit"
+                  >
+                    Update
+                  </Button>
+                </CardContent>
+              </Card>
+            </div>
             <div className="col-span-3">
               <Card>
                 <CardHeader>
                   <CardTitle>Update Profile</CardTitle>
                 </CardHeader>
-                <Separator />
                 <CardContent>
+                  <FormField
+                    control={form.control}
+                    name="type"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>User type</FormLabel>
+                        <Select
+                          // disabled={loading}
+                          onValueChange={field.onChange}
+                          value={field.value}
+                          defaultValue={field.value}
+                        >
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue
+                                defaultValue={field.value}
+                                placeholder="Select user type"
+                              />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            {/* @ts-ignore  */}
+                            {[
+                              { name: "Organization", id: "Organization" },
+                              { name: "Individual", id: "Individual" },
+                            ].map((city) => (
+                              <SelectItem key={city.id} value={city.id}>
+                                {city.name}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="identificationNumber"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>
+                          {userType === "Individual"
+                            ? "National id"
+                            : "Registration Number"}
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            type="number"
+                            placeholder={"Enter number ..."}
+                            disabled={form.formState.isSubmitting}
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
                   <FormField
                     control={form.control}
                     name="name"
@@ -148,6 +261,7 @@ const ProfileForm: FC<Props> = ({ user }) => {
                       </FormItem>
                     )}
                   />
+
                   <FormField
                     control={form.control}
                     name="address"
@@ -168,51 +282,7 @@ const ProfileForm: FC<Props> = ({ user }) => {
                 </CardContent>
               </Card>
             </div>
-            <div className="col-span-2">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Profile picture</CardTitle>
-                </CardHeader>
-
-                <CardContent>
-                  <div className="w-28 h-28 bg-accent rounded-full overflow-clip mb-3">
-                    {user?.image ? (
-                      <Image
-                        src={{
-                          src: `/${user?.image}`,
-                          width: 100,
-                          height: 100,
-                        }}
-                        className="w-full h-full object-cover"
-                        alt="profile picture"
-                      />
-                    ) : (
-                      <User2 className="w-full h-full opacity-70" />
-                    )}
-                  </div>
-                  <FileInput
-                    maxFiles={1}
-                    value={image ? [image] : []}
-                    onValueChange={(files) => {
-                      if (
-                        files.length > 0 &&
-                        files[files.length - 1].type.includes("image")
-                      )
-                        setImage(files[files.length - 1]);
-                      else setImage(undefined);
-                    }}
-                  />
-                </CardContent>
-              </Card>
-            </div>
           </div>
-          <Button
-            disabled={form.formState.isSubmitting}
-            className="ml-auto w-full"
-            type="submit"
-          >
-            Update
-          </Button>
         </div>
       </form>
     </Form>

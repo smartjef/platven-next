@@ -16,7 +16,8 @@ export async function POST(request: NextRequest) {
   //   Validate with zode
   if (!validation.success)
     return NextResponse.json(validation.error.format(), { status: 400 });
-  const { email, password, phoneNumber } = validation.data;
+  const { email, password, phoneNumber, identificationNumber, name, type } =
+    validation.data;
   const errors: any = {};
   let user = await prisma.user.findUnique({
     where: {
@@ -31,6 +32,13 @@ export async function POST(request: NextRequest) {
   });
   if (user)
     errors["phoneNumber"] = { _errors: ["User with phone number exist"] };
+  user = await prisma.user.findUnique({
+    where: {
+      identificationNumber,
+    },
+  });
+  if (user)
+    errors["identificationNumber"] = { _errors: ["User with ID number exist"] };
   //   Check password
   if (!isEmpty(errors)) return NextResponse.json(errors, { status: 400 });
 
@@ -38,6 +46,9 @@ export async function POST(request: NextRequest) {
     data: {
       email,
       phoneNumber,
+      type,
+      identificationNumber,
+      name,
       password: await hashPassword(password),
     },
   });
