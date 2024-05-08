@@ -28,12 +28,35 @@ const breadcrumbItems = [
   { title: "Properties", link: "/dashboard/properties" },
   { title: "Requests", link: "/dashboard/properties/add" },
 ];
-const PropertyRequestsPage: FC<PropsWithSearchParams> = async () => {
+const PropertyRequestsPage: FC<PropsWithSearchParams> = async ({
+  searchParams,
+}) => {
   const user = await getSessionUser();
 
   if (!user || !user.isStaff) return notFound();
 
   const propertyRequest = await prisma.propertyRequest.findMany({
+    where: {
+      OR: [
+        { message: { contains: searchParams?.search, mode: "insensitive" } },
+        { name: { contains: searchParams?.search, mode: "insensitive" } },
+
+        {
+          email: {
+            contains: searchParams?.search,
+            mode: "insensitive",
+          },
+        },
+        {
+          phoneNumber: { contains: searchParams?.search, mode: "insensitive" },
+        },
+        {
+          property: {
+            title: { contains: searchParams?.search, mode: "insensitive" },
+          },
+        },
+      ],
+    },
     include: { property: true },
   });
   return (
