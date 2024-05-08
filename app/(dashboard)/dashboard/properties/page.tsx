@@ -14,7 +14,7 @@ const Properties: FC<PropsWithSearchParams> = async ({ searchParams }) => {
   const user = await getSessionUser();
   const properties = await prisma.property.findMany({
     where: {
-      userId: user?.isActive ? undefined : user?.id,
+      userId: user?.isStaff ? undefined : user?.id,
       OR: [
         { title: { contains: searchParams?.search, mode: "insensitive" } },
         { county: { contains: searchParams?.search, mode: "insensitive" } },

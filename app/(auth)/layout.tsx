@@ -1,18 +1,18 @@
 import React, { FC, PropsWithChildren } from "react";
-import { Metadata } from "next";
 import Link from "next/link";
-import UserAuthForm from "@/components/forms/user-auth-form";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import Logo from "@/components/Logo";
 import Image from "next/image";
 import bg from "@/public/r-architecture-2gDwlIim3Uw-unsplash.jpg";
-import AuthStateChecker from "@/components/forms/auth/AuthStateChecker";
-const AuthLayout: FC<PropsWithChildren> = ({ children }) => {
+import { getSessionUser } from "@/lib/auth-utils";
+import { redirect } from "next/navigation";
+const AuthLayout: FC<PropsWithChildren> = async ({ children }) => {
+  const user = await getSessionUser();
+  if (user) redirect("/");
   return (
     <>
-      <AuthStateChecker />
-      <div className="relative h-screen flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
+      <div className="relative h-screen flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0 overflow-auto ">
         <Link
           href="/examples/authentication"
           className={cn(
@@ -43,8 +43,8 @@ const AuthLayout: FC<PropsWithChildren> = ({ children }) => {
             </blockquote>
           </div>
         </div>
-        <div className="p-4 lg:p-8 h-full flex items-center">
-          <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
+        <div className="p-4 lg:p-8 h-full flex items-center ">
+          <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:max-w-[400px]">
             {children}
             <p className="px-8 text-center text-sm text-muted-foreground">
               By clicking continue, you agree to our{" "}

@@ -10,8 +10,11 @@ export const loginSchema = z.object({
 
 export const registerSchema = z
   .object({
+    name: z.string().min(1, "Required"),
     email: z.string().email({ message: "Enter a valid email address" }),
     phoneNumber: z.string().min(10, { message: "Enter a valid phone number" }),
+    type: z.enum(["Organization", "Individual"]),
+    identificationNumber: z.string().min(1, "Required"),
     password: z
       .string()
       .min(1, { message: "Passwod required" })

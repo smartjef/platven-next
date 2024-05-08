@@ -40,20 +40,23 @@ model Account {
 }
 
 model User {
-  id          String     @id @default(uuid()) @db.Uuid
-  name        String?
-  email       String     @unique
-  phoneNumber String?    @unique
-  address     String?
-  password    String?    @db.VarChar(256)
-  isActive    Boolean    @default(true)
-  isStaff     Boolean    @default(false)
-  image       String?
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
-  team        Team?
-  properties  Property[]
-  accounts    Account[]
+  id                   String     @id @default(uuid()) @db.Uuid
+  name                 String
+  email                String     @unique
+  phoneNumber          String?    @unique
+  address              String?
+  password             String?    @db.VarChar(256)
+  isActive             Boolean    @default(true)
+  isStaff              Boolean    @default(false)
+  isSuperUser          Boolean    @default(false)
+  type                 UserType
+  image                String?
+  identificationNumber String     @unique
+  createdAt            DateTime   @default(now())
+  updatedAt            DateTime   @updatedAt
+  team                 Team?
+  properties           Property[]
+  accounts             Account[]
 }
 
 model Team {
@@ -92,30 +95,43 @@ model PropertyType {
 }
 
 model Property {
-  id              String            @id @default(uuid()) @db.Uuid
-  title           String
-  userId          String            @db.Uuid
-  user            User              @relation(fields: [userId], references: [id], onDelete: Cascade)
-  typeId          String            @db.Uuid
-  type            PropertyType      @relation(fields: [typeId], onDelete: Cascade, references: [id])
-  status          PropertyStatus    @default(onRent)
-  price           Decimal           @db.Money
-  features        String?           @db.Text
-  county          String
-  subCounty       String
-  images          String[]          @default([])
-  listed          Boolean           @default(true)
-  isActive        Boolean           @default(false)
-  rejectionReason String?           @db.Text
-  createdAt       DateTime          @default(now())
-  updatedAt       DateTime          @updatedAt
-  requests        PropertyRequest[]
-  payment         Payment?
+  id               String                   @id @default(uuid()) @db.Uuid
+  title            String
+  userId           String                   @db.Uuid
+  user             User                     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  typeId           String                   @db.Uuid
+  type             PropertyType             @relation(fields: [typeId], onDelete: Cascade, references: [id])
+  status           PropertyStatus           @default(onRent)
+  price            Decimal                  @db.Money
+  features         String?                  @db.Text
+  county           String
+  subCounty        String
+  landMark         String
+  roadAccessNature PropertyRoadAccessNature
+  images           String[]                 @default([])
+  listed           Boolean                  @default(true)
+  isActive         Boolean                  @default(false)
+  rejectionReason  String?                  @db.Text
+  size             String?
+  createdAt        DateTime                 @default(now())
+  updatedAt        DateTime                 @updatedAt
+  requests         PropertyRequest[]
+  payment          Payment?
 }
 
 enum PropertyStatus {
   onRent
   onSale
+}
+
+enum PropertyRoadAccessNature {
+  Highway
+  Tarmac
+}
+
+enum UserType {
+  Organization
+  Individual
 }
 
 model PropertyRequest {

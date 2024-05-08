@@ -16,6 +16,13 @@ import { z } from "zod";
 import { registerSchema } from "./schema";
 import useSessionContext from "@/hooks/useSessionContext";
 import { User } from "@prisma/client";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 type Props = {};
 
@@ -33,9 +40,13 @@ const RegisterForm = (props: Props) => {
       password: "",
       confirmPassword: "",
       phoneNumber: "",
+      identificationNumber: "",
+      name: "",
+      type: "Individual",
     },
   });
-
+  const { watch } = form;
+  const userType = watch("type");
   const onSubmit = async (data: UserFormValue) => {
     try {
       const response = await fetch("/api/auth/register", {
@@ -71,6 +82,89 @@ const RegisterForm = (props: Props) => {
           onSubmit={form.handleSubmit(onSubmit)}
           className="space-y-2 w-full"
         >
+          <FormField
+            control={form.control}
+            name="type"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>User type</FormLabel>
+                <Select
+                  // disabled={loading}
+                  onValueChange={field.onChange}
+                  value={field.value}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue
+                        defaultValue={field.value}
+                        placeholder="Select user type"
+                      />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {/* @ts-ignore  */}
+                    {[
+                      { name: "Organization", id: "Organization" },
+                      { name: "Individual", id: "Individual" },
+                    ].map((city) => (
+                      <SelectItem key={city.id} value={city.id}>
+                        {city.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>
+                  {userType === "Individual" ? "Name" : "Organization name"}
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    type="text"
+                    placeholder={
+                      userType === "Individual"
+                        ? "e.g John Doe"
+                        : "e.g Platven Limited"
+                    }
+                    disabled={form.formState.isSubmitting}
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="identificationNumber"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>
+                  {userType === "Individual"
+                    ? "National id"
+                    : "Registration Number"}
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    type="number"
+                    placeholder={"Enter number ..."}
+                    disabled={form.formState.isSubmitting}
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           <FormField
             control={form.control}
             name="email"
