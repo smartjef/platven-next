@@ -20,7 +20,7 @@ export const DELETE = async (
       { detail: "Unauthorized" },
       { status: 401, headers: getExpiredCookieHeader(request) },
     );
-  if (!user.isStaff)
+  if (!user.isStaff&& !user.isSuperUser)
     return NextResponse.json(
       { detail: "You have no permision to delete property type" },
       { status: 403 },

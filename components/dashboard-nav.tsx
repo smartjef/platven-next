@@ -29,7 +29,13 @@ export function DashboardNav({ items, setOpen }: DashboardNavProps) {
           index,
         ) => {
           if (!user) return false;
-          const userRoles = [...(user.isStaff ? ["staff"] : ["client"])];
+          const userRoles = [
+            ...(user.isStaff
+              ? ["staff"]
+              : user.isSuperUser
+              ? ["admin"]
+              : ["client"]),
+          ];
           const isEligible = roles.some((r) => userRoles.includes(r));
 
           if (!isEligible) return false;

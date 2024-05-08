@@ -33,7 +33,7 @@ const PropertyRequestsPage: FC<PropsWithSearchParams> = async ({
 }) => {
   const user = await getSessionUser();
 
-  if (!user || !user.isStaff) return notFound();
+  if (!user?.isStaff && !user?.isSuperUser) return notFound();
 
   const propertyRequest = await prisma.propertyRequest.findMany({
     where: {

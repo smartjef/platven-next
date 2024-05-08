@@ -80,7 +80,7 @@ const MessageAction: FC<Props> = ({ message }) => {
         <DropdownMenuItem onClick={handleToggle}>
           {message.isAddressed ? "Mark Un addressed" : "Mark as Addressed"}
         </DropdownMenuItem>
-        {user?.isStaff && (
+        {(user?.isStaff  ||user?.isSuperUser) && (
           <DropdownMenuItem onClick={handleDelete}>Delete</DropdownMenuItem>
         )}
       </DropdownMenuContent>

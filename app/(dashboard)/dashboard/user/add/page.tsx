@@ -12,7 +12,7 @@ const breadcrumbItems = [
 ];
 export default async function Page() {
   const user = await getSessionUser();
-  if (!user || !user.isStaff) return notFound();
+  if (!user?.isStaff && !user?.isSuperUser) return notFound();
   return (
     <ScrollArea className="h-full">
       <div className="flex-1 space-y-4 p-5">

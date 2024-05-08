@@ -14,7 +14,7 @@ const breadcrumbItems = [{ title: "User", link: "/dashboard/user" }];
 export default async function page() {
   const user = await getSessionUser();
 
-  if (!user || !user.isStaff) return notFound();
+  if (!user?.isStaff&& !user?.isSuperUser) return notFound();
   const users = await prisma.user.findMany({ where: { isStaff: false } });
   return (
     <>

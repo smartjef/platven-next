@@ -13,7 +13,7 @@ const breadcrumbItems = [{ title: "Messages", link: "/dashboard/contact" }];
 const Contact: FC<PropsWithSearchParams> = async ({ searchParams }) => {
   const user = await getSessionUser();
 
-  if (!user || !user.isStaff) return notFound();
+  if (!user?.isSuperUser) return notFound();
 
   const contacts = await prisma.contact.findMany({
     where: {

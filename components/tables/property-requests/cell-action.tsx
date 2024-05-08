@@ -79,7 +79,7 @@ const PropertyRequestAction: FC<Props> = ({ message }) => {
         <DropdownMenuItem onClick={handleToggle}>
           {message.isActive ? "Mark Un addressed" : "Mark as Addressed"}
         </DropdownMenuItem>
-        {user?.isStaff && (
+        {(user?.isStaff || user?.isSuperUser) && (
           <DropdownMenuItem onClick={handleDelete}>Delete</DropdownMenuItem>
         )}
       </DropdownMenuContent>

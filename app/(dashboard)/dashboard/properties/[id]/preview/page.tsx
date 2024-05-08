@@ -121,7 +121,7 @@ const PropertyPreview: FC<PropsWithPathParams> = async ({ params: { id } }) => {
             </span>
           </div>
         </div>
-        {user?.isStaff && (
+        {(user?.isStaff || user?.isSuperUser) && (
           <PropertyPriviewAction
             user={user}
             property={JSON.parse(JSON.stringify(property))}

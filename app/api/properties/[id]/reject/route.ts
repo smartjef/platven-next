@@ -14,7 +14,7 @@ export const PUT = async (
       { detail: "Unauthorized" },
       { status: 401, headers: getExpiredCookieHeader(request) },
     );
-  if (!user.isStaff)
+  if (!user.isStaff&& !user.isSuperUser)
     return NextResponse.json(
       { detail: "You have no permision to perfom action" },
       { status: 403 },

@@ -15,7 +15,7 @@ const breadcrumbItems = [
 const UpdateStaffPage: FC<PropsWithPathParams> = async ({ params: { id } }) => {
   const _user = await getSessionUser();
 
-  if (!_user || !_user.isStaff) return notFound();
+  if (!_user?.isStaff && !_user?.isSuperUser) return notFound();
   const user = await prisma.user.findUnique({
     where: { id },
     include: { team: true },
