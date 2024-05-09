@@ -25,7 +25,12 @@ export const PUT = async (
 
   if (
     !z.string().uuid().safeParse(id).success ||
-    !(await prisma.property.findUnique({ where: { id, userId: user.id } }))
+    !(await prisma.property.findUnique({
+      where: {
+        id,
+        userId: user.isStaff || user.isSuperUser ? undefined : user.id,
+      },
+    }))
   )
     return NextResponse.json({ detail: "Property not found" }, { status: 404 });
 

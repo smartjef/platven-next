@@ -41,6 +41,8 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
         address: data.address,
         email: data.email,
         phoneNumber: data.phoneNumber,
+        identificationNumber: data.identificationNumber,
+        type: data.type,
       }),
     });
     if (response.ok) {

@@ -95,7 +95,7 @@ const PropertyForm: FC<Props> = ({ property }) => {
           const errors = await response.json();
           for (const key in errors) {
             const errorMessage = (errors[key]._errors as string[]).join(",");
-            if (key === "image")
+            if (key === "images")
               toast({
                 variant: "destructive",
                 title: "Success!.",

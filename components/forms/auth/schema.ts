@@ -25,3 +25,28 @@ export const registerSchema = z
     message: "Passwords must much",
     path: ["confirmPassword"],
   });
+
+export const changePasswordSchema = z
+  .object({
+    currentPassword: z.string().min(1, "Current password required"),
+    newPassword: z.string().min(1, "New password required"),
+    confirmNewPassword: z.string(),
+  })
+  .refine((data) => data.newPassword === data.confirmNewPassword, {
+    message: "Passwords must much",
+    path: ["confirmNewPassword"],
+  });
+
+export const requestSetPasswordSchema = z.object({
+  email: z.string().email({ message: "Enter a valid email address" }),
+});
+
+export const resetPasswordSchema = z
+  .object({
+    newPassword: z.string().min(1, "New password Required"),
+    confirmNewPassword: z.string(),
+  })
+  .refine((data) => data.newPassword === data.confirmNewPassword, {
+    message: "Passwords must much",
+    path: ["confirmNewPassword"],
+  });

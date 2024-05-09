@@ -30,8 +30,16 @@ export const POST = async (request: NextRequest) => {
   if (!validation.success)
     return NextResponse.json(validation.error.format(), { status: 400 });
 
-  const { position, email, phoneNumber, address, isActive, name } =
-    validation.data;
+  const {
+    position,
+    email,
+    phoneNumber,
+    address,
+    isActive,
+    name,
+    identificationNumber,
+    type,
+  } = validation.data;
 
   const errors: any = {};
 
@@ -39,6 +47,9 @@ export const POST = async (request: NextRequest) => {
   if (user_) errors["email"] = { _errors: ["User with email exists"] };
   user_ = await prisma.user.findUnique({ where: { phoneNumber } });
   if (user_) errors["phoneNumber"] = { _errors: ["User with phone exists"] };
+  user_ = await prisma.user.findUnique({ where: { identificationNumber } });
+  if (user_)
+    errors["identificationNumber"] = { _errors: ["User with number exists"] };
 
   if (!isEmpty(errors)) {
     return NextResponse.json(errors, { status: 400 });
@@ -79,9 +90,11 @@ export const POST = async (request: NextRequest) => {
       phoneNumber,
       address,
       name,
-      isStaff:true,
+      isStaff: true,
       team: { create: { image, position, isActive: isActive } },
       password: hash,
+      identificationNumber,
+      type,
     },
   });
 

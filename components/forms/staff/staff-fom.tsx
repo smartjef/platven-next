@@ -27,6 +27,13 @@ import { useToast } from "@/components/ui/use-toast";
 import { Checkbox } from "@/components/ui/checkbox";
 import { FileInput } from "@/components/filedropzone";
 import Image from "next/image";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const formSchema = staffFormSchema;
 
@@ -40,7 +47,6 @@ const StaffForm: FC<Props> = ({ user }) => {
   const [image, setImage] = useState<File>();
   const { replace } = useRouter();
   const { toast } = useToast();
-
   const form = useForm<StaffFormValue>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -50,8 +56,13 @@ const StaffForm: FC<Props> = ({ user }) => {
       phoneNumber: user?.phoneNumber ?? "",
       position: user?.team?.position ?? "",
       isActive: user?.team?.isActive ?? true,
+      type: user?.type ?? "Individual",
+      identificationNumber: user?.identificationNumber ?? "",
     },
+
   });
+  const { watch } = form;
+  const userType = watch("type");
 
   const onSubmit = async (data: StaffFormValue) => {
     try {
@@ -138,6 +149,65 @@ const StaffForm: FC<Props> = ({ user }) => {
                 setImage(files[files.length - 1]);
               else setImage(undefined);
             }}
+          />
+          <FormField
+            control={form.control}
+            name="type"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>User type</FormLabel>
+                <Select
+                  // disabled={loading}
+                  onValueChange={field.onChange}
+                  value={field.value}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue
+                        defaultValue={field.value}
+                        placeholder="Select user type"
+                      />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {/* @ts-ignore  */}
+                    {[
+                      { name: "Organization", id: "Organization" },
+                      { name: "Individual", id: "Individual" },
+                    ].map((city) => (
+                      <SelectItem key={city.id} value={city.id}>
+                        {city.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="identificationNumber"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>
+                  {userType === "Individual"
+                    ? "National id"
+                    : "Registration Number"}
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    type="number"
+                    placeholder={"Enter number ..."}
+                    disabled={form.formState.isSubmitting}
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
           />
           <FormField
             control={form.control}

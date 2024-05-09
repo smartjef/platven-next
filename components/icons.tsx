@@ -34,11 +34,26 @@ import {
   Home,
   CheckCircle,
   HeartHandshake,
+  BarChartBig,
+  Users,
+  Warehouse,
+  Blinds,
+  Info,
+  Mails,
+  Contact,
+  HomeIcon,
 } from "lucide-react";
 
 export type Icon = LucideIcon;
 
 export const Icons = {
+  home: HomeIcon,
+  messages: Mails,
+  contact: Contact,
+  about: Info,
+  propertyRequests: Blinds,
+  staff: Users,
+  propertyTypes: Warehouse,
   dashboard: LayoutDashboardIcon,
   logo: Command,
   login: LogIn,

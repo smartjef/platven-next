@@ -46,8 +46,16 @@ export const PUT = async (
 
   const currUser = await prisma.user.findUnique({ where: { id } });
 
-  const { position, email, phoneNumber, address, isActive, name } =
-    validation.data;
+  const {
+    position,
+    email,
+    phoneNumber,
+    address,
+    isActive,
+    name,
+    identificationNumber,
+    type,
+  } = validation.data;
 
   const errors: any = {};
 
@@ -59,6 +67,11 @@ export const PUT = async (
     where: { phoneNumber, id: { not: currUser!.id } },
   });
   if (user_) errors["phoneNumber"] = { _errors: ["User with phone exists"] };
+  user_ = await prisma.user.findFirst({
+    where: { identificationNumber, id: { not: currUser!.id } },
+  });
+  if (user_)
+    errors["identificationNumber"] = { _errors: ["User with number exists"] };
 
   if (!isEmpty(errors)) {
     return NextResponse.json(errors, { status: 400 });
@@ -86,7 +99,8 @@ export const PUT = async (
       phoneNumber,
       address,
       isStaff: true,
-
+      identificationNumber,
+      type,
       name,
       team: { update: { image, position, isActive } },
     },
