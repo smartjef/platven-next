@@ -12,16 +12,19 @@ import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import React from "react";
+import React, { FC } from "react";
 import { resetPasswordSchema } from "./schema";
 import { User } from "@prisma/client";
 import useSessionContext from "@/hooks/useSessionContext";
+import { useToast } from "@/components/ui/use-toast";
+import { useRouter } from "next/navigation";
 
 const formSchema = resetPasswordSchema;
 
 type UserFormValue = z.infer<typeof formSchema>;
-const ResetPasswordForm = () => {
-  const { signOut } = useSessionContext();
+const ResetPasswordForm: FC<{ token: string }> = ({ token }) => {
+  const { toast } = useToast();
+  const { push } = useRouter();
   const form = useForm<UserFormValue>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -32,13 +35,18 @@ const ResetPasswordForm = () => {
 
   const onSubmit = async (data: UserFormValue) => {
     try {
-      const response = await fetch("/api/auth/change-password", {
+      const response = await fetch(`/api/auth/reset-password/${token}`, {
         method: "POST",
         body: JSON.stringify(data),
         redirect: "follow",
       });
       if (response.ok) {
-        await response.json();
+        const { detail }: { detail: string } = await response.json();
+        toast({
+          title: "Success!",
+          description: detail,
+        });
+        push("/sign-in");
       } else {
         if (response.status === 400) {
           const errors = await response.json();
@@ -50,6 +58,14 @@ const ResetPasswordForm = () => {
               message: errorMessage,
             });
           }
+        } else if (response.status === 404) {
+          const { detail }: { detail: string } = await response.json();
+          toast({
+            variant: "destructive",
+            title: "Failure",
+            description: detail,
+          });
+          push("/request-reset-password");
         }
         console.log();
       }

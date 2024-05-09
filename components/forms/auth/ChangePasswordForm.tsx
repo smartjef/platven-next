@@ -45,7 +45,7 @@ const ChangePasswordForm = () => {
         const { detail }: { detail: string } = await response.json();
         toast({
           title: "Success!",
-          description: "Password changed successfully!",
+          description: detail,
         });
         signOut();
       } else {

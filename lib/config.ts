@@ -23,5 +23,18 @@ Thank you for your prompt attention to this request.
 Best regards,  
 Platven Support Team
         `,
+    RESET_PASSWORD: `
+Hi {{name}},
+
+We received a request to reset your password for your Platven account.
+
+If you requested this reset, please click the link below to choose a new password:
+
+Reset password Link: {{reset_password_link}}
+
+This link will expire in 2 hours.
+
+If you didn't request a password reset, you can safely ignore this email. However, we recommend that you keep your password strong and unique to protect your account.
+        `,
   },
 };

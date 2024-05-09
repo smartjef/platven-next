@@ -25,6 +25,12 @@ export default function AuthenticationPage() {
           Sign up
         </Link>
       </div>
+      <div className="flex pt-4 space-x-2 ">
+        <p>{`Fogot password?`}</p>
+        <Link href="/request-reset-password" className="underline opacity-50">
+          Reset
+        </Link>
+      </div>
     </div>
   );
 }

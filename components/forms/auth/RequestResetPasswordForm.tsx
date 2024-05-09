@@ -16,13 +16,16 @@ import React from "react";
 import { requestSetPasswordSchema } from "./schema";
 import { User } from "@prisma/client";
 import useSessionContext from "@/hooks/useSessionContext";
+import { useToast } from "@/components/ui/use-toast";
+import { useRouter } from "next/navigation";
 
 const formSchema = requestSetPasswordSchema;
 
 type UserFormValue = z.infer<typeof formSchema>;
 
 const RequestResetPasswordForm = () => {
-  const { signOut } = useSessionContext();
+  const { toast } = useToast();
+  const { push } = useRouter();
   const form = useForm<UserFormValue>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -38,8 +41,12 @@ const RequestResetPasswordForm = () => {
         redirect: "follow",
       });
       if (response.ok) {
-        await response.json();
-        signOut();
+        const { detail }: { detail: string } = await response.json();
+        toast({
+          title: "Success!",
+          description: detail,
+        });
+        push("/");
       } else {
         if (response.status === 400) {
           const errors = await response.json();
