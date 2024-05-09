@@ -42,11 +42,13 @@ import {
   Mails,
   Contact,
   HomeIcon,
+  LockKeyholeIcon
 } from "lucide-react";
 
 export type Icon = LucideIcon;
 
 export const Icons = {
+  lock:LockKeyholeIcon,
   home: HomeIcon,
   messages: Mails,
   contact: Contact,

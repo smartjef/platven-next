@@ -163,6 +163,7 @@ export const navItems: NavItem[] = [
     label: "property-type",
     roles: ["staff", "admin"],
   },
+
   {
     title: "Employee",
     href: "/dashboard/employee",
@@ -183,6 +184,13 @@ export const navItems: NavItem[] = [
     icon: "kanban",
     label: "kanban",
     roles: [],
+  },
+  {
+    title: "Change Password",
+    href: "/dashboard/change-password",
+    icon: "lock",
+    label: "change-password",
+    roles: ["staff", "admin", "client"],
   },
 ];
 

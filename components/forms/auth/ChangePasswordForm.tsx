@@ -16,6 +16,7 @@ import React from "react";
 import { changePasswordSchema } from "./schema";
 import { User } from "@prisma/client";
 import useSessionContext from "@/hooks/useSessionContext";
+import { useToast } from "@/components/ui/use-toast";
 
 const formSchema = changePasswordSchema;
 
@@ -23,6 +24,7 @@ type UserFormValue = z.infer<typeof formSchema>;
 
 const ChangePasswordForm = () => {
   const { signOut } = useSessionContext();
+  const { toast } = useToast();
   const form = useForm<UserFormValue>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -40,7 +42,11 @@ const ChangePasswordForm = () => {
         redirect: "follow",
       });
       if (response.ok) {
-        await response.json();
+        const { detail }: { detail: string } = await response.json();
+        toast({
+          title: "Success!",
+          description: "Password changed successfully!",
+        });
         signOut();
       } else {
         if (response.status === 400) {
