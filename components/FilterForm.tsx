@@ -106,6 +106,33 @@ const FilterForm = () => {
         </div>
         <div className="w-full my-4">
           <Select
+            name="roadAccessNature"
+            defaultValue={searchParams.get("roadAccessNature") ?? undefined}
+            onValueChange={(value) => handleSearch("roadAccessNature", value)}
+          >
+            <SelectTrigger>
+              <SelectValue
+                placeholder="Select road access nature"
+                defaultValue={searchParams.get("roadAccessNature") ?? undefined}
+              />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>Road access Nature</SelectLabel>
+                {[
+                  { id: "Highway", label: "Highway" },
+                  { id: "Tarmac", label: "Tarmac" },
+                ].map(({ id, label }, index) => (
+                  <SelectItem key={index} value={id}>
+                    {label}
+                  </SelectItem>
+                ))}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="w-full my-4">
+          <Select
             name="typeId"
             // disabled={loading}
             onValueChange={(value) => handleSearch("typeId", value)}

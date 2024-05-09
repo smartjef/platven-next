@@ -73,7 +73,29 @@ const PropertyDetailPage: FC<PropsWithPathParams> = async ({
           </div>
           <div className="p-4 shadow  shadow-slate-300 dark:shadow-slate-700  rounded-md space-y-4">
             <p className="font-bold text-xl">Property detail</p>
-            <p className="opacity-50">{property.features}</p>
+            <div className="space-y-3 ">
+              <div className="grid grid-cols-2">
+                <span>County</span>
+                <span>{property.county}</span>
+              </div>
+              <div className="grid grid-cols-2">
+                <span>Subcounty</span>
+                <span>{property.subCounty}</span>
+              </div>
+              <div className="grid grid-cols-2">
+                <span>Landmark</span>
+                <span>{property.landMark}</span>
+              </div>
+              <div className="grid grid-cols-2">
+                <span>Nature of road access</span>
+                <span>{property.roadAccessNature}</span>
+              </div>
+              <div className="grid grid-cols-2">
+                <span>Size</span>
+                <span>{property.size}</span>
+              </div>
+            </div>
+            <p className="opacity-50  bg-accent p-2">{property.features}</p>
           </div>
           <div className="p-4 space-y-4">
             <p className="font-bold text-xl">Related properties</p>

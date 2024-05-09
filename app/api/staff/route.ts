@@ -6,7 +6,9 @@ import {
   saveMediaFileName,
   strToBool,
 } from "@/lib/auth-utils";
+import config from "@/lib/config";
 import prisma from "@/prisma/client";
+import { parseMessage } from "@/services";
 import { sendMail } from "@/services/mail-service";
 import { isEmpty } from "lodash";
 import { NextRequest, NextResponse } from "next/server";
@@ -77,11 +79,6 @@ export const POST = async (request: NextRequest) => {
 
   const password = generateStrongPassword();
 
-  const info = await sendMail({
-    toEmail: email,
-    text: `Dear ${name}, Login to platven with email:${email} and password:${password} `,
-  });
-
   const hash = await hashPassword(password);
 
   const newUser = await prisma.user.create({
@@ -96,6 +93,28 @@ export const POST = async (request: NextRequest) => {
       identificationNumber,
       type,
     },
+  });
+
+  const message = parseMessage<{
+    staff_name: string;
+    staff_email: string;
+    staff_password: string;
+    platven_login_url: string;
+    support_email: string;
+  }>(
+    {
+      staff_email: newUser.email,
+      staff_name: newUser.name,
+      staff_password: password,
+      support_email: "uventures@gmail.com",
+      platven_login_url: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/sign-in`,
+    },
+    config.MESSAGE.STAFF_ACCOUNT_SETUP,
+  );
+
+  const info = await sendMail({
+    toEmail: email,
+    text: message,
   });
 
   return NextResponse.json(newUser);

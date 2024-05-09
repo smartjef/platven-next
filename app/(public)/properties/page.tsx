@@ -6,7 +6,7 @@ import prisma from "@/prisma/client";
 import { PropsWithSearchParams } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import React, { FC } from "react";
 import { z } from "zod";
 
@@ -15,15 +15,17 @@ const filterParams = z.object({
   minPrice: z.number({ coerce: true }).optional(),
   maxPrice: z.number({ coerce: true }).optional(),
   status: z.enum(["onSale", "onRent"]).optional(),
+  roadAccessNature: z.enum(["Highway", "Tarmac"]).optional(),
   typeId: z.string().uuid().optional(),
 });
 
 const PropertiesPage: FC<PropsWithSearchParams> = async ({ searchParams }) => {
   const validation = await filterParams.safeParseAsync(searchParams);
   if (!validation.success) {
-    redirect("/not-found");
+    return notFound();
   }
-  const { maxPrice, minPrice, search, typeId, status } = validation.data;
+  const { maxPrice, minPrice, search, typeId, status, roadAccessNature } =
+    validation.data;
   const properties = await prisma.property.findMany({
     include: { type: true },
     where: {
@@ -57,12 +59,25 @@ const PropertiesPage: FC<PropsWithSearchParams> = async ({ searchParams }) => {
                 mode: "insensitive",
               },
             },
+            {
+              landMark: {
+                contains: search,
+                mode: "insensitive",
+              },
+            },
+            {
+              size: {
+                contains: search,
+                mode: "insensitive",
+              },
+            },
           ],
         },
         { price: { gte: minPrice } },
         { price: { lte: maxPrice } },
         { typeId },
         { status },
+        { roadAccessNature },
       ],
     },
   });

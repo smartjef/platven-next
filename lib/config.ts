@@ -36,5 +36,30 @@ This link will expire in 2 hours.
 
 If you didn't request a password reset, you can safely ignore this email. However, we recommend that you keep your password strong and unique to protect your account.
         `,
+    STAFF_ACCOUNT_SETUP: `
+  Hi {{staff_name}},
+
+  We're thrilled to welcome you to the Platven team!
+  
+  This email contains your temporary login credentials to get you started on our platform.
+  
+  Email: {{staff_email}}
+  Password: {{staff_password}}
+
+  Important:
+  
+  For security reasons, we strongly recommend that you change your password upon your first login. You can easily do this by navigating to your profile settings after logging in.
+  Keep your password confidential and avoid sharing it with anyone.
+  Getting Started:
+  
+  To access the Platven platform, use the provided credentials and visit:
+  
+  {{platven_login_url}}
+  
+  We recommend exploring the platform and familiarizing yourself with the resources available to you. If you have any questions or need assistance getting started, please don't hesitate to reach out to your manager or the Platven support team at {{support_email}}.
+  
+    
+  The Platven Team
+  `,
   },
 };

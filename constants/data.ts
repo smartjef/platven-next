@@ -147,7 +147,7 @@ export const navItems: NavItem[] = [
     href: "/dashboard/properties/types",
     icon: "propertyTypes",
     label: "property-requests",
-    roles: ["staff", "admin"],
+    roles: ["admin"],
   },
   {
     title: "Property Request",

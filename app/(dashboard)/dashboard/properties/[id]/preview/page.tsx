@@ -50,6 +50,18 @@ const PropertyPreview: FC<PropsWithPathParams> = async ({ params: { id } }) => {
             <span>{Number(property.price)}</span>
           </div>
           <div className="grid grid-cols-2">
+            <span>Size/Capacity</span>
+            <span>{property.size}</span>
+          </div>
+          <div className="grid grid-cols-2">
+            <span>Land mark</span>
+            <span>{property.landMark}</span>
+          </div>
+          <div className="grid grid-cols-2">
+            <span>Nature of road access</span>
+            <span>{property.roadAccessNature}</span>
+          </div>
+          <div className="grid grid-cols-2">
             <span>Status</span>
             <span>{property.status}</span>
           </div>
