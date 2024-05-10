@@ -1,19 +1,25 @@
 import AuthStateChecker from "@/components/forms/auth/AuthStateChecker";
 import Logo from "@/components/Logo";
 import { buttonVariants } from "@/components/ui/button";
+import { getSessionUser } from "@/lib/auth-utils";
 import { cn } from "@/lib/utils";
 import bg from "@/public/r-architecture-2gDwlIim3Uw-unsplash.jpg";
+import { PropsWithSearchParams } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { FC, PropsWithChildren } from "react";
 
 const AuthLayout: FC<PropsWithChildren> = async ({ children }) => {
+  const user = await getSessionUser();
+  // const request =
+  // if (user) return redirect("/");
   return (
     <>
       <AuthStateChecker />
       <div className="relative h-screen flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0 overflow-auto ">
         <Link
-          href="/examples/authentication"
+          href="/sign-in"
           className={cn(
             buttonVariants({ variant: "ghost" }),
             "absolute right-4 hidden top-4 md:right-8 md:top-8",

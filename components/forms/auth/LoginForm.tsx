@@ -15,6 +15,7 @@ import { User } from "@prisma/client";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { loginSchema } from "./schema";
+import { useRouter } from "next/navigation";
 
 const formSchema = loginSchema;
 
@@ -22,6 +23,7 @@ type UserFormValue = z.infer<typeof formSchema>;
 
 const LoginForm = () => {
   const { setUser } = useSessionContext();
+  const { refresh } = useRouter();
   const form = useForm<UserFormValue>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -40,6 +42,7 @@ const LoginForm = () => {
       if (response.ok) {
         const user: User = await response.json();
         setUser(user);
+        refresh();
       } else {
         if (response.status === 400) {
           const errors = await response.json();
