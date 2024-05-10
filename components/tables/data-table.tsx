@@ -2,11 +2,11 @@
 
 import {
   ColumnDef,
-  SortingState,
   flexRender,
   getCoreRowModel,
   getPaginationRowModel,
   getSortedRowModel,
+  SortingState,
   useReactTable,
   VisibilityState,
 } from "@tanstack/react-table";
@@ -28,9 +28,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Button } from "../ui/button";
-import React from "react";
 import { PlusIcon, SlidersHorizontal, Trash2 } from "lucide-react";
+import React from "react";
+import { Button } from "../ui/button";
 import FilterHeader from "./FilterHeader";
 
 interface DataTableProps<TData, TValue> {

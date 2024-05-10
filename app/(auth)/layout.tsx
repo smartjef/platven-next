@@ -1,11 +1,11 @@
-import React, { FC, PropsWithChildren } from "react";
-import Link from "next/link";
+import AuthStateChecker from "@/components/forms/auth/AuthStateChecker";
+import Logo from "@/components/Logo";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import Logo from "@/components/Logo";
-import Image from "next/image";
 import bg from "@/public/r-architecture-2gDwlIim3Uw-unsplash.jpg";
-import AuthStateChecker from "@/components/forms/auth/AuthStateChecker";
+import Image from "next/image";
+import Link from "next/link";
+import { FC, PropsWithChildren } from "react";
 
 const AuthLayout: FC<PropsWithChildren> = async ({ children }) => {
   return (

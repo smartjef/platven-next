@@ -1,25 +1,21 @@
 "use client";
-import React from "react";
-import { propertyFilterSchema } from "./schema";
-import { z } from "zod";
-import { Input } from "@/components/ui/input";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
-  FormMessage,
+  FormMessage
 } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { pickBy } from "lodash";
+import { ArrowRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { propertyFilterSchema } from "./schema";
 import TypeStatusInput from "./type-status";
-import PropertyLocationPicker from "./location-picker";
-import { ArrowRight, Search } from "lucide-react";
-import { pickBy } from "lodash";
 
 const formSchema = propertyFilterSchema;
 type UserFormValue = z.infer<typeof formSchema>;

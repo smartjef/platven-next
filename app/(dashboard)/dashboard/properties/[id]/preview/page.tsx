@@ -1,15 +1,15 @@
-import prisma from "@/prisma/client";
-import { PropsWithPathParams } from "@/types";
-import React, { FC } from "react";
 import BreadCrumb from "@/components/breadcrumb";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Heading } from "@/components/ui/heading";
-import { Separator } from "@/components/ui/separator";
 import ImageDisplay from "@/components/ImageDisplay";
 import { Badge } from "@/components/ui/badge";
+import { Heading } from "@/components/ui/heading";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
 import { getSessionUser } from "@/lib/auth-utils";
-import PropertyPriviewAction from "./actions";
+import prisma from "@/prisma/client";
+import { PropsWithPathParams } from "@/types";
 import clsx from "clsx";
+import { FC } from "react";
+import PropertyPriviewAction from "./actions";
 
 const breadcrumbItems = [
   { title: "Properties", link: "/dashboard/properties" },

@@ -4,7 +4,6 @@ import Image from "next/image";
 import bg from "@/public/title-long.jpg";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Home } from "lucide-react";
-import img from "@/public/building.png";
 import HomeFilterForm from "@/components/forms/properties/home-filter-form";
 import prisma from "@/prisma/client";
 import Link from "next/link";
@@ -13,7 +12,6 @@ import { Badge } from "@/components/ui/badge";
 import aboutImage from "@/public/about.png";
 
 import clsx from "clsx";
-import Patners from "@/components/patners";
 import { steps, whyUs } from "@/constants/data";
 import { Icons } from "@/components/icons";
 

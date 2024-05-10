@@ -1,6 +1,5 @@
 import BreadCrumb from "@/components/breadcrumb";
 import ChangePasswordForm from "@/components/forms/auth/ChangePasswordForm";
-import ProfileForm from "@/components/forms/profile/profle-form";
 import { Heading } from "@/components/ui/heading";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";

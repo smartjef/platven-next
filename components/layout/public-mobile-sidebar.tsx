@@ -1,10 +1,10 @@
 "use client";
 
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { publicNavItems } from "@/constants/data";
 import { MenuIcon } from "lucide-react";
 import { useState } from "react";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import PublicNav from "../public-nav";
-import { publicNavItems } from "@/constants/data";
 
 type Props = {};
 

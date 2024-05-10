@@ -3,16 +3,16 @@ import ImageDisplay from "@/components/ImageDisplay";
 import ListLayoutWithSideBar from "@/components/layout/ListLayoutWithSideBar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { getSessionUser } from "@/lib/auth-utils";
 import { formartCurrency } from "@/lib/utils";
 import prisma from "@/prisma/client";
 import { PropsWithPathParams } from "@/types";
 import { Bookmark, Calendar, Heart } from "lucide-react";
 import moment from "moment/moment";
+import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import Image from "next/image";
-import React, { FC } from "react";
-import { getSessionUser } from "@/lib/auth-utils";
+import { FC } from "react";
 
 const PropertyDetailPage: FC<PropsWithPathParams> = async ({
   params: { id },

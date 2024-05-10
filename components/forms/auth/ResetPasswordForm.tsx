@@ -9,15 +9,13 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useToast } from "@/components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
+import { FC } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import React, { FC } from "react";
 import { resetPasswordSchema } from "./schema";
-import { User } from "@prisma/client";
-import useSessionContext from "@/hooks/useSessionContext";
-import { useToast } from "@/components/ui/use-toast";
-import { useRouter } from "next/navigation";
 
 const formSchema = resetPasswordSchema;
 

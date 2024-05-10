@@ -1,5 +1,4 @@
 import Footer from "@/components/layout/footer";
-import LowerNavBar from "@/components/layout/lower-nav";
 import NavBar from "@/components/layout/nav-bar";
 import React, { PropsWithChildren } from "react";
 

@@ -1,19 +1,17 @@
 "use client";
+import PropertyRejectionForm from "@/components/forms/properties/property-rejection-form";
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/components/ui/use-toast";
-import { Property, User } from "@prisma/client";
-import { useRouter } from "next/navigation";
-import React, { FC, useState } from "react";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
-  DialogTitle,
-  DialogTrigger,
+  DialogTitle
 } from "@/components/ui/dialog";
-import PropertyRejectionForm from "@/components/forms/properties/property-rejection-form";
+import { useToast } from "@/components/ui/use-toast";
+import { Property, User } from "@prisma/client";
+import { useRouter } from "next/navigation";
+import { FC, useState } from "react";
 
 interface Props {
   user: User;

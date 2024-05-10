@@ -1,20 +1,16 @@
-import React, { FC, useEffect, useState } from "react";
 import {
-  Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
+  FormMessage
 } from "@/components/ui/form";
-import { z } from "zod";
-import { propertyFormSchema } from "./schema";
-import { useFormContext } from "react-hook-form";
-import dynamic from "next/dynamic";
-import { useDebouncedCallback } from "use-debounce";
 import { County, SubCounty } from "@prisma/client";
 import clsx from "clsx";
+import dynamic from "next/dynamic";
+import { FC, useEffect, useState } from "react";
+import { useFormContext } from "react-hook-form";
+import { useDebouncedCallback } from "use-debounce";
 const Select = dynamic(() => import("react-select"), {
   ssr: false, // Prevent SSR
 });

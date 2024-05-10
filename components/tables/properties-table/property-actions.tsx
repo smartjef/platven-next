@@ -1,4 +1,12 @@
-import React, { FC, useState } from "react";
+import MakePaymentForm from "@/components/forms/payment/make-payment-form";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,20 +15,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
-import { MoreHorizontal } from "lucide-react";
-import MakePaymentForm from "@/components/forms/payment/make-payment-form";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import { Property } from "@prisma/client";
-import { useRouter } from "next/navigation";
-import useSessionContext from "@/hooks/useSessionContext";
 import { useToast } from "@/components/ui/use-toast";
+import useSessionContext from "@/hooks/useSessionContext";
+import { Property } from "@prisma/client";
+import { MoreHorizontal } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { FC, useState } from "react";
 
 type Props = {
   property: Property;

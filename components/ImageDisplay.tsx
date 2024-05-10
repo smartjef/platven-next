@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import React, { useState } from "react";
 
 interface Props {
@@ -10,12 +11,12 @@ const ImageDisplay: React.FC<Props> = ({ images = [] }) => {
   return (
     <div className="w-full h-full flex flex-col items-center">
       {/* Carousel */}
-      <img
-        src={
-          currentImage
-            ? `/${currentImage}`
-            : "https://via.placeholder.com/1200x400?text=Property image"
-        }
+      <Image
+        src={{
+          src: currentImage ? `/${currentImage}` : "/",
+          width: 800,
+          height: 500,
+        }}
         alt={""}
         className="bg-indigo-800  object-cover h-[80%] w-full"
       />
@@ -23,9 +24,9 @@ const ImageDisplay: React.FC<Props> = ({ images = [] }) => {
       <div className="flex grow overflow-x-auto justify-center space-x-2 my-2">
         {images.length > 0 ? (
           images.map((image, index) => (
-            <img
+            <Image
               key={index}
-              src={`/${image}`}
+              src={{ src: `/${image}`, width: 800, height: 500 }}
               alt={""}
               className="bg-indigo-800 object-cover w-100 h-100 hover:opacity-50 hover:cursor-pointer"
               onClick={() => setCurrentIage(image)}

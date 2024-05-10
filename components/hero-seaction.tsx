@@ -1,6 +1,6 @@
-import React, { FC } from "react";
-import Image, { StaticImageData } from "next/image";
 import hero from "@/public/r-architecture-2gDwlIim3Uw-unsplash.jpg";
+import Image, { StaticImageData } from "next/image";
+import { FC } from "react";
 
 interface Props {
   bgImage?: StaticImageData;

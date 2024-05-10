@@ -1,7 +1,7 @@
 import { mpesaPaymentSchema } from "@/components/forms/payment/schem";
 import prisma from "@/prisma/client";
-import { NextRequest, NextResponse } from "next/server";
 import { Mpesa } from "daraja.js";
+import { NextRequest, NextResponse } from "next/server";
 
 export const POST = async (request: NextRequest) => {
   try {

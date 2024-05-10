@@ -3,12 +3,10 @@
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 
-import { Contact, Property, PropertyType } from "@prisma/client";
+import { Contact } from "@prisma/client";
 import { ColumnDef } from "@tanstack/react-table";
 import clsx from "clsx";
-import { BadgeCheck, BadgeX } from "lucide-react";
 import moment from "moment";
-import PropertyActions from "../properties-table/property-actions";
 import MessageAction from "./cell-action";
 
 // This type is used to define the shape of our data.

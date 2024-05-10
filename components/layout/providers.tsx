@@ -1,8 +1,8 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import ThemeProvider from "./ThemeToggle/theme-provider";
 import { SessionContextProvider } from "@/context";
 import { User } from "@prisma/client";
+import React, { useEffect, useState } from "react";
+import ThemeProvider from "./ThemeToggle/theme-provider";
 export default function Providers({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User>();
   useEffect(() => {

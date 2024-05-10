@@ -1,6 +1,5 @@
 import prisma from "@/prisma/client";
 import Image from "next/image";
-import React from "react";
 
 const PropertyTypesSlider = async () => {
   const propertyTypes = await prisma.propertyType.findMany({

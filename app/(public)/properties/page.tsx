@@ -6,8 +6,8 @@ import prisma from "@/prisma/client";
 import { PropsWithSearchParams } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
-import { notFound, redirect } from "next/navigation";
-import React, { FC } from "react";
+import { notFound } from "next/navigation";
+import { FC } from "react";
 import { z } from "zod";
 
 const filterParams = z.object({

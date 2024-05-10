@@ -4,7 +4,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { getSessionUser } from "@/lib/auth-utils";
 import prisma from "@/prisma/client";
 import { PropsWithSearchParams } from "@/types";
-import React, { FC } from "react";
+import { FC } from "react";
 
 const breadcrumbItems = [
   { title: "Properties", link: "/dashboard/properties" },

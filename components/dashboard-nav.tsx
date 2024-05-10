@@ -1,14 +1,10 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 
-import { Icons } from "@/components/icons";
-import { cn } from "@/lib/utils";
+import useSessionContext from "@/hooks/useSessionContext";
 import { NavItem } from "@/types";
 import { Dispatch, SetStateAction } from "react";
 import SidebarItem from "./sidebar/side-bar-item";
-import useSessionContext from "@/hooks/useSessionContext";
 
 interface DashboardNavProps {
   items: NavItem[];

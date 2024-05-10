@@ -1,7 +1,7 @@
 "use client";
 import useSessionContext from "@/hooks/useSessionContext";
 import { useRouter, useSearchParams } from "next/navigation";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
 const AuthStateChecker = () => {
   const { user } = useSessionContext();

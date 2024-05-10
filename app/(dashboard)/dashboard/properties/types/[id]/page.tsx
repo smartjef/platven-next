@@ -1,9 +1,9 @@
-import prisma from "@/prisma/client";
-import { PropsWithPathParams } from "@/types";
-import React, { FC } from "react";
 import BreadCrumb from "@/components/breadcrumb";
 import PropertyTypeForm from "@/components/forms/properties/property-type-form";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import prisma from "@/prisma/client";
+import { PropsWithPathParams } from "@/types";
+import { FC } from "react";
 const breadcrumbItems = [
   { title: "Properties", link: "/dashboard/properties" },
   { title: "Types", link: "/dashboard/properties/types" },

@@ -1,15 +1,13 @@
-import { loginSchema, registerSchema } from "@/components/forms/auth/schema";
+import { registerSchema } from "@/components/forms/auth/schema";
+import { authCookieConfig } from "@/constants";
 import {
-  checkPassword,
   generateUserToken,
-  hashPassword,
+  hashPassword
 } from "@/lib/auth-utils";
 import prisma from "@/prisma/client";
-import { NextRequest, NextResponse } from "next/server";
-import { json } from "stream/consumers";
-import { serialize, CookieSerializeOptions, parse } from "cookie";
-import { authCookieConfig } from "@/constants";
+import { serialize } from "cookie";
 import { isEmpty } from "lodash";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
   const validation = await registerSchema.safeParseAsync(await request.json());

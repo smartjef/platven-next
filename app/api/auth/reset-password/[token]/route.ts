@@ -1,7 +1,6 @@
 import { resetPasswordSchema } from "@/components/forms/auth/schema";
 import { hashPassword } from "@/lib/auth-utils";
 import prisma from "@/prisma/client";
-import moment from "moment/moment";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(

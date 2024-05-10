@@ -1,8 +1,7 @@
-import { Icons } from "@/components/icons";
-import { NavItem, SidebarNavItem } from "@/types";
-import trust from "@/public/trust.png";
 import budget from "@/public/money-bag.png";
 import searchproperty from "@/public/search-house.png";
+import trust from "@/public/trust.png";
+import { NavItem } from "@/types";
 export type User = {
   id: number;
   name: string;

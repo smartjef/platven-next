@@ -1,11 +1,9 @@
-import React from "react";
-import Image from "next/image";
-import aboutRound from "@/public/about-circle.png";
 import HeroSection from "@/components/hero-seaction";
-import service from "@/public/service.png";
 import { services } from "@/constants/data";
 import prisma from "@/prisma/client";
-import { Mail, PhoneCall } from "lucide-react";
+import aboutRound from "@/public/about-circle.png";
+import service from "@/public/service.png";
+import Image from "next/image";
 import Link from "next/link";
 
 type Props = {};
@@ -102,16 +100,13 @@ also you can find here co-living property"
                 { id, image, user: { name, email, phoneNumber }, position },
                 index,
               ) => (
-                <div key={index} className="text-center group mb-[30px]" >
+                <div key={index} className="text-center group mb-[30px]">
                   <div className="relative rounded-[6px_6px_0px_0px]">
                     <a href="agent-details.html">
-                      <img
-                        src={`/${image}`}
+                      <Image
+                        src={{ src: `/${image}`, width: 215, height: 310 }}
                         className="w-auto h-auto block mx-auto"
-                        loading="lazy"
-                        width={215}
-                        height={310}
-                        alt="Albert S. Smith"
+                        alt={name}
                       />
                     </a>
                     <ul className="flex flex-col absolute w-full top-[30px] left-0 overflow-hidden">

@@ -1,7 +1,6 @@
 import BreadCrumb from "@/components/breadcrumb";
 import PropertyForm from "@/components/forms/properties/properties-form";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import React from "react";
 
 const breadcrumbItems = [
   { title: "Properties", link: "/dashboard/properties" },

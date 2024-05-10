@@ -7,7 +7,7 @@ import { PropertyType } from "@prisma/client";
 import clsx from "clsx";
 import { PencilLine, Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import React, { FC } from "react";
+import { FC } from "react";
 
 type Props = {
   type: PropertyType;

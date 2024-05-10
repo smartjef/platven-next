@@ -4,14 +4,10 @@ import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 
 import {
-  Contact,
-  Property,
-  PropertyRequest,
-  PropertyType,
+  PropertyRequest
 } from "@prisma/client";
 import { ColumnDef } from "@tanstack/react-table";
 import clsx from "clsx";
-import { BadgeCheck, BadgeX } from "lucide-react";
 import moment from "moment";
 import PropertyRequestAction from "./cell-action";
 

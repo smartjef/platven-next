@@ -1,10 +1,9 @@
 import { loginSchema } from "@/components/forms/auth/schema";
+import { authCookieConfig } from "@/constants";
 import { checkPassword, generateUserToken } from "@/lib/auth-utils";
 import prisma from "@/prisma/client";
+import { serialize } from "cookie";
 import { NextRequest, NextResponse } from "next/server";
-import { json } from "stream/consumers";
-import { serialize, CookieSerializeOptions, parse } from "cookie";
-import { authCookieConfig } from "@/constants";
 
 export async function POST(request: NextRequest) {
   const validation = await loginSchema.safeParseAsync(await request.json());

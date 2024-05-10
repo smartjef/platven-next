@@ -1,15 +1,10 @@
 "use client";
 import { Heading } from "@/components/ui/heading";
-import React, { FC } from "react";
+import { FC } from "react";
 
-import * as z from "zod";
-import { useState } from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { Trash, User2 } from "lucide-react";
-import { useParams, useRouter } from "next/navigation";
-import { Input } from "@/components/ui/input";
+import { FileInput } from "@/components/filedropzone";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
   FormControl,
@@ -19,14 +14,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { staffFormSchema } from "./schema";
-import { Team, User } from "@prisma/client";
-import { Separator } from "@/components/ui/separator";
-import { objectToFormData } from "@/lib/utils";
-import { useToast } from "@/components/ui/use-toast";
-import { Checkbox } from "@/components/ui/checkbox";
-import { FileInput } from "@/components/filedropzone";
-import Image from "next/image";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -34,6 +22,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Separator } from "@/components/ui/separator";
+import { useToast } from "@/components/ui/use-toast";
+import { objectToFormData } from "@/lib/utils";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Team, User } from "@prisma/client";
+import { User2 } from "lucide-react";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+import { staffFormSchema } from "./schema";
 
 const formSchema = staffFormSchema;
 

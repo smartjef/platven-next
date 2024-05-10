@@ -1,24 +1,18 @@
-import prisma from "@/prisma/client";
-import { PropsWithPathParams } from "@/types";
-import React, { FC } from "react";
 import BreadCrumb from "@/components/breadcrumb";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { redirect } from "next/dist/server/api-utils";
-import { Heading } from "@/components/ui/heading";
-import { Separator } from "@/components/ui/separator";
-import clsx from "clsx";
-import ImageDisplay from "@/components/ImageDisplay";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { getSessionUser } from "@/lib/auth-utils";
-import Image from "next/image";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Badge } from "@/components/ui/badge";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
+import prisma from "@/prisma/client";
+import { PropsWithPathParams } from "@/types";
 import moment from "moment/moment";
+import Image from "next/image";
+import { FC } from "react";
 
 const breadcrumbItems = [
   { title: "Users", link: "/dashboard/user" },

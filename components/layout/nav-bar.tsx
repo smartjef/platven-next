@@ -1,16 +1,16 @@
 "use client";
-import Link from "next/link";
-import React, { useState } from "react";
-import Logo from "../Logo";
+import useSessionContext from "@/hooks/useSessionContext";
 import { cn } from "@/lib/utils";
-import ThemeToggle from "./ThemeToggle/theme-toggle";
-import { UserNav } from "./user-nav";
+import { Heart, Search, Text, User2 } from "lucide-react";
+import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
+import Logo from "../Logo";
+import { Input } from "../ui/input";
 import PublicMobileSidebar from "./public-mobile-sidebar";
 import PublicNavItems from "./public-nav-items";
-import { Input } from "../ui/input";
-import { Heart, Search, Text, User2 } from "lucide-react";
-import useSessionContext from "@/hooks/useSessionContext";
-import { useRouter, useSearchParams } from "next/navigation";
+import ThemeToggle from "./ThemeToggle/theme-toggle";
+import { UserNav } from "./user-nav";
 
 type Props = {};
 

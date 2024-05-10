@@ -1,14 +1,14 @@
-import prisma from "@/prisma/client";
-import { NextRequest, NextResponse } from "next/server";
-import { string, z } from "zod";
 import { propertyTypeSchema } from "@/components/forms/properties/schema";
-import sharp from "sharp";
 import {
   getExpiredCookieHeader,
   getSessionUser,
   saveMediaFileName,
   strToBool,
 } from "@/lib/auth-utils";
+import prisma from "@/prisma/client";
+import { NextRequest, NextResponse } from "next/server";
+import sharp from "sharp";
+import { z } from "zod";
 
 export const DELETE = async (
   request: NextRequest,

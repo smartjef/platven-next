@@ -1,5 +1,7 @@
 "use client";
+import { FileInput } from "@/components/filedropzone";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Form,
   FormControl,
@@ -10,24 +12,22 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import React, { FC, useState } from "react";
-import { propertyFormSchema } from "./schema";
-import { z } from "zod";
 import { useToast } from "@/components/ui/use-toast";
-import { Property } from "@prisma/client";
-import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
 import { objectToFormData } from "@/lib/utils";
-import { FileInput } from "@/components/filedropzone";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Property } from "@prisma/client";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { FC, useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { propertyFormSchema } from "./schema";
 
 import { Checkbox } from "@/components/ui/checkbox";
 
+import { Textarea } from "@/components/ui/textarea";
 import PropertyLocationPicker from "./location-picker";
 import TypeStatusInput from "./type-status";
-import { Textarea } from "@/components/ui/textarea";
 
 import {
   Select,

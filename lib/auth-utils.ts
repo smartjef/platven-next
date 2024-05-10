@@ -1,12 +1,12 @@
-import { User } from "@prisma/client";
-import { pick } from "lodash";
-import { sign, verify } from "jsonwebtoken";
 import { authCookieConfig } from "@/constants";
-import { NextRequest, NextResponse } from "next/server";
+import { User } from "@prisma/client";
 import { serialize } from "cookie";
-import slugify from "slugify";
-import path from "path/posix";
 import fs from "fs";
+import { sign, verify } from "jsonwebtoken";
+import { pick } from "lodash";
+import { NextRequest, NextResponse } from "next/server";
+import path from "path/posix";
+import slugify from "slugify";
 
 export const checkPassword = async (userPassword: string, password: string) => {
   const bcrypt = await import("bcrypt");

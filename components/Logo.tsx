@@ -1,6 +1,6 @@
-import React from "react";
 import logo from "@/public/platven_logo.png";
 import Image from "next/image";
+import React from "react";
 
 type Props = {
   size?: number;

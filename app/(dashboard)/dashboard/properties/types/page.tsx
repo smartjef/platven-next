@@ -1,14 +1,14 @@
 import BreadCrumb from "@/components/breadcrumb";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { getSessionUser } from "@/lib/auth-utils";
 import prisma from "@/prisma/client";
 import { Plus } from "lucide-react";
 import moment from "moment/moment";
 import Image from "next/image";
 import Link from "next/link";
-import React, { FC } from "react";
+import { FC } from "react";
 import TypeCardControlls from "./type-card-controls";
 
 const breadcrumbItems = [

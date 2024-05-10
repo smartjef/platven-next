@@ -1,6 +1,5 @@
 import RequestResetPasswordForm from "@/components/forms/auth/RequestResetPasswordForm";
 import Link from "next/link";
-import React from "react";
 
 const RequestResetPasswod = () => {
   return (

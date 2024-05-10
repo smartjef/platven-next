@@ -1,9 +1,9 @@
 "use client";
-import React, { FC } from "react";
-import { DataTable } from "../data-table";
-import { columns } from "./columns";
 import { User } from "@prisma/client";
 import { useRouter } from "next/navigation";
+import { FC } from "react";
+import { DataTable } from "../data-table";
+import { columns } from "./columns";
 
 interface Props {
   users: User[];

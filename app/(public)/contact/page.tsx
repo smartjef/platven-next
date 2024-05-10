@@ -2,7 +2,6 @@ import ContactForm from "@/components/forms/contact/contact-form";
 import HeroSection from "@/components/hero-seaction";
 import { getSessionUser } from "@/lib/auth-utils";
 import { Mail, MapPin, PhoneCall } from "lucide-react";
-import React from "react";
 
 const ContactUs = async () => {
   const user = await getSessionUser();

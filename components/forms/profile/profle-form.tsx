@@ -1,14 +1,8 @@
 "use client";
 
+import { FileInput } from "@/components/filedropzone";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
-import { User } from "@prisma/client";
-import React, { FC, useState } from "react";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { userProfileSchema } from "./schema";
-import useSessionContext from "@/hooks/useSessionContext";
 import {
   Form,
   FormControl,
@@ -18,13 +12,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { FileInput } from "@/components/filedropzone";
-import { objectToFormData } from "@/lib/utils";
-import Image from "next/image";
-import { User2 } from "lucide-react";
-import { useToast } from "@/components/ui/use-toast";
-import { useRouter } from "next/navigation";
 import {
   Select,
   SelectContent,
@@ -32,6 +19,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useToast } from "@/components/ui/use-toast";
+import useSessionContext from "@/hooks/useSessionContext";
+import { objectToFormData } from "@/lib/utils";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { User } from "@prisma/client";
+import { User2 } from "lucide-react";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { FC, useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { userProfileSchema } from "./schema";
 
 type Props = {
   user?: User;

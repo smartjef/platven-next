@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC } from "react";
+import { FC } from "react";
 import { propertyRequestFormSchema } from "./schema";
 
 import { Button } from "@/components/ui/button";
@@ -13,12 +13,12 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { Property, User } from "@prisma/client";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Property, User } from "@prisma/client";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 type Props = {
   property: Property;

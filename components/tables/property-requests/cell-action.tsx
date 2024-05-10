@@ -14,7 +14,7 @@ import { Property, PropertyRequest } from "@prisma/client";
 import { MoreHorizontal } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-import React, { FC } from "react";
+import { FC } from "react";
 
 interface Props {
   message: PropertyRequest & { property: Property };

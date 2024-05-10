@@ -1,11 +1,11 @@
 "use client";
-import { ColumnDef } from "@tanstack/react-table";
-import { CellAction } from "./cell-action";
-import { Checkbox } from "@/components/ui/checkbox";
-import { User } from "@prisma/client";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import { Checkbox } from "@/components/ui/checkbox";
+import { User } from "@prisma/client";
+import { ColumnDef } from "@tanstack/react-table";
 import clsx from "clsx";
+import { CellAction } from "./cell-action";
 
 export const columns = (isStaff = false) =>
   [

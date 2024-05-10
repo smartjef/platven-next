@@ -3,7 +3,7 @@ import prisma from "@/prisma/client";
 import { PropsWithPathParams } from "@/types";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import React, { FC } from "react";
+import { FC } from "react";
 
 const ResetPasswordPage: FC<PropsWithPathParams> = async ({
   params: { token },

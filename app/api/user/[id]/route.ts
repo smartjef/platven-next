@@ -1,7 +1,6 @@
 import { userFormSchema } from "@/components/forms/staff/schema";
 import { getSessionUser, saveMediaFileName, strToBool } from "@/lib/auth-utils";
 import prisma from "@/prisma/client";
-import { sendMail } from "@/services/mail-service";
 import { isEmpty } from "lodash";
 import { NextRequest, NextResponse } from "next/server";
 import sharp from "sharp";

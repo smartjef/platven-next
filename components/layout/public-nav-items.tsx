@@ -1,11 +1,11 @@
 "use client";
 
 import { publicNavItems } from "@/constants/data";
+import { cn } from "@/lib/utils";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React from "react";
 import { Icons } from "../icons";
-import Link from "next/link";
-import { cn } from "@/lib/utils";
-import { usePathname } from "next/navigation";
 
 type Props = {};
 

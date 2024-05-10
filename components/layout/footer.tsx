@@ -1,7 +1,6 @@
-import React from "react";
 import logo from "@/public/platven_logo.png";
-import Image from "next/image";
 import { Mail, Phone } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 const Footer = () => {

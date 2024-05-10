@@ -1,25 +1,11 @@
-import prisma from "@/prisma/client";
 import BreadCrumb from "@/components/breadcrumb";
-import PropertyForm from "@/components/forms/properties/properties-form";
-import { Card, CardHeader, CardTitle } from "@/components/ui/card";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import React, { FC } from "react";
-import { PropsWithSearchParams } from "@/types";
 import { Heading } from "@/components/ui/heading";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
-import {
-  ResizableHandle,
-  ResizablePanel,
-  ResizablePanelGroup,
-} from "@/components/ui/resizable";
-import clsx from "clsx";
+import prisma from "@/prisma/client";
+import { PropsWithSearchParams } from "@/types";
+import { FC } from "react";
 
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 import PropertyRequestTable from "@/components/tables/property-requests/property-request-table";
 import { getSessionUser } from "@/lib/auth-utils";
 import { notFound } from "next/navigation";

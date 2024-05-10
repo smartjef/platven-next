@@ -1,9 +1,9 @@
 "use client";
 import { Property, PropertyRequest, PropertyType } from "@prisma/client";
-import React, { FC } from "react";
+import { useRouter } from "next/navigation";
+import { FC } from "react";
 import { DataTable } from "../data-table";
 import { columns } from "./column";
-import { useRouter } from "next/navigation";
 
 interface Props {
   properties: (Property & {

@@ -1,10 +1,10 @@
-import prisma from "@/prisma/client";
-import { PropsWithPathParams } from "@/types";
-import React, { FC } from "react";
+import NotFound from "@/app/not-found";
 import BreadCrumb from "@/components/breadcrumb";
 import StaffForm from "@/components/forms/staff/staff-fom";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import NotFound from "@/app/not-found";
+import prisma from "@/prisma/client";
+import { PropsWithPathParams } from "@/types";
+import { FC } from "react";
 
 const breadcrumbItems = [
   { title: "User", link: "/dashboard/user" },

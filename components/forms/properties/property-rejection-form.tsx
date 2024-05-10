@@ -3,22 +3,20 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
+  FormMessage
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { zodResolver } from "@hookform/resolvers/zod";
-import React, { FC } from "react";
-import { propertyRejectionSchema } from "./schema";
-import { z } from "zod";
-import { useToast } from "@/components/ui/use-toast";
-import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
-import { Property } from "@prisma/client";
 import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/components/ui/use-toast";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Property } from "@prisma/client";
+import { useRouter } from "next/navigation";
+import { FC } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { propertyRejectionSchema } from "./schema";
 
 const formSchema = propertyRejectionSchema;
 type UserFormValue = z.infer<typeof formSchema>;

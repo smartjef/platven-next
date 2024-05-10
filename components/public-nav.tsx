@@ -1,9 +1,9 @@
+import { cn } from "@/lib/utils";
 import { NavItem } from "@/types";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { Dispatch, SetStateAction } from "react";
 import { Icons } from "./icons";
-import Link from "next/link";
-import { cn } from "@/lib/utils";
 
 type Props = {
   items: NavItem[];

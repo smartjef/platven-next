@@ -1,11 +1,9 @@
 import {
-  Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
+  FormMessage
 } from "@/components/ui/form";
 import {
   Select,
@@ -14,10 +12,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useFormContext } from "react-hook-form";
-import { FC, useEffect, useState } from "react";
 import { PropertyType } from "@prisma/client";
 import clsx from "clsx";
+import { FC, useEffect, useState } from "react";
+import { useFormContext } from "react-hook-form";
 
 type Props = {
   small?: boolean;

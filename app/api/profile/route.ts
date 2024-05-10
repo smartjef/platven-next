@@ -1,13 +1,12 @@
-import { NextRequest, NextResponse } from "next/server";
-import { serialize, CookieSerializeOptions, parse } from "cookie";
-import { authCookieConfig } from "@/constants";
-import { JsonWebTokenError, TokenExpiredError, verify } from "jsonwebtoken";
-import prisma from "@/prisma/client";
-import { getExpiredCookieHeader, saveMediaFileName } from "@/lib/auth-utils";
-import sharp from "sharp";
 import { userProfileSchema } from "@/components/forms/profile/schema";
-import { redirect } from "next/navigation";
+import { authCookieConfig } from "@/constants";
+import { getExpiredCookieHeader, saveMediaFileName } from "@/lib/auth-utils";
+import prisma from "@/prisma/client";
+import { JsonWebTokenError, TokenExpiredError, verify } from "jsonwebtoken";
 import { isEmpty } from "lodash";
+import { redirect } from "next/navigation";
+import { NextRequest, NextResponse } from "next/server";
+import sharp from "sharp";
 
 export const GET = async (request: NextRequest) => {
   const token = request.cookies.get(authCookieConfig.name)?.value;

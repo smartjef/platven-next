@@ -1,14 +1,10 @@
 "use client";
 import {
-  Contact,
-  Property,
-  PropertyRequest,
-  PropertyType,
+  Contact
 } from "@prisma/client";
-import React, { FC } from "react";
+import { FC } from "react";
 import { DataTable } from "../data-table";
 import { columns } from "./column";
-import { useRouter } from "next/navigation";
 
 interface Props {
   messages: Contact[];

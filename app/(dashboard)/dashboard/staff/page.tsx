@@ -1,5 +1,4 @@
 import BreadCrumb from "@/components/breadcrumb";
-import { UserClient } from "@/components/tables/user-tables/client";
 import StaffDataTable from "@/components/tables/user-tables/staffs-data-table";
 import { Heading } from "@/components/ui/heading";
 import { Separator } from "@/components/ui/separator";

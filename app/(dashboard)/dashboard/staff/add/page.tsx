@@ -1,10 +1,8 @@
 import BreadCrumb from "@/components/breadcrumb";
-import { ProductForm } from "@/components/forms/product-form";
 import StaffForm from "@/components/forms/staff/staff-fom";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { getSessionUser } from "@/lib/auth-utils";
 import { notFound } from "next/navigation";
-import React from "react";
 
 const breadcrumbItems = [
   { title: "User", link: "/dashboard/user" },

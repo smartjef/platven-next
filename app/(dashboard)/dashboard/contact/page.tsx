@@ -1,13 +1,12 @@
-import React, { FC } from "react";
-import { Button } from "@/components/ui/button";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Heading } from "@/components/ui/heading";
 import BreadCrumb from "@/components/breadcrumb";
 import MessagesTable from "@/components/tables/messages/messages-table";
-import prisma from "@/prisma/client";
+import { Heading } from "@/components/ui/heading";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { getSessionUser } from "@/lib/auth-utils";
-import { notFound } from "next/navigation";
+import prisma from "@/prisma/client";
 import { PropsWithSearchParams } from "@/types";
+import { notFound } from "next/navigation";
+import { FC } from "react";
 const breadcrumbItems = [{ title: "Messages", link: "/dashboard/contact" }];
 
 const Contact: FC<PropsWithSearchParams> = async ({ searchParams }) => {

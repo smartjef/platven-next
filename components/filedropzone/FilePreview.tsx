@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
-import Image from "next/image";
-import { FormFile } from "./form-file";
-import prettyBytes from "pretty-bytes";
-import { fileExtensionsColors } from "./form-file";
-import { DefaultExtensionType, FileIcon, defaultStyles } from "react-file-icon";
 import { Trash2 } from "lucide-react";
+import Image from "next/image";
+import prettyBytes from "pretty-bytes";
+import { useEffect, useState } from "react";
+import { DefaultExtensionType, FileIcon, defaultStyles } from "react-file-icon";
+import { FormFile, fileExtensionsColors } from "./form-file";
 
 const FilePreview = ({
   file,
