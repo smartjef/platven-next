@@ -15,9 +15,6 @@ const PublicNavItems: React.FC<Props> = ({}) => {
   if (!publicNavItems?.length) {
     return null;
   }
-  const count = publicNavItems.length;
-  console.log(count);
-
   return (
     <nav className={cn("grid items-start gap-2", `grid-cols-6`)}>
       {publicNavItems.map((item, index) => {

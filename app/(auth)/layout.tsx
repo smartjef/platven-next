@@ -1,19 +1,13 @@
 import AuthStateChecker from "@/components/forms/auth/AuthStateChecker";
 import Logo from "@/components/Logo";
 import { buttonVariants } from "@/components/ui/button";
-import { getSessionUser } from "@/lib/auth-utils";
 import { cn } from "@/lib/utils";
-import bg from "@/public/r-architecture-2gDwlIim3Uw-unsplash.jpg";
-import { PropsWithSearchParams } from "@/types";
+import bg from "@/public/title-platven.jpg";
 import Image from "next/image";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 import { FC, PropsWithChildren } from "react";
 
 const AuthLayout: FC<PropsWithChildren> = async ({ children }) => {
-  const user = await getSessionUser();
-  // const request =
-  // if (user) return redirect("/");
   return (
     <>
       <AuthStateChecker />
@@ -32,8 +26,9 @@ const AuthLayout: FC<PropsWithChildren> = async ({ children }) => {
             <Image
               src={bg}
               alt=""
-              className="w-full h-full object-cover bg-black"
+              className="w-full h-full object-cover bg-black absolute"
             />
+            <div className="w-full h-full bg-black absolute opacity-50" />
           </div>
           <div className="relative z-20 flex items-center text-lg font-medium">
             <Logo />

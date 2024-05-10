@@ -12,8 +12,11 @@ const Footer = () => {
       <div className="flex justify-center w-full  text-white mb-10">
         <div className="grid grid-cols-1 lg:grid-cols-4 lg:max-w-[80%] gap-10">
           <div>
-            Properties are most budget friendly so you have are find opportunity
-            is main responsibility to clients
+            <Image src={logo} alt="logo" />
+            <p>
+              Properties are most budget friendly so you have are find
+              opportunity is main responsibility to clients
+            </p>
           </div>
           <div>
             <ul className="space-y-3">
@@ -26,6 +29,11 @@ const Footer = () => {
               </li>
               <li className="opacity-50">
                 <Link href={"/properties"}>Properties</Link>
+              </li>
+              <li className="opacity-50">
+                <Link href="/terms" className="font-medium text-white">
+                  {`Terms & Conditions`}
+                </Link>
               </li>
             </ul>
           </div>
@@ -74,17 +82,12 @@ const Footer = () => {
       </div>
       <div className="flex justify-center">
         <div className="flex flex-col lg:flex-row justify-between items-center mx-auto mb-10 w-full lg:max-w-[80%] text-center">
-          <div className="flex flex-col lg:flex-row gap-10">
-            <a href="#" className="font-medium text-white">
-              Privacy Policy
-            </a>
-            <a href="/terms" className="font-medium text-white">
-              {`Terms & Conditions`}
-            </a>
-          </div>
           <p className="py-10 text-center text-gray-300">
             © {new Date(Date.now()).getFullYear()} Platven | All Rights
             Reserved
+          </p>
+          <p className="py-10 text-center text-gray-300">
+            Powered by <a href="https://vstech.co.ke">VSTech LTD</a>
           </p>
         </div>
       </div>
