@@ -1,19 +1,16 @@
 import PropertyTypesSlider from "@/components/property-types-slider";
-import React from "react";
-import Image from "next/image";
-import bg from "@/public/title-long.jpg";
-import { Button } from "@/components/ui/button";
-import { ArrowRight, Home } from "lucide-react";
-import HomeFilterForm from "@/components/forms/properties/home-filter-form";
-import prisma from "@/prisma/client";
-import Link from "next/link";
-import { formartCurrency } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
+import { formartCurrency } from "@/lib/utils";
+import prisma from "@/prisma/client";
 import aboutImage from "@/public/about.png";
+import Image from "next/image";
+import Link from "next/link";
 
-import clsx from "clsx";
-import { steps, whyUs } from "@/constants/data";
+import Carousel from "@/components/Carousel";
+import HeroBanner from "@/components/HeroBanner";
 import { Icons } from "@/components/icons";
+import { steps, whyUs } from "@/constants/data";
+import clsx from "clsx";
 
 type Props = {};
 
@@ -28,41 +25,7 @@ const HomePage = async (props: Props) => {
           <PropertyTypesSlider />
         </div>
         {/* Banner */}
-        <div className="w-full grid grid-cols-1 lg:grid-cols-5 gap-3">
-          <div className="lg:col-span-4 bg-black rounded-md relative overflow-clip max-lg:h-96">
-            <Image
-              src={bg}
-              alt="bg"
-              className="absolute w-full h-full object-cover"
-            />
-            <div className="absolute bg-black opacity-50 w-full h-full" />
-            <div className="absolute w-full h-full flex flex-col p-10 text-white font-bold justify-center space-y-10">
-              <p>This Week Only for World Premier</p>
-              <p className="text-4xl">
-                New Top Product
-                <br />
-                High Quality
-              </p>
-              <Button className=" w-fit space-x-2 bg-green-700">
-                <Link
-                  href={"/properties"}
-                  className="flex items-center space-x-2"
-                >
-                  Find Now <ArrowRight />
-                </Link>
-              </Button>
-            </div>
-          </div>
-          <div className="bg-accent dark:bg-gray-900 rounded-md p-2 flex flex-col space-y-2">
-            <div className="flex space-x-2">
-              <div className="flex flex-col justify-center space-y-2">
-                <p>Over 1000 properties</p>
-                <p className="font-bold text-lg">Find property</p>
-              </div>
-            </div>
-            <HomeFilterForm />
-          </div>
-        </div>
+        <HeroBanner/>
         {/* Banner */}
         {/* How it works */}
         <div className="my-10">
