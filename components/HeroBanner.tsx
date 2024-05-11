@@ -1,7 +1,6 @@
 "use client";
 import HomeFilterForm from "@/components/forms/properties/home-filter-form";
 import { Button } from "@/components/ui/button";
-import bg from "@/public/title-long.jpg";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -44,8 +43,8 @@ const HeroBanner = () => {
             }`}
             style={{ transitionDelay: `${active === index ? "500ms" : "0ms"}` }}
           >
-            <img
-              src={image.url}
+            <Image
+              src={{src: image.url, height: 800, width: 500 }}
               className="w-full h-full object-cover rounded-lg shadow-lg"
               alt="Property Image"
             />

@@ -3,14 +3,15 @@ import Image from "next/image";
 
 const PropertyTypesSlider = async () => {
   const propertyTypes = await prisma.propertyType.findMany({
-    include: { properties: { select: { title: true } } },
+    where: { isActive: true },
+    include: { _count: true },
   });
   return (
     <div className="flex justify-center  w-full ">
       <div className="flex overflow-hidden group w-full">
         <div className="flex space-x-4 lg:space-x-16 animate-loop-scroll group-hover:paused w-full">
           {[...propertyTypes, ...propertyTypes].map(
-            ({ createdAt, icon, id, title, properties }, index) => (
+            ({ createdAt, icon, id, title, _count: { properties } }, index) => (
               <div key={index} className="flex space-x-2">
                 <Image
                   src={{ src: `/${icon}`, width: 100, height: 100 }}
@@ -18,7 +19,7 @@ const PropertyTypesSlider = async () => {
                 />
                 <div className="flex flex-col justify-center">
                   <h1 className="font-bold">{title}</h1>
-                  <p>{`${properties.length} properties`}</p>
+                  <p>{`${properties} properties`}</p>
                 </div>
               </div>
             ),

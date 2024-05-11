@@ -6,7 +6,6 @@ import aboutImage from "@/public/about.png";
 import Image from "next/image";
 import Link from "next/link";
 
-import Carousel from "@/components/Carousel";
 import HeroBanner from "@/components/HeroBanner";
 import { Icons } from "@/components/icons";
 import { steps, whyUs } from "@/constants/data";
@@ -18,6 +17,7 @@ const HomePage = async (props: Props) => {
   const properties = await prisma.property.findMany({
     include: { type: true },
   });
+
   return (
     <div className="flex justify-center">
       <div className="p-3 flex flex-col space-y-10 items-center lg:max-w-[80%]">
@@ -25,7 +25,7 @@ const HomePage = async (props: Props) => {
           <PropertyTypesSlider />
         </div>
         {/* Banner */}
-        <HeroBanner/>
+        <HeroBanner />
         {/* Banner */}
         {/* How it works */}
         <div className="my-10">
