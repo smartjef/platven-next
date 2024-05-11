@@ -16,7 +16,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useToast } from "@/components/ui/use-toast";
-import useSessionContext from "@/hooks/useSessionContext";
 import { Property } from "@prisma/client";
 import { MoreHorizontal } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -29,7 +28,6 @@ type Props = {
 const PropertyActions: FC<Props> = ({ property }) => {
   const [showPrompt, setShowPrompt] = useState(false);
   const { push, refresh } = useRouter();
-  const { user } = useSessionContext();
   const { toast } = useToast();
 
   const handleDelete = async () => {

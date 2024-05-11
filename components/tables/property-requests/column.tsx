@@ -59,7 +59,7 @@ export const columns: ColumnDef<PropertyRequest>[] = [
       const recode = props.row.original;
       const renderValue = props.renderValue();
       return (
-        <span className={clsx({ "font-bold": !recode.isActive })}>
+        <span className={clsx({ "font-bold": !recode.isAddressed })}>
           {renderValue as any}
         </span>
       );
@@ -72,7 +72,7 @@ export const columns: ColumnDef<PropertyRequest>[] = [
       const recode = props.row.original;
       const renderValue = props.renderValue();
       return (
-        <span className={clsx({ "font-bold": !recode.isActive })}>
+        <span className={clsx({ "font-bold": !recode.isAddressed })}>
           {renderValue as any}
         </span>
       );
@@ -85,7 +85,7 @@ export const columns: ColumnDef<PropertyRequest>[] = [
       const recode = props.row.original;
       const renderValue = props.renderValue();
       return (
-        <span className={clsx({ "font-bold": !recode.isActive })}>
+        <span className={clsx({ "font-bold": !recode.isAddressed })}>
           {renderValue as any}
         </span>
       );
@@ -98,25 +98,25 @@ export const columns: ColumnDef<PropertyRequest>[] = [
       const recode = props.row.original;
       const renderValue = props.renderValue();
       return (
-        <span className={clsx({ "font-bold": !recode.isActive })}>
+        <span className={clsx({ "font-bold": !recode.isAddressed })}>
           {renderValue as any}
         </span>
       );
     },
   },
   {
-    accessorKey: "isActive",
+    accessorKey: "isAddressed",
     header: "Address status",
     cell(props) {
-      const paymentComplete = props.renderValue() as boolean;
+      const isAddressed = props.renderValue() as boolean;
       return (
         <Badge
           className={clsx({
-            "bg-destructive": !paymentComplete,
-            "bg-green-800": paymentComplete,
+            "bg-destructive": !isAddressed,
+            "bg-green-800": isAddressed,
           })}
         >
-          {paymentComplete ? "Addressed" : "Pending"}
+          {isAddressed ? "Addressed" : "Pending"}
         </Badge>
       );
     },

@@ -32,7 +32,7 @@ const PropertyRequestAction: FC<Props> = ({ message }) => {
         phoneNumber: message.phoneNumber,
         message: message.message,
         name: message.name,
-        isActive: !message.isActive,
+        isAddressed: !message.isAddressed,
       }),
     });
     if (response.ok) {
@@ -77,7 +77,7 @@ const PropertyRequestAction: FC<Props> = ({ message }) => {
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={handleToggle}>
-          {message.isActive ? "Mark Un addressed" : "Mark as Addressed"}
+          {message.isAddressed ? "Mark Un addressed" : "Mark as Addressed"}
         </DropdownMenuItem>
         {(user?.isStaff || user?.isSuperUser) && (
           <DropdownMenuItem onClick={handleDelete}>Delete</DropdownMenuItem>
