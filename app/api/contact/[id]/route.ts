@@ -32,7 +32,10 @@ export const PUT = async (
 
   const contact = await prisma.contact.update({
     where: { id },
-    data: validation.data,
+    data: {
+      ...validation.data,
+      phoneNumber: String(validation.data.phoneNumber),
+    },
   });
   return NextResponse.json(contact);
 };

@@ -21,6 +21,9 @@ export const POST = async (request: NextRequest) => {
       { propertyId: { _errors: ["Invalid property"] } },
       { status: 400 },
     );
+  const adminUsers = await prisma.user.findMany({
+    where: { isActive: true, isSuperUser: true },
+  });
   const propertyRequest = await prisma.propertyRequest.create({
     data: {
       ...validation.data,
@@ -38,35 +41,36 @@ export const POST = async (request: NextRequest) => {
     },
     config.MESSAGE.REQUEST_PROPERTY_CLIENT,
   );
-  const adminMessage = parseMessage<{
-    staff_name: string;
-    client_name: string;
-    property_title: string;
-    client_phone: string;
-    client_email: string;
-    property_link: string;
-  }>(
-    {
-      staff_name: "Jeff Odhiambo",
-      client_name: propertyRequest.name,
-      property_title: propertyRequest.property.title,
-      client_phone: propertyRequest.phoneNumber,
-      client_email: propertyRequest.email,
-      property_link: `http://localhost:3000/properties/${propertyRequest.propertyId}`,
-    },
-    config.MESSAGE.REQUEST_PROPERTY_ADMIN,
-  );
   const tasks = [
     sendMail({
       toEmail: propertyRequest.email,
       subject: "Property Request",
       text: clientMessage,
     }),
-    sendMail({
-      toEmail: "o.jeff3.a@gmail.com",
-      subject: "Property Request",
-      text: adminMessage,
-    }),
+    ...adminUsers.map((user) =>
+      sendMail({
+        toEmail: user.email,
+        subject: "Property Request",
+        text: parseMessage<{
+          staff_name: string;
+          client_name: string;
+          property_title: string;
+          client_phone: string;
+          client_email: string;
+          property_link: string;
+        }>(
+          {
+            staff_name: user.name,
+            client_name: propertyRequest.name,
+            property_title: propertyRequest.property.title,
+            client_phone: propertyRequest.phoneNumber,
+            client_email: propertyRequest.email,
+            property_link: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/properties/${propertyRequest.propertyId}`,
+          },
+          config.MESSAGE.REQUEST_PROPERTY_ADMIN,
+        ),
+      }),
+    ),
   ];
   const infor = await Promise.all(tasks);
   console.log(infor);
