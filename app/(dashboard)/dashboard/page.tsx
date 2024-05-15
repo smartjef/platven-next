@@ -12,6 +12,7 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getSessionUser } from "@/lib/auth-utils";
+import { getMonthlyPayments } from "@/lib/db-utils";
 import prisma from "@/prisma/client";
 import { redirect } from "next/navigation";
 
@@ -19,6 +20,9 @@ export default async function page() {
   const user = await getSessionUser();
   if (!user)
     redirect(`sign-in?callbackUrl=${encodeURIComponent("/dashboard")}`);
+  const overview = await getMonthlyPayments();
+  console.log(overview);
+
   return (
     <ScrollArea className="h-full">
       <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
@@ -78,7 +82,7 @@ export default async function page() {
                 <Card>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">
-                      Total Clients
+                      Total Properties
                     </CardTitle>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -94,7 +98,15 @@ export default async function page() {
                     </svg>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold">$45,231.89</div>
+                    <div className="text-2xl font-bold">
+                      {
+                        (
+                          await prisma.property.findMany({
+                            where: { userId: user.id },
+                          })
+                        ).length
+                      }
+                    </div>
                     <p className="text-xs text-muted-foreground">
                       +20.1% from last month
                     </p>
@@ -144,7 +156,7 @@ export default async function page() {
                 <Card>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">
-                      Total properties
+                      Total Appproved properties
                     </CardTitle>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -162,7 +174,21 @@ export default async function page() {
                     </svg>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold">+2350</div>
+                    <div className="text-2xl font-bold">
+                      {
+                        (
+                          await prisma.property.findMany({
+                            where: {
+                              userId: user.id,
+                              isActive: true,
+                              payment: {
+                                complete: true,
+                              },
+                            },
+                          })
+                        ).length
+                      }
+                    </div>
                     <p className="text-xs text-muted-foreground">
                       +180.1% from last month
                     </p>
@@ -208,7 +234,7 @@ export default async function page() {
                 <Card>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">
-                      Total property requests
+                      Total Rejected properties
                     </CardTitle>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -225,7 +251,19 @@ export default async function page() {
                     </svg>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold">+12,234</div>
+                    <div className="text-2xl font-bold">
+                      {
+                        (
+                          await prisma.property.findMany({
+                            where: {
+                              userId: user.id,
+                              isActive: false,
+                              rejectionReason: { not: null },
+                            },
+                          })
+                        ).length
+                      }
+                    </div>
                     <p className="text-xs text-muted-foreground">
                       +19% from last month
                     </p>
@@ -270,7 +308,7 @@ export default async function page() {
                 <Card>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">
-                      Total Messages
+                      Total property Requests
                     </CardTitle>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -286,7 +324,19 @@ export default async function page() {
                     </svg>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold">+573</div>
+                    <div className="text-2xl font-bold">
+                      {
+                        (
+                          await prisma.propertyRequest.findMany({
+                            where: {
+                              property: {
+                                userId: user.id,
+                              },
+                            },
+                          })
+                        ).length
+                      }
+                    </div>
                     <p className="text-xs text-muted-foreground">
                       +201 since last hour
                     </p>
@@ -300,7 +350,7 @@ export default async function page() {
                   <CardTitle>Overview</CardTitle>
                 </CardHeader>
                 <CardContent className="pl-2">
-                  <Overview />
+                  <Overview data={overview} />
                 </CardContent>
               </Card>
               <Card className="col-span-4 md:col-span-3">

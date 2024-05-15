@@ -178,6 +178,13 @@ export const navItems: NavItem[] = [
     roles: ["client", "staff", "admin"],
   },
   {
+    title: "Payments",
+    href: "/dashboard/payments",
+    icon: "wallet",
+    label: "payment",
+    roles: ["client", "staff", "admin"],
+  },
+  {
     title: "Kanban",
     href: "/dashboard/kanban",
     icon: "kanban",

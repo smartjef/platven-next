@@ -41,7 +41,8 @@ import {
   Users,
   UserX2Icon,
   Warehouse,
-  X
+  X,
+  Wallet
 } from "lucide-react";
 
 export type Icon = LucideIcon;
@@ -86,6 +87,7 @@ export const Icons = {
   handShake: HeartHandshake,
   house: Home,
   circleCheck: CheckCircle,
+  wallet:Wallet,
   gitHub: ({ ...props }: LucideProps) => (
     <svg
       aria-hidden="true"

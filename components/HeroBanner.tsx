@@ -33,8 +33,8 @@ const HeroBanner = () => {
     return () => clearInterval(interval);
   }, []);
   return (
-    <div className="w-full grid grid-cols-1 lg:grid-cols-5 gap-3">
-      <div className="lg:col-span-4 bg-black rounded-md relative overflow-clip max-lg:h-96">
+    <div className="w-full grid grid-cols-1 lg:grid-cols-8 gap-3">
+      <div className="lg:col-span-6 bg-black rounded-md relative overflow-clip h-96 lg:h-[60vh]">
         {images.map((image, index) => (
           <div
             key={index}
@@ -44,7 +44,7 @@ const HeroBanner = () => {
             style={{ transitionDelay: `${active === index ? "500ms" : "0ms"}` }}
           >
             <Image
-              src={{src: image.url, height: 800, width: 500 }}
+              src={{ src: image.url, height: 800, width: 500 }}
               className="w-full h-full object-cover rounded-lg shadow-lg"
               alt="Property Image"
             />
@@ -101,7 +101,7 @@ const HeroBanner = () => {
           </div>
         </div>
       </div>
-      <div className="bg-accent dark:bg-gray-900 rounded-md p-2 flex flex-col space-y-2">
+      <div className="lg:col-span-2 bg-accent dark:bg-gray-900 rounded-md p-2 flex flex-col space-y-2 pt-10">
         <div className="flex space-x-2">
           <div className="flex flex-col justify-center space-y-2">
             <p>Over 1000 properties</p>
