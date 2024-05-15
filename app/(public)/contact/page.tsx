@@ -27,7 +27,7 @@ const ContactUs = async () => {
               </div>
               <div className="w-full h-full bg-accent rounded-md overflow-hidden">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63821.0828715991!2d36.781942540617656!3d-1.2832440683529693!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f47952563285d%3A0x70d092fb85ccb757!2sVSTech%20Limited!5e0!3m2!1sen!2ske!4v1715074021150!5m2!1sen!2ske"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.073767299159!2d37.016018599999995!3d-1.1069185!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f4730452daaf3%3A0x454fa9f6411e194c!2sPLATVEN%20LTD!5e0!3m2!1sen!2ske!4v1715760084530!5m2!1sen!2ske"
                   className="w-full h-full"
                   style={{ border: 0 }}
                   allowFullScreen

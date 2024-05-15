@@ -14,8 +14,8 @@ const Footer = () => {
           <div>
             <Image src={logo} alt="logo" />
             <p>
-              Properties are most budget friendly so you have are find
-              opportunity is main responsibility to clients
+              We Provide Right Choice Of Properties That You Need And Have Great
+              Opportunity To Choose From Thousands Of Collection .
             </p>
           </div>
           <div>
