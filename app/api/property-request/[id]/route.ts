@@ -23,7 +23,10 @@ export const PUT = async (
 
   const propRequest = await prisma.propertyRequest.update({
     where: { id },
-    data: validation.data,
+    data: {
+      ...validation.data,
+      phoneNumber: String(validation.data.phoneNumber),
+    },
   });
   return NextResponse.json(propRequest);
 };
@@ -38,7 +41,7 @@ export const DELETE = async (
       { detail: "Unauthorized" },
       { status: 401, headers: getExpiredCookieHeader(request) },
     );
-  if (!user.isStaff&& !user.isSuperUser)
+  if (!user.isStaff && !user.isSuperUser)
     return NextResponse.json(
       { detail: "You have no permision to delete property request" },
       { status: 403 },
