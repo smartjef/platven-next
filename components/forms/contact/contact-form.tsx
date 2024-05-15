@@ -33,7 +33,7 @@ const ContactForm: FC<Props> = ({ user }) => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: user?.email ?? "",
-      phoneNumber: user?.phoneNumber ?? "",
+      phoneNumber: user?.phoneNumber ?? "" as any,
       message: "",
       name: user?.name ?? "",
       subject: "",

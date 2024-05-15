@@ -12,7 +12,10 @@ export const registerSchema = z
   .object({
     name: z.string().min(1, "Required"),
     email: z.string().email({ message: "Enter a valid email address" }),
-    phoneNumber: z.string().min(10, { message: "Enter a valid phone number" }),
+    phoneNumber: z.coerce.number().refine((numb) => {
+      const n = String(numb);
+      return n.length === 9 && (n.startsWith("1") || n.startsWith("7"));
+    }, "Invalid number, must follow 710000000"),
     type: z.enum(["Organization", "Individual"]),
     identificationNumber: z.string().min(1, "Required"),
     password: z

@@ -50,7 +50,7 @@ export const POST = async (request: NextRequest) => {
 
   let user_ = await prisma.user.findUnique({ where: { email } });
   if (user_) errors["email"] = { _errors: ["User with email exists"] };
-  user_ = await prisma.user.findUnique({ where: { phoneNumber } });
+  user_ = await prisma.user.findUnique({ where: { phoneNumber:String(phoneNumber) } });
   if (user_) errors["phoneNumber"] = { _errors: ["User with phone exists"] };
   user_ = await prisma.user.findUnique({ where: { identificationNumber } });
   if (user_)
@@ -87,7 +87,7 @@ export const POST = async (request: NextRequest) => {
   const newUser = await prisma.user.create({
     data: {
       email,
-      phoneNumber,
+      phoneNumber:String(phoneNumber),
       address,
       name,
       isStaff,

@@ -38,6 +38,9 @@ const Contact: FC<PropsWithSearchParams> = async ({ searchParams }) => {
         },
       ],
     },
+    orderBy: {
+      isAddressed: "asc",
+    },
   });
   return (
     <ScrollArea className="h-full">

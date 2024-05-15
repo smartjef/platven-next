@@ -39,7 +39,7 @@ const RegisterForm = (props: Props) => {
       email: "",
       password: "",
       confirmPassword: "",
-      phoneNumber: "",
+      phoneNumber: "" as any,
       identificationNumber: "",
       name: "",
       type: "Individual",

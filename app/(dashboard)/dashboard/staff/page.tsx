@@ -12,7 +12,7 @@ export default async function page() {
 
   if (!user?.isStaff && !user?.isSuperUser) return notFound();
   const users = await prisma.user.findMany({
-    where: { isStaff: true },
+    where: { OR: [{ isStaff: true }, { isSuperUser: true }] },
     include: { team: true },
   });
   return (

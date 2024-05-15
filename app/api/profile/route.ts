@@ -81,7 +81,7 @@ export const POST = async (request: NextRequest) => {
     if (_user) errors["email"] = { _errors: ["User with email exists"] };
     _user = await prisma.user.findFirst({
       where: {
-        phoneNumber: validation.data.phoneNumber,
+        phoneNumber: String(validation.data.phoneNumber),
         id: { not: user_.id },
       },
     });
@@ -115,7 +115,7 @@ export const POST = async (request: NextRequest) => {
 
     const user = await prisma.user.update({
       where: { id },
-      data: { ...validation.data, image },
+      data: { ...validation.data, image, phoneNumber: String(validation.data.phoneNumber) },
     });
     return NextResponse.json(user);
   } catch (error) {

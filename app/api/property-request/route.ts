@@ -22,7 +22,10 @@ export const POST = async (request: NextRequest) => {
       { status: 400 },
     );
   const propertyRequest = await prisma.propertyRequest.create({
-    data: validation.data,
+    data: {
+      ...validation.data,
+      phoneNumber: String(validation.data.phoneNumber),
+    },
     include: { property: true },
   });
   const clientMessage = parseMessage<{

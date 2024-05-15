@@ -48,7 +48,7 @@ export const PUT = async (
   });
   if (user_) errors["email"] = { _errors: ["User with email exists"] };
   user_ = await prisma.user.findFirst({
-    where: { phoneNumber, id: { not: currUser!.id } },
+    where: { phoneNumber:String(phoneNumber), id: { not: currUser!.id } },
   });
   if (user_) errors["phoneNumber"] = { _errors: ["User with phone exists"] };
 
@@ -75,7 +75,7 @@ export const PUT = async (
     where: { id },
     data: {
       email,
-      phoneNumber,
+      phoneNumber:String(phoneNumber),
       address,
       isActive,
       name,

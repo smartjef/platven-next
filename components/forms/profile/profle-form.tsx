@@ -50,7 +50,7 @@ const ProfileForm: FC<Props> = ({ user }) => {
       email: user?.email ?? "",
       address: user?.address ?? "",
       name: user?.name ?? "",
-      phoneNumber: user?.phoneNumber ?? "",
+      phoneNumber: user?.phoneNumber ?? "" as any,
       identificationNumber: user?.identificationNumber ?? "",
       type: user?.type ?? "Individual",
     },

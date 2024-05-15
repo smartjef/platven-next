@@ -44,6 +44,9 @@ const PropertyRequestsPage: FC<PropsWithSearchParams> = async ({
       ],
     },
     include: { property: true },
+    orderBy: {
+      isAddressed: "asc",
+    },
   });
   return (
     <ScrollArea className="h-full">

@@ -1,9 +1,6 @@
 import { registerSchema } from "@/components/forms/auth/schema";
 import { authCookieConfig } from "@/constants";
-import {
-  generateUserToken,
-  hashPassword
-} from "@/lib/auth-utils";
+import { generateUserToken, hashPassword } from "@/lib/auth-utils";
 import prisma from "@/prisma/client";
 import { serialize } from "cookie";
 import { isEmpty } from "lodash";
@@ -25,7 +22,7 @@ export async function POST(request: NextRequest) {
   if (user) errors["email"] = { _errors: ["User with email exist"] };
   user = await prisma.user.findUnique({
     where: {
-      phoneNumber,
+      phoneNumber: String(phoneNumber),
     },
   });
   if (user)
@@ -43,7 +40,7 @@ export async function POST(request: NextRequest) {
   user = await prisma.user.create({
     data: {
       email,
-      phoneNumber,
+      phoneNumber: String(phoneNumber),
       type,
       identificationNumber,
       name,

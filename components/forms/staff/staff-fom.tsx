@@ -56,7 +56,7 @@ const StaffForm: FC<Props> = ({ user }) => {
       address: user?.address ?? "",
       email: user?.email ?? "",
       name: user?.name ?? "",
-      phoneNumber: user?.phoneNumber ?? "",
+      phoneNumber: user?.phoneNumber ?? "" as any,
       position: user?.team?.position ?? "",
       isActive: user?.team?.isActive ?? true,
       type: user?.type ?? "Individual",

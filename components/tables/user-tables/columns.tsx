@@ -52,6 +52,22 @@ export const columns = (isStaff = false) =>
             accessorKey: "team.position",
             header: "POSITION",
           },
+          {
+            accessorKey: "isSuperUser",
+            header: "Role",
+            cell(props: any) {
+              const name = props.renderValue() as boolean;
+              return (
+                <Badge
+                  className={clsx({
+                    "bg-green-800": name,
+                  })}
+                >
+                  {name ? "Super admin" : "Staff"}
+                </Badge>
+              );
+            },
+          },
         ]
       : [
           {
