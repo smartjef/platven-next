@@ -36,6 +36,8 @@ export const PUT = async (
   const validation = await staffFormSchema.safeParseAsync({
     ...data,
     isActive: strToBool(data.isActive),
+    isStaff: strToBool(data.isStaff),
+    isSuperUser: strToBool(data.isSuperUser),
   });
 
   if (!validation.success)
@@ -52,6 +54,8 @@ export const PUT = async (
     name,
     identificationNumber,
     type,
+    isStaff,
+    isSuperUser
   } = validation.data;
 
   const errors: any = {};
@@ -95,7 +99,8 @@ export const PUT = async (
       email,
       phoneNumber,
       address,
-      isStaff: true,
+      isStaff,
+      isSuperUser,
       identificationNumber,
       type,
       name,

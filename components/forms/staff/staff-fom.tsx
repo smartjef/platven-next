@@ -1,6 +1,6 @@
 "use client";
 import { Heading } from "@/components/ui/heading";
-import { FC } from "react";
+import { FC, use } from "react";
 
 import { FileInput } from "@/components/filedropzone";
 import { Button } from "@/components/ui/button";
@@ -45,6 +45,9 @@ interface Props {
 
 const StaffForm: FC<Props> = ({ user }) => {
   const [image, setImage] = useState<File>();
+  const [role, setRole] = useState<"staff" | "admin">(
+    user?.isSuperUser ? "admin" : "staff",
+  );
   const { replace } = useRouter();
   const { toast } = useToast();
   const form = useForm<StaffFormValue>({
@@ -58,25 +61,32 @@ const StaffForm: FC<Props> = ({ user }) => {
       isActive: user?.team?.isActive ?? true,
       type: user?.type ?? "Individual",
       identificationNumber: user?.identificationNumber ?? "",
+      isStaff: user?.isStaff ?? true,
+      isSuperUser: user?.isSuperUser ?? false,
     },
-
   });
   const { watch } = form;
   const userType = watch("type");
 
   const onSubmit = async (data: StaffFormValue) => {
+    const payload = {
+      ...data,
+      image,
+      isSuperUser: role === "admin",
+      isStaff: role === "staff",
+    };
     try {
       let response;
       if (user)
         response = await fetch(`/api/staff/${user.id}`, {
           method: "PUT",
-          body: objectToFormData({ ...data, image }),
+          body: objectToFormData(payload),
           redirect: "follow",
         });
       else
         response = await fetch("/api/staff", {
           method: "POST",
-          body: objectToFormData({ ...data, image }),
+          body: objectToFormData(payload),
           redirect: "follow",
         });
       if (response.ok) {
@@ -150,43 +160,75 @@ const StaffForm: FC<Props> = ({ user }) => {
               else setImage(undefined);
             }}
           />
-          <FormField
-            control={form.control}
-            name="type"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>User type</FormLabel>
-                <Select
-                  // disabled={loading}
-                  onValueChange={field.onChange}
-                  value={field.value}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue
-                        defaultValue={field.value}
-                        placeholder="Select user type"
-                      />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    {/* @ts-ignore  */}
-                    {[
-                      { name: "Organization", id: "Organization" },
-                      { name: "Individual", id: "Individual" },
-                    ].map((city) => (
-                      <SelectItem key={city.id} value={city.id}>
-                        {city.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          <div className="md:grid md:grid-cols-2 gap-8">
+            <FormField
+              control={form.control}
+              name="type"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>User type</FormLabel>
+                  <Select
+                    // disabled={loading}
+                    onValueChange={field.onChange}
+                    value={field.value}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue
+                          defaultValue={field.value}
+                          placeholder="Select user type"
+                        />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {/* @ts-ignore  */}
+                      {[
+                        { name: "Organization", id: "Organization" },
+                        { name: "Individual", id: "Individual" },
+                      ].map((city) => (
+                        <SelectItem key={city.id} value={city.id}>
+                          {city.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
+            <FormItem>
+              <FormLabel>Role</FormLabel>
+              <Select
+                // disabled={loading}
+                onValueChange={setRole as any}
+                value={role}
+                defaultValue={role}
+              >
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue
+                      defaultValue={role}
+                      placeholder="Select user role"
+                    />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {/* @ts-ignore  */}
+                  {[
+                    { name: "Staff", id: "staff" },
+                    { name: "Super Admin", id: "admin" },
+                  ].map((city) => (
+                    <SelectItem key={city.id} value={city.id}>
+                      {city.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <FormMessage />
+            </FormItem>
+          </div>
           <FormField
             control={form.control}
             name="identificationNumber"

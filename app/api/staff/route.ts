@@ -27,6 +27,8 @@ export const POST = async (request: NextRequest) => {
   const validation = await staffFormSchema.safeParseAsync({
     ...data,
     isActive: strToBool(data.isActive),
+    isStaff: strToBool(data.isStaff),
+    isSuperUser: strToBool(data.isSuperUser),
   });
 
   if (!validation.success)
@@ -41,6 +43,7 @@ export const POST = async (request: NextRequest) => {
     name,
     identificationNumber,
     type,
+    isStaff, isSuperUser
   } = validation.data;
 
   const errors: any = {};
@@ -87,7 +90,8 @@ export const POST = async (request: NextRequest) => {
       phoneNumber,
       address,
       name,
-      isStaff: true,
+      isStaff,
+      isSuperUser,
       team: { create: { image, position, isActive: isActive } },
       password: hash,
       identificationNumber,

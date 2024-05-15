@@ -68,9 +68,9 @@ const Footer = () => {
               <li className="opacity-50">
                 <Link
                   className="flex items-center space-x-2"
-                  href={"tel:+25472000093006"}
+                  href={"tel:+254720009306"}
                 >
-                  <Phone /> <span>+25472000093006</span>
+                  <Phone /> <span>+254720009306</span>
                 </Link>
               </li>
               <li className="opacity-50">

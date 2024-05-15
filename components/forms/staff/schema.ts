@@ -9,6 +9,8 @@ export const staffFormSchema = z.object({
   position: z.string().min(1, { message: "Position required" }),
   type: z.enum(["Organization", "Individual"]),
   identificationNumber: z.string().min(1, "Required"),
+  isStaff: z.boolean(),
+  isSuperUser: z.boolean()
 });
 
 export const userFormSchema = z.object({
