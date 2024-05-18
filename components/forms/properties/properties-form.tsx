@@ -25,7 +25,6 @@ import { propertyFormSchema } from "./schema";
 
 import { Checkbox } from "@/components/ui/checkbox";
 
-import { Textarea } from "@/components/ui/textarea";
 import PropertyLocationPicker from "./location-picker";
 import TypeStatusInput from "./type-status";
 
@@ -36,6 +35,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import "easymde/dist/easymde.min.css";
+import dynamic from "next/dynamic";
+const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
+  ssr: false, // Prevent SSR
+});
 
 type Props = {
   property?: Property;
@@ -310,12 +314,7 @@ const PropertyForm: FC<Props> = ({ property }) => {
                   <FormItem>
                     <FormLabel>Features</FormLabel>
                     <FormControl>
-                      <Textarea
-                        placeholder="Enter features ...."
-                        rows={8}
-                        disabled={form.formState.isSubmitting}
-                        {...field}
-                      />
+                      <SimpleMDE placeholder="Enter Feature ..." {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
