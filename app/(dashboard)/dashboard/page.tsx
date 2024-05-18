@@ -21,7 +21,6 @@ export default async function page() {
   if (!user)
     redirect(`sign-in?callbackUrl=${encodeURIComponent("/dashboard")}`);
   const overview = await getMonthlyPayments();
-  console.log(overview);
 
   return (
     <ScrollArea className="h-full">

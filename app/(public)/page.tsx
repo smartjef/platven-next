@@ -17,15 +17,19 @@ const HomePage = async (props: Props) => {
   const properties = await prisma.property.findMany({
     include: { type: true },
   });
-
+  const propertyTypes = await prisma.propertyType.findMany({
+    where: { isActive: true },
+    include: { _count: true },
+  });
+  const adverts = await prisma.advert.findMany();
   return (
     <div className="flex justify-center">
       <div className="p-3 flex flex-col space-y-10 items-center lg:max-w-[80%]">
         <div className="w-[94vw] lg:w-full">
-          <PropertyTypesSlider />
+          <PropertyTypesSlider propertyTypes={propertyTypes} />
         </div>
         {/* Banner */}
-        <HeroBanner />
+        <HeroBanner adverts={adverts} />
         {/* Banner */}
         {/* How it works */}
         <div className="my-10">

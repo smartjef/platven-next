@@ -42,12 +42,14 @@ import {
   UserX2Icon,
   Warehouse,
   X,
-  Wallet
+  Wallet,
+  Megaphone
 } from "lucide-react";
 
 export type Icon = LucideIcon;
 
 export const Icons = {
+  advert:Megaphone,
   lock:LockKeyholeIcon,
   home: HomeIcon,
   messages: Mails,

@@ -39,6 +39,15 @@ model Account {
   @@unique([provider, providerAccountId])
 }
 
+model Advert {
+  id          String   @id @default(uuid()) @db.Uuid
+  image       String
+  title       String
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
 model User {
   id                   String             @id @default(uuid()) @db.Uuid
   name                 String
@@ -142,7 +151,7 @@ model PropertyRequest {
   name        String
   email       String
   phoneNumber String
-  isAddressed    Boolean  @default(false) 
+  isAddressed Boolean  @default(false)
   message     String?  @db.Text
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt

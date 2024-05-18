@@ -1,41 +1,25 @@
 "use client";
 import HomeFilterForm from "@/components/forms/properties/home-filter-form";
 import { Button } from "@/components/ui/button";
+import { Advert } from "@prisma/client";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 
-const HeroBanner = () => {
+const HeroBanner: FC<{ adverts: Advert[] }> = ({ adverts }) => {
   const [active, setActive] = useState(0);
-  const images = [
-    {
-      url: "/r-architecture-2gDwlIim3Uw-unsplash.jpg",
-      title: "Beautiful Home",
-      description: "This is a description of the first image.",
-    },
-    {
-      url: "/title-long.jpg",
-      title: "Luxurious Villa",
-      description: "This is a description of the second image.",
-    },
-    {
-      url: "/title-deeds.jpg",
-      title: "Cozy Apartment",
-      description: "This is a description of the third image.",
-    },
-  ];
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setActive((current) => (current + 1) % images.length);
+      setActive((current) => (current + 1) % adverts.length);
     }, 5000); // Change image every 3000 ms
     return () => clearInterval(interval);
   }, []);
   return (
     <div className="w-full grid grid-cols-1 lg:grid-cols-8 gap-3">
       <div className="lg:col-span-6 bg-black rounded-md relative overflow-clip h-96 lg:h-[60vh]">
-        {images.map((image, index) => (
+        {adverts.map(({ id, image, title, description }, index) => (
           <div
             key={index}
             className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
@@ -44,7 +28,7 @@ const HeroBanner = () => {
             style={{ transitionDelay: `${active === index ? "500ms" : "0ms"}` }}
           >
             <Image
-              src={{ src: image.url, height: 800, width: 500 }}
+              src={{ src: `/${image}`, height: 800, width: 500 }}
               className="w-full h-full object-cover rounded-lg shadow-lg"
               alt="Property Image"
             />
@@ -89,7 +73,7 @@ const HeroBanner = () => {
         </div> */}
         <div className="absolute w-full flex justify-center bottom-2">
           <div className=" flex justify-center space-x-2 bottom-2">
-            {images.map((_, index) => (
+            {adverts.map((_, index) => (
               <button
                 key={index}
                 className={`h-2 w-2 rounded-full ${

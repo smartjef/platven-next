@@ -1,11 +1,17 @@
 import prisma from "@/prisma/client";
+import { PropertyType } from "@prisma/client";
 import Image from "next/image";
+import { FC } from "react";
 
-const PropertyTypesSlider = async () => {
-  const propertyTypes = await prisma.propertyType.findMany({
-    where: { isActive: true },
-    include: { _count: true },
-  });
+type ProperTypeWithCount = PropertyType & {
+  _count: {
+    properties: number;
+  };
+};
+
+const PropertyTypesSlider: FC<{
+  propertyTypes: ProperTypeWithCount[];
+}> = async ({ propertyTypes }) => {
   return (
     <div className="flex justify-center  w-full ">
       <div className="flex overflow-hidden group w-full">
