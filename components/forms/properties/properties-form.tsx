@@ -273,6 +273,7 @@ const PropertyForm: FC<Props> = ({ property }) => {
                           {[
                             { name: "Highway", id: "Highway" },
                             { name: "Tarmac", id: "Tarmac" },
+                            { name: "Murram", id: "Murram" },
                           ].map((city) => (
                             <SelectItem key={city.id} value={city.id}>
                               {city.name}

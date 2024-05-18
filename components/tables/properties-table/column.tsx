@@ -143,9 +143,6 @@ export const columns: ColumnDef<Property & { type: PropertyType }>[] = [
   {
     id: "actions",
     enableHiding: false,
-    cell: ({ row }) => {
-      const property = row.original;
-      return <PropertyActions property={property} />;
-    },
+    cell: ({ row }) => <PropertyActions property={row.original} />,
   },
 ];

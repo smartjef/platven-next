@@ -13,8 +13,9 @@ import useSessionContext from "@/hooks/useSessionContext";
 import { Contact } from "@prisma/client";
 import { MoreHorizontal } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { AlertModal } from "@/components/modal/alert-modal";
 
-import { FC } from "react";
+import { FC, useState } from "react";
 
 interface Props {
   message: Contact;
@@ -23,6 +24,8 @@ const MessageAction: FC<Props> = ({ message }) => {
   const { user } = useSessionContext();
   const router = useRouter();
   const { toast } = useToast();
+  const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const handleToggle = async () => {
     const response = await fetch(`/api/contact/${message.id}`, {
       method: "PUT",
@@ -45,9 +48,11 @@ const MessageAction: FC<Props> = ({ message }) => {
   };
 
   const handleDelete = async () => {
+    setLoading(true);
     const response = await fetch(`/api/contact/${message.id}`, {
       method: "DELETE",
     });
+    setLoading(false);
     if (response.ok) {
       router.refresh();
       toast({
@@ -57,34 +62,42 @@ const MessageAction: FC<Props> = ({ message }) => {
     }
   };
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="h-8 w-8 p-0">
-          <span className="sr-only">Open menu</span>
-          <MoreHorizontal className="h-4 w-4" />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuLabel>Actions</DropdownMenuLabel>
-        <DropdownMenuItem
-          onClick={() =>
-            window.open(
-              `mailto:${message.email}?subject=${message.subject}`,
-              "popup",
-            )
-          }
-        >
-          Reply
-        </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={handleToggle}>
-          {message.isAddressed ? "Mark Un addressed" : "Mark as Addressed"}
-        </DropdownMenuItem>
-        {(user?.isStaff  ||user?.isSuperUser) && (
-          <DropdownMenuItem onClick={handleDelete}>Delete</DropdownMenuItem>
-        )}
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <>
+      <AlertModal
+        isOpen={open}
+        onClose={() => setOpen(false)}
+        onConfirm={handleDelete}
+        loading={loading}
+      />
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" className="h-8 w-8 p-0">
+            <span className="sr-only">Open menu</span>
+            <MoreHorizontal className="h-4 w-4" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          <DropdownMenuLabel>Actions</DropdownMenuLabel>
+          <DropdownMenuItem
+            onClick={() =>
+              window.open(
+                `mailto:${message.email}?subject=${message.subject}`,
+                "popup",
+              )
+            }
+          >
+            Reply
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem onClick={handleToggle}>
+            {message.isAddressed ? "Mark Un addressed" : "Mark as Addressed"}
+          </DropdownMenuItem>
+          {(user?.isStaff || user?.isSuperUser) && (
+            <DropdownMenuItem onClick={() => setOpen(true)}>Delete</DropdownMenuItem>
+          )}
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </>
   );
 };
 

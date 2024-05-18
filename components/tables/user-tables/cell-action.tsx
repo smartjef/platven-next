@@ -66,7 +66,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
       router.refresh();
       toast({
         title: "Success!",
-        description: "Staff User deleted successfully!",
+        description: "User deleted successfully!",
       });
     }
   };
@@ -77,7 +77,6 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
         isOpen={open}
         onClose={() => setOpen(false)}
         onConfirm={onConfirm}
-      
         loading={loading}
       />
       <DropdownMenu modal={false}>

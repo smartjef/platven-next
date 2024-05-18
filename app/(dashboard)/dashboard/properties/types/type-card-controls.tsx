@@ -7,7 +7,8 @@ import { PropertyType } from "@prisma/client";
 import clsx from "clsx";
 import { PencilLine, Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { FC } from "react";
+import { FC, useState } from "react";
+import { AlertModal } from "@/components/modal/alert-modal";
 
 type Props = {
   type: PropertyType;
@@ -16,6 +17,8 @@ type Props = {
 const TypeCardControlls: FC<Props> = ({ type: { isActive, id, title } }) => {
   const { refresh, push } = useRouter();
   const { toast } = useToast();
+  const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const handleTogleActivate = async () => {
     const response = await fetch(`/api/property-types/${id}`, {
       method: "PUT",
@@ -31,9 +34,11 @@ const TypeCardControlls: FC<Props> = ({ type: { isActive, id, title } }) => {
   };
 
   const handleDelete = async () => {
+    setLoading(true);
     const response = await fetch(`/api/property-types/${id}`, {
       method: "DELETE",
     });
+    setLoading(false);
     if (response.ok) {
       refresh();
       toast({
@@ -45,6 +50,12 @@ const TypeCardControlls: FC<Props> = ({ type: { isActive, id, title } }) => {
 
   return (
     <>
+      <AlertModal
+        isOpen={open}
+        onClose={() => setOpen(false)}
+        onConfirm={handleDelete}
+        loading={loading}
+      />
       <Badge
         className={clsx("absolute bottom-2 right-2 cursor-pointer", {
           "bg-destructive": isActive,
@@ -63,7 +74,11 @@ const TypeCardControlls: FC<Props> = ({ type: { isActive, id, title } }) => {
         >
           <PencilLine />
         </Button>
-        <Button variant={"destructive"} size={"icon"} onClick={handleDelete}>
+        <Button
+          variant={"destructive"}
+          size={"icon"}
+          onClick={() => setOpen(true)}
+        >
           <Trash2 />
         </Button>
       </div>

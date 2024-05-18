@@ -1,3 +1,4 @@
+"use client"
 import MakePaymentForm from "@/components/forms/payment/make-payment-form";
 import { Button } from "@/components/ui/button";
 import {
@@ -20,6 +21,7 @@ import { Property } from "@prisma/client";
 import { MoreHorizontal } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { FC, useState } from "react";
+import { AlertModal } from "@/components/modal/alert-modal";
 
 type Props = {
   property: Property;
@@ -27,13 +29,17 @@ type Props = {
 
 const PropertyActions: FC<Props> = ({ property }) => {
   const [showPrompt, setShowPrompt] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const { push, refresh } = useRouter();
   const { toast } = useToast();
 
   const handleDelete = async () => {
+    setLoading(true);
     const response = await fetch(`/api/properties/${property.id}`, {
       method: "DELETE",
     });
+    setLoading(false);
     if (response.ok) {
       refresh();
       toast({
@@ -44,6 +50,12 @@ const PropertyActions: FC<Props> = ({ property }) => {
   };
   return (
     <>
+      <AlertModal
+        isOpen={open}
+        onClose={() => setOpen(false)}
+        onConfirm={handleDelete}
+        loading={loading}
+      />
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="h-8 w-8 p-0">
@@ -70,7 +82,7 @@ const PropertyActions: FC<Props> = ({ property }) => {
           >
             Update property
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={handleDelete}>
+          <DropdownMenuItem onClick={() => setOpen(true)}>
             Delete Property
           </DropdownMenuItem>
         </DropdownMenuContent>
