@@ -9,6 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useToast } from "@/components/ui/use-toast";
+import useSessionContext from "@/hooks/useSessionContext";
 import { objectToFormData } from "@/lib/utils";
 import { User } from "@prisma/client";
 import {
@@ -32,6 +33,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const router = useRouter();
   const pathName = usePathname();
   const { toast } = useToast();
+  const { user } = useSessionContext();
   const handleTogleActivate = async () => {
     const response = await fetch(`/api/user/${data.id}`, {
       method: "PUT",
@@ -54,7 +56,20 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
     }
   };
 
-  const onConfirm = async () => {};
+  const onConfirm = async () => {
+    setLoading(true);
+    const response = await fetch(`/api/user/${data.id}`, {
+      method: "DELETE",
+    });
+    setLoading(false);
+    if (response.ok) {
+      router.refresh();
+      toast({
+        title: "Success!",
+        description: "Staff User deleted successfully!",
+      });
+    }
+  };
 
   return (
     <>
@@ -62,6 +77,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
         isOpen={open}
         onClose={() => setOpen(false)}
         onConfirm={onConfirm}
+      
         loading={loading}
       />
       <DropdownMenu modal={false}>
@@ -98,7 +114,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
               <Edit className="mr-2 h-4 w-4" /> Update
             </DropdownMenuItem>
           )}
-          {pathName.startsWith("/dashboard/staff") && (
+          {user?.isSuperUser && (
             <DropdownMenuItem onClick={() => setOpen(true)}>
               <Trash className="mr-2 h-4 w-4" /> Delete
             </DropdownMenuItem>

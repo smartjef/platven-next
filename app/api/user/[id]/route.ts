@@ -16,10 +16,7 @@ export const PUT = async (
     !z.string().uuid().safeParse(id).success ||
     !(await prisma.user.findUnique({ where: { id } }))
   )
-    return NextResponse.json(
-      { detail: "Property type not found" },
-      { status: 404 },
-    );
+    return NextResponse.json({ detail: "User not found" }, { status: 404 });
 
   const formData = await request.formData();
   const data = Array.from(formData.entries()).reduce<any>(
@@ -48,7 +45,7 @@ export const PUT = async (
   });
   if (user_) errors["email"] = { _errors: ["User with email exists"] };
   user_ = await prisma.user.findFirst({
-    where: { phoneNumber:String(phoneNumber), id: { not: currUser!.id } },
+    where: { phoneNumber: String(phoneNumber), id: { not: currUser!.id } },
   });
   if (user_) errors["phoneNumber"] = { _errors: ["User with phone exists"] };
 
@@ -75,7 +72,7 @@ export const PUT = async (
     where: { id },
     data: {
       email,
-      phoneNumber:String(phoneNumber),
+      phoneNumber: String(phoneNumber),
       address,
       isActive,
       name,
@@ -84,4 +81,27 @@ export const PUT = async (
   });
 
   return NextResponse.json(newUser);
+};
+
+export const DELETE = async (
+  request: NextRequest,
+  { params: { id } }: { params: { id: string } },
+) => {
+  const user = await getSessionUser();
+  if (!user?.isSuperUser)
+    return NextResponse.json(
+      {
+        detail: "You have no permision to perfom action",
+      },
+      { status: 403 },
+    );
+  if (
+    !z.string().uuid().safeParse(id).success ||
+    !(await prisma.user.findUnique({ where: { id } }))
+  )
+    return NextResponse.json({ detail: "User not found" }, { status: 404 });
+
+  const currUser = await prisma.user.delete({ where: { id } });
+
+  return NextResponse.json({ detail: "User deleted successfully" });
 };
