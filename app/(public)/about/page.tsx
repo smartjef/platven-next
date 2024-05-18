@@ -1,5 +1,5 @@
 import HeroSection from "@/components/hero-seaction";
-import { services } from "@/constants/data";
+import { coreValues, services } from "@/constants/data";
 import prisma from "@/prisma/client";
 import aboutRound from "@/public/about-circle.png";
 import service from "@/public/service.png";
@@ -15,10 +15,14 @@ const AboutPage = async (props: Props) => {
     <div className="flex flex-col  space-y-10">
       {/* hero */}
       <HeroSection
-        title="About Platven"
+        title="About Platven LTD"
         subTitle="About us"
-        description="Huge number of propreties availabe here for buy and sell,
-also you can find here co-living property"
+        description={
+          <div className="text-white space-y-4">
+            <p className="text-xl mt-4">Kwa Ushirikiano Twatimiza Ndoto</p>
+            <p className="text-lg">(In partnership, We Fulfill Dreams)</p>
+          </div>
+        }
       />
       {/* hero */}
       {/* Main Body */}
@@ -27,12 +31,14 @@ also you can find here co-living property"
           {/* Brief */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <Image alt="" src={aboutRound} />
-            <div className="flex flex-col justify-center space-y-10">
-              <p className="text-4xl">
-                We Provide Right Choice Of <br />
-                Properties That You Need And Have <br />
-                Great Opportunity To Choose From <br />
-                Thousands Of Collection .
+            <div className="flex flex-col justify-center space-y-10 p-10">
+              <p className="text-2xl">
+                Platven Ltd is a dynamic and client-focused real estate agency
+                based in Juja. Founded with a vision to transform property
+                dreams into reality, we have established ourselves as a trusted
+                partner in the real estate industry. Our commitment to
+                excellence, collaboration, and innovation sets us apart in
+                helping our clients achieve their property goals.
               </p>
               <div className="grid grid-cols-3 gap-4 ">
                 <div>
@@ -55,15 +61,71 @@ also you can find here co-living property"
           <section className="mx-auto px-6 md:max-w-screen-xl" id="ourservices">
             <div className="mx-auto mt-20 mb-16 block px-6 text-center">
               <h2 className="mx-auto text-4xl font-bold md:text-5xl">
-                Services That We Provide.
+                History
               </h2>
               <div className="mx-auto mt-6 mb-auto block w-full text-xl font-normal leading-9 md:w-3/4 xl:w-3/4">
                 <p className="text-lg">
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Dolorem provident repellat cupiditate blanditiis! Sit
-                  temporibus doloremque molestias, aut necessitatibus quisquam
-                  non deleniti debitis aperiam ullam! Repudiandae, debitis iure
-                  libero reiciendis ducimus temporibus!
+                  Platven Ltd was founded in 2023 by our visionary Managing
+                  Director, Jacob Kariuki. Since our inception, we have steadily
+                  grown, earning a reputation for reliability, trustworthiness,
+                  and a commitment to exceeding client expectations. We have
+                  successfully facilitated countless real estate transactions
+                  and continue to expand our reach.
+                </p>
+              </div>
+            </div>
+            <div className="mx-auto mt-20 mb-16 block px-6 text-center">
+              <h2 className="mx-auto text-4xl font-bold md:text-5xl">
+                Mission
+              </h2>
+              <div className="mx-auto mt-6 mb-auto block w-full text-xl font-normal leading-9 md:w-3/4 xl:w-3/4">
+                <p className="text-lg">
+                  To provide exceptional real estate services through
+                  collaboration, innovation, and unwavering dedication, helping
+                  our clients achieve their property dreams.
+                </p>
+              </div>
+            </div>
+            <div className="mx-auto mt-20 mb-16 block px-6 text-center">
+              <h2 className="mx-auto text-4xl font-bold md:text-5xl">Vision</h2>
+              <div className="mx-auto mt-6 mb-auto block w-full text-xl font-normal leading-9 md:w-3/4 xl:w-3/4">
+                <p className="text-lg">
+                  Platven Real Estate strives to make property ownership more
+                  accessible and boost business competitiveness and
+                  sustainability. We achieve this by offering affordable,
+                  analytics-driven business premises, transforming property
+                  ownership to foster thriving businesses.
+                </p>
+              </div>
+            </div>
+            <div className="mx-auto mt-20 mb-16 block px-6 text-center">
+              <h2 className="mx-auto text-4xl font-bold md:text-5xl">
+                Core values
+              </h2>
+              <div className="mx-auto mt-6 mb-auto block w-full text-xl font-normal leading-9 md:w-10/12 xl:w-10/12">
+                <ul className="mt-4 gap-10 text-left mx-auto grid grid-cols-1 lg:grid-cols-3">
+                  {coreValues.map(({ id, description, title }, index) => (
+                    <li className="" key={id}>
+                      <strong>{title}:</strong>{" "}
+                      <span className="text-muted-foreground">
+                        {description}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </section>
+          <section className="mx-auto px-6 md:max-w-screen-xl" id="ourservices">
+            <div className="mx-auto mt-20 mb-16 block px-6 text-center">
+              <h2 className="mx-auto text-4xl font-bold md:text-5xl">
+                Our Services
+              </h2>
+              <div className="mx-auto mt-6 mb-auto block w-full text-xl font-normal leading-9 md:w-3/4 xl:w-3/4">
+                <p className="text-lg">
+                  To provide exceptional real estate services through
+                  collaboration, innovation, and unwavering dedication, helping
+                  our clients achieve their property dreams.
                 </p>
               </div>
             </div>
@@ -85,7 +147,6 @@ also you can find here co-living property"
               ))}
             </div>
           </section>
-
           {/* Steps */}
           {/* Agents */}
           <div className="flex justify-center " id="agents">

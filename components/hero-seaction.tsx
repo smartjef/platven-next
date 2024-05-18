@@ -1,12 +1,12 @@
 import hero from "@/public/r-architecture-2gDwlIim3Uw-unsplash.jpg";
 import Image, { StaticImageData } from "next/image";
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 
 interface Props {
   bgImage?: StaticImageData;
   title: string;
   subTitle: string;
-  description?: string;
+  description?: string | ReactNode;
 }
 
 const HeroSection: FC<Props> = ({ bgImage, title, subTitle, description }) => {
@@ -21,7 +21,11 @@ const HeroSection: FC<Props> = ({ bgImage, title, subTitle, description }) => {
       <div className="absolute w-full h-full flex flex-col justify-center  items-center text-white space-y-8 p-10">
         <p>{subTitle}</p>
         <h1 className="font-bold text-4xl">{title}</h1>
-        {description && <p className="text-center text-xl">{description}</p>}
+        {description instanceof String && (
+          <p className="text-center text-xl">{description}</p>
+        )}
+
+        {description instanceof Object && <>{description}</>}
       </div>
     </div>
   );

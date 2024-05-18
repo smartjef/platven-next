@@ -60,21 +60,23 @@ const Footer = () => {
               <li className="opacity-50">
                 <Link
                   className="flex items-center space-x-2"
-                  href={"mailto:uventures@gmail.com"}
+                  href={"mailto:uventures3@gmail.com"}
                 >
-                  <Mail /> <span>uventures@gmail.com</span>
+                  <Mail /> <span>uventures3@gmail.com</span>
                 </Link>
               </li>
               <li className="opacity-50">
                 <Link
                   className="flex items-center space-x-2"
-                  href={"tel:+254720009306"}
+                  href={"tel:0720009306"}
                 >
-                  <Phone /> <span>+254720009306</span>
+                  <Phone /> <span>0720009306</span>
                 </Link>
               </li>
               <li className="opacity-50">
-                <Link href={"/contact"}>Contact page</Link>
+                <Link href={"/contact"}>
+                  Thika Road,Juja Town Gitawa Building 4th floor, Room 9
+                </Link>
               </li>
             </ul>
           </div>
@@ -83,7 +85,7 @@ const Footer = () => {
       <div className="flex justify-center">
         <div className="flex flex-col lg:flex-row justify-between items-center mx-auto mb-10 w-full lg:max-w-[80%] text-center">
           <p className="py-10 text-center text-gray-300">
-            © {new Date(Date.now()).getFullYear()} Platven | All Rights
+            © {new Date(Date.now()).getFullYear()} Platven LTD | All Rights
             Reserved
           </p>
           <p className="py-10 text-center text-gray-300">

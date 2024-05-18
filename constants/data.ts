@@ -323,3 +323,53 @@ export const whyUs = [
       "Our commitment to service excellence and integrity has earned us the trust of thousands of clients who rely on us for their real estate needs.",
   },
 ];
+
+export const coreValues = [
+  {
+    id: 1,
+    title: "Integrity",
+    description: `We uphold the highest ethical standards in all our
+  interactions, building trust with our clients, partners, and
+  team members.`,
+  },
+  {
+    id: 2,
+    title: "Collaboration",
+    description: `We believe that
+    together, we can achieve more. We foster a culture of
+    teamwork and cooperation to deliver exceptional results.
+ `,
+  },
+  {
+    id: 3,
+    title: "Excellence",
+    description: `We strive for
+    excellence in everything we do, continuously improving our
+    services and exceeding client expectations.
+ `,
+  },
+  {
+    id: 4,
+    title: "Innovation",
+    description: `We embrace
+    innovation and adapt to the evolving real estate landscape,
+    leveraging technology and creative solutions to stay ahead.
+ `,
+  },
+  {
+    id: 5,
+    title: "Client-Centric",
+    description: ` Our clients'
+    dreams and needs are at the heart of our business. We go the
+    extra mile to understand and fulfill their aspirations.
+ `,
+  },
+  {
+    id: 6,
+    title: "Community Engagement",
+    description: `We
+    actively engage with and give back to the communities we
+    serve, contributing to their well-being and growth.
+ `,
+  },
+];
