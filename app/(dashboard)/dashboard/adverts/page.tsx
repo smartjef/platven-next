@@ -10,6 +10,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { FC } from "react";
 
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import AdvertCardControlls from "./adverts-card-controls";
+
 const breadcrumbItems = [{ title: "Adverts", link: "/dashboard/adverts" }];
 
 const Adverts = async () => {
@@ -39,20 +47,27 @@ const Adverts = async () => {
             return (
               <div
                 key={id}
-                className="shadow-lg flex space-x-4 relative rounded-sm overflow-hidden bg-accent"
+                className="shadow-lg space-y-4 relative rounded-sm overflow-hidden bg-accent"
               >
                 <Image
                   src={{ src: `/${image}`, width: 100, height: 100 }}
-                  className="w-28 h-28"
+                  className="w-full h-72"
                   alt={title}
                 />
-                <div className="flex flex-col py-4">
+                <div className="flex flex-col p-4">
                   <h1 className="font-bold text-xl">{title}</h1>
                   {/* <p className="">{isActive ? "Active" : "Inactive"}</p> */}
                   <p className="">
                     {moment(createdAt).format("Do dd MMM yyy")}
                   </p>
+                  <Accordion type="single" collapsible className="w-full">
+                    <AccordionItem value="item-1">
+                      <AccordionTrigger>Description</AccordionTrigger>
+                      <AccordionContent>{description}</AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
                 </div>
+                <AdvertCardControlls advert={type_} />
               </div>
             );
           })}
