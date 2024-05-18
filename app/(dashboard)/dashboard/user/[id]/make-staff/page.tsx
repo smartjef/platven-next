@@ -9,23 +9,22 @@ import { FC } from "react";
 
 const breadcrumbItems = [
   { title: "User", link: "/dashboard/user" },
-  { title: "Update", link: "/dashboard/user/create" },
+  { title: "Make Staff", link: "/" },
 ];
-const UpdateStaffPage: FC<PropsWithPathParams> = async ({ params: { id } }) => {
-
+const MakeStaff: FC<PropsWithPathParams> = async ({ params: { id } }) => {
   const user = await prisma.user.findUnique({
-    where: { id },
+    where: { id, isStaff: false, isSuperUser: false },
     include: { team: true },
   });
-  if (!user) return notFound()
+  if (!user) return notFound();
   return (
     <ScrollArea className="h-full">
       <div className="flex-1 space-y-4 p-5">
         <BreadCrumb items={breadcrumbItems} />
-        <StaffForm user={user as any} />
+        <StaffForm user={user as any} createFromUser />
       </div>
     </ScrollArea>
   );
 };
 
-export default UpdateStaffPage;
+export default MakeStaff;

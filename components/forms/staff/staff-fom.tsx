@@ -41,9 +41,10 @@ type StaffFormValue = z.infer<typeof formSchema>;
 
 interface Props {
   user?: User & { team?: Team };
+  createFromUser?: boolean;
 }
 
-const StaffForm: FC<Props> = ({ user }) => {
+const StaffForm: FC<Props> = ({ user, createFromUser = false }) => {
   const [image, setImage] = useState<File>();
   const [role, setRole] = useState<"staff" | "admin">(
     user?.isSuperUser ? "admin" : "staff",
@@ -56,7 +57,7 @@ const StaffForm: FC<Props> = ({ user }) => {
       address: user?.address ?? "",
       email: user?.email ?? "",
       name: user?.name ?? "",
-      phoneNumber: user?.phoneNumber ?? "" as any,
+      phoneNumber: user?.phoneNumber ?? ("" as any),
       position: user?.team?.position ?? "",
       isActive: user?.team?.isActive ?? true,
       type: user?.type ?? "Individual",
@@ -77,8 +78,14 @@ const StaffForm: FC<Props> = ({ user }) => {
     };
     try {
       let response;
-      if (user)
+      if (user && !createFromUser)
         response = await fetch(`/api/staff/${user.id}`, {
+          method: "PUT",
+          body: objectToFormData(payload),
+          redirect: "follow",
+        });
+      else if (user && createFromUser)
+        response = await fetch(`/api/user/${user.id}/make-staff`, {
           method: "PUT",
           body: objectToFormData(payload),
           redirect: "follow",

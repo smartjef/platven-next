@@ -113,6 +113,15 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
               <Edit className="mr-2 h-4 w-4" /> Update
             </DropdownMenuItem>
           )}
+          {pathName.startsWith("/dashboard/user") && (
+            <DropdownMenuItem
+              onClick={() => {
+                router.push(`/dashboard/user/${data.id}/make-staff`);
+              }}
+            >
+              <Edit className="mr-2 h-4 w-4" /> Make Staff
+            </DropdownMenuItem>
+          )}
           {user?.isSuperUser && (
             <DropdownMenuItem onClick={() => setOpen(true)}>
               <Trash className="mr-2 h-4 w-4" /> Delete

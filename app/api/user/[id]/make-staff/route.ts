@@ -84,6 +84,11 @@ export const PUT = async (
       .toFormat("jpeg", { mozjpeg: true })
       .resize(400, 400, { fit: "cover" })
       .toFile(absolutePath);
+  } else {
+    return NextResponse.json(
+      { image: { _errors: ["Image required"] } },
+      { status: 400 },
+    );
   }
 
   const newUser = await prisma.user.update({
@@ -97,7 +102,16 @@ export const PUT = async (
       identificationNumber,
       type,
       name,
-      team: { update: { image, position, isActive } },
+      team: {
+        upsert: {
+          create: {
+            image,
+            position,
+            isActive,
+          },
+          update: { image, position, isActive },
+        },
+      },
     },
   });
 
