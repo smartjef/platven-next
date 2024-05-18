@@ -137,6 +137,7 @@ enum PropertyStatus {
 enum PropertyRoadAccessNature {
   Highway
   Tarmac
+  Murram
 }
 
 enum UserType {

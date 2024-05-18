@@ -11,17 +11,17 @@ import { Bookmark, Calendar, Heart } from "lucide-react";
 import moment from "moment/moment";
 import Image from "next/image";
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { FC } from "react";
 
 const PropertyDetailPage: FC<PropsWithPathParams> = async ({
   params: { id },
 }) => {
   const property = await prisma.property.findUnique({
-    where: { id },
+    where: { id, listed: true, isActive: true, payment: { complete: true } },
     include: { type: true },
   });
-  if (!property) redirect("/not-found");
+  if (!property) return notFound();
   const relatedProperties = await prisma.property.findMany({
     include: { type: true },
   });

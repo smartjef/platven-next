@@ -114,6 +114,7 @@ const FilterForm = () => {
                 {[
                   { id: "Highway", label: "Highway" },
                   { id: "Tarmac", label: "Tarmac" },
+                  { id: "Murram", label: "Murram" },
                 ].map(({ id, label }, index) => (
                   <SelectItem key={index} value={id}>
                     {label}

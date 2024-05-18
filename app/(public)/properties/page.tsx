@@ -15,7 +15,7 @@ const filterParams = z.object({
   minPrice: z.number({ coerce: true }).optional(),
   maxPrice: z.number({ coerce: true }).optional(),
   status: z.enum(["onSale", "onRent"]).optional(),
-  roadAccessNature: z.enum(["Highway", "Tarmac"]).optional(),
+  roadAccessNature: z.enum(["Highway", "Tarmac", "Murram"]).optional(),
   typeId: z.string().uuid().optional(),
 });
 
@@ -29,9 +29,9 @@ const PropertiesPage: FC<PropsWithSearchParams> = async ({ searchParams }) => {
   const properties = await prisma.property.findMany({
     include: { type: true },
     where: {
-      // listed: true,
-      // isActive: true,
-      // payment: { complete: true },
+      listed: true,
+      isActive: true,
+      payment: { complete: true },
       AND: [
         {
           OR: [

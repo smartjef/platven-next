@@ -16,6 +16,18 @@ type Props = {};
 const HomePage = async (props: Props) => {
   const properties = await prisma.property.findMany({
     include: { type: true },
+    where: {
+      user: {
+        OR: [
+          {
+            isStaff: true,
+          },
+          {
+            isSuperUser: true,
+          },
+        ],
+      },
+    },
   });
   const propertyTypes = await prisma.propertyType.findMany({
     where: { isActive: true },
