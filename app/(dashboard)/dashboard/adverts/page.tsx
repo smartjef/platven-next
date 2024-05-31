@@ -8,7 +8,6 @@ import { Plus } from "lucide-react";
 import moment from "moment/moment";
 import Image from "next/image";
 import Link from "next/link";
-import { FC } from "react";
 
 import {
   Accordion,
@@ -16,11 +15,14 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { notFound } from "next/navigation";
 import AdvertCardControlls from "./adverts-card-controls";
 
 const breadcrumbItems = [{ title: "Adverts", link: "/dashboard/adverts" }];
 
 const Adverts = async () => {
+  const user = await getSessionUser();
+  if (!user?.isSuperUser && user?.isStaff) return notFound();
   const adverts = await prisma.advert.findMany();
   return (
     <ScrollArea className="h-full">
