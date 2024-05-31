@@ -21,7 +21,7 @@ const PropertyTypesSlider: FC<{
               <div key={index} className="flex space-x-2">
                 <Image
                   src={{
-                    src: `/${process.env.NEXT_PUBLIC_FRONTEND_URL}/${icon}`,
+                    src: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/${icon}`,
                     width: 100,
                     height: 100,
                   }}
@@ -43,7 +43,7 @@ const PropertyTypesSlider: FC<{
             ({ createdAt, icon, id, title, properties }, index) => (
               <div key={index} className="flex space-x-2">
                 <Image
-                  src={{ src: `/${process.env.NEXT_PUBLIC_FRONTEND_URL}/${icon}`, width: 100, height: 100 }}
+                  src={{ src: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/${icon}`, width: 100, height: 100 }}
                   alt={title}
                 />
                 <div className="flex flex-col justify-center">

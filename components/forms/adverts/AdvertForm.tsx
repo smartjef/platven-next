@@ -105,7 +105,7 @@ const AdvertForm: FC<Props> = ({ advert }) => {
                 {advert?.image ? (
                   <Image
                     src={{
-                      src: `/${process.env.NEXT_PUBLIC_FRONTEND_URL}/${advert?.image}`,
+                      src: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/${advert?.image}`,
                       width: 100,
                       height: 100,
                     }}

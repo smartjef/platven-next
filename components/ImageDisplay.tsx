@@ -27,7 +27,7 @@ const ImageDisplay: React.FC<Props> = ({ images = [] }) => {
             <Image
               key={index}
               src={{
-                src: `/${process.env.NEXT_PUBLIC_FRONTEND_URL}/${image}`,
+                src: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/${image}`,
                 width: 800,
                 height: 500,
               }}

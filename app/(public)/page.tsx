@@ -130,7 +130,7 @@ const HomePage = async (props: Props) => {
                       <Image
                         className="rounded-t-lg"
                         src={{
-                          src: `/${process.env.NEXT_PUBLIC_FRONTEND_URL}/${images[0]}`,
+                          src: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/${images[0]}`,
                           height: 500,
                           width: 800,
                         }}

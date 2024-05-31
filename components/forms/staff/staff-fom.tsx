@@ -144,7 +144,7 @@ const StaffForm: FC<Props> = ({ user, createFromUser = false }) => {
             {user?.team?.image ? (
               <Image
                 src={{
-                  src: `/${process.env.NEXT_PUBLIC_FRONTEND_URL}/${
+                  src: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/${
                     user!.team.image
                   }`,
                   width: 100,

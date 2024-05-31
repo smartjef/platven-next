@@ -29,7 +29,7 @@ const HeroBanner: FC<{ adverts: Advert[] }> = ({ adverts }) => {
           >
             <Image
               src={{
-                src: `/${process.env.NEXT_PUBLIC_FRONTEND_URL}/${image}`,
+                src: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/${image}`,
                 height: 800,
                 width: 500,
               }}

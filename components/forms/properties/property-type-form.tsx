@@ -107,7 +107,7 @@ const PropertyTypeForm: FC<Props> = ({ propertyType }) => {
                 {propertyType?.icon ? (
                   <Image
                     src={{
-                      src: `/${process.env.NEXT_PUBLIC_FRONTEND_URL}/${propertyType?.icon}`,
+                      src: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/${propertyType?.icon}`,
                       width: 100,
                       height: 100,
                     }}
