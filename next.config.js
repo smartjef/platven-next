@@ -1,9 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  //   eslint: {
-  //     ignoreDuringBuilds: true,
-  //   },
-  // output: "export",
+  images: {
+    remotePatterns: [{ protocol: "http", hostname: "localhost" }],
+    remotePatterns: [{ hostname: "platven.ke", protocol: "https" }],
+  },
 };
 
 module.exports = nextConfig;

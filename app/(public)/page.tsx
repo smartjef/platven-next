@@ -10,10 +10,12 @@ import HeroBanner from "@/components/HeroBanner";
 import { Icons } from "@/components/icons";
 import { steps, whyUs } from "@/constants/data";
 import clsx from "clsx";
+import { getSessionUser } from "@/lib/auth-utils";
 
 type Props = {};
 
 const HomePage = async (props: Props) => {
+  const user = await getSessionUser();
   const properties = await prisma.property.findMany({
     include: { type: true },
     where: {
