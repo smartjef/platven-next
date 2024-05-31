@@ -11,7 +11,7 @@ const ImageDisplay: React.FC<Props> = ({ images = [] }) => {
   return (
     <div className="w-full h-full flex flex-col items-center">
       {/* Carousel */}
-      <Image
+      {/* <Image
         src={{
           src: currentImage ? `/${currentImage}` : "/",
           width: 800,
@@ -19,18 +19,34 @@ const ImageDisplay: React.FC<Props> = ({ images = [] }) => {
         }}
         alt={""}
         className="bg-indigo-800  object-cover h-[80%] w-full"
+      /> */}
+      <img
+        src={
+          currentImage
+            ? `${process.env.NEXT_PUBLIC_FRONTEND_URL}/${currentImage}`
+            : "/"
+        }
+        alt={""}
+        className="bg-indigo-800  object-cover h-[80%] w-full"
       />
       {/* Thumbnailes */}
       <div className="flex grow overflow-x-auto justify-center space-x-2 my-2">
         {images.length > 0 ? (
           images.map((image, index) => (
-            <Image
+            // <Image
+            //   key={index}
+            //   src={{
+            //     src: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/${image}`,
+            //     width: 800,
+            //     height: 500,
+            //   }}
+            //   alt={""}
+            //   className="bg-indigo-800 object-cover w-100 h-100 hover:opacity-50 hover:cursor-pointer"
+            //   onClick={() => setCurrentIage(image)}
+            // />
+            <img
               key={index}
-              src={{
-                src: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/${image}`,
-                width: 800,
-                height: 500,
-              }}
+              src={`${process.env.NEXT_PUBLIC_FRONTEND_URL}/${image}`}
               alt={""}
               className="bg-indigo-800 object-cover w-100 h-100 hover:opacity-50 hover:cursor-pointer"
               onClick={() => setCurrentIage(image)}

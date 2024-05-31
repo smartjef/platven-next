@@ -164,12 +164,17 @@ const AboutPage = async (props: Props) => {
                 <div key={index} className="text-center group mb-[30px]">
                   <div className="relative rounded-[6px_6px_0px_0px]">
                     <a href="agent-details.html">
-                      <Image
+                      {/* <Image
                         src={{
                           src: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/${image}`,
                           width: 215,
                           height: 310,
                         }}
+                        className="w-auto h-auto block mx-auto"
+                        alt={name}
+                      /> */}
+                      <img
+                        src={`${process.env.NEXT_PUBLIC_FRONTEND_URL}/${image}`}
                         className="w-auto h-auto block mx-auto"
                         alt={name}
                       />

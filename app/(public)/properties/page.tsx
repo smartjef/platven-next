@@ -111,13 +111,18 @@ const PropertiesPage: FC<PropsWithSearchParams> = async ({ searchParams }) => {
                     {status === "onRent" ? "On rent" : "On sales"}
                   </Badge>
                   <Link href={`/properties/${id}`}>
-                    <Image
+                    {/* <Image
                       className="rounded-t-lg"
                       src={{
                         src: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/${images[0]}`,
                         height: 500,
                         width: 800,
                       }}
+                      alt="product image"
+                    /> */}
+                    <img
+                      className="rounded-t-lg"
+                      src={`${process.env.NEXT_PUBLIC_FRONTEND_URL}/${images[0]}`}
                       alt="product image"
                     />
                   </Link>

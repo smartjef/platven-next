@@ -19,13 +19,19 @@ const PropertyTypesSlider: FC<{
           {[...propertyTypes, ...propertyTypes].map(
             ({ createdAt, icon, id, title, _count: { properties } }, index) => (
               <div key={index} className="flex space-x-2">
-                <Image
+                {/* <Image
                   src={{
                     src: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/${icon}`,
                     width: 100,
                     height: 100,
                   }}
                   alt={title}
+                /> */}
+                <img
+                  src={`${process.env.NEXT_PUBLIC_FRONTEND_URL}/${icon}`}
+                  alt=""
+                  width={100}
+                  height={100}
                 />
                 <div className="flex flex-col justify-center">
                   <h1 className="font-bold">{title}</h1>

@@ -132,12 +132,17 @@ const PropertyForm: FC<Props> = ({ property }) => {
                     key={index}
                     className="w-28 h-28 bg-accent rounded-full overflow-clip mb-3"
                   >
-                    <Image
+                    {/* <Image
                       src={{
                         src: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/${image}`,
                         width: 100,
                         height: 100,
                       }}
+                      className="w-full h-full object-cover"
+                      alt="profile picture"
+                    /> */}
+                    <img
+                      src={`${process.env.NEXT_PUBLIC_FRONTEND_URL}/${image}`}
                       className="w-full h-full object-cover"
                       alt="profile picture"
                     />

@@ -34,12 +34,17 @@ const UserProfilePage: FC<PropsWithPathParams> = async ({ params: { id } }) => {
         <Separator />
         <div className="shadow-md p-3 flex flex-col space-y-3">
           <div className="flex flex-row space-x-4 mb-2">
-            <Image
+            {/* <Image
               src={{
                 src: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/${user!.image}`,
                 width: 100,
                 height: 100,
               }}
+              alt="profile pic"
+              className="rounded-full w-28 h-28 "
+            /> */}
+            <img
+              src={`${process.env.NEXT_PUBLIC_FRONTEND_URL}/${user!.image}`}
               alt="profile pic"
               className="rounded-full w-28 h-28 "
             />
@@ -100,12 +105,17 @@ const UserProfilePage: FC<PropsWithPathParams> = async ({ params: { id } }) => {
                     index,
                   ) => (
                     <div key={index} className="flex space-x-4 relative">
-                      <Image
+                      {/* <Image
                         src={{
                           src: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/${images[0]}`,
                           width: 800 / 5,
                           height: 500 / 5,
                         }}
+                        className="w"
+                        alt="title"
+                      /> */}
+                      <img
+                        src={`${process.env.NEXT_PUBLIC_FRONTEND_URL}/${images[0]}`}
                         className="w"
                         alt="title"
                       />

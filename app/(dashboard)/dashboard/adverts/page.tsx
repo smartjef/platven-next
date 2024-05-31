@@ -51,12 +51,16 @@ const Adverts = async () => {
                 key={id}
                 className="shadow-lg space-y-4 relative rounded-sm overflow-hidden bg-accent"
               >
-                <Image
+                {/* <Image
                   src={{
                     src: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/${image}`,
                     width: 100,
                     height: 100,
                   }}
+                  alt={title}
+                /> */}
+                <img
+                  src={`${process.env.NEXT_PUBLIC_FRONTEND_URL}/${image}`}
                   className="w-full h-72"
                   alt={title}
                 />

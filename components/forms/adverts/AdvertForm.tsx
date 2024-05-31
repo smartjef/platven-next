@@ -103,12 +103,17 @@ const AdvertForm: FC<Props> = ({ advert }) => {
             <CardContent>
               <div className="w-28 h-28 bg-accent rounded-full overflow-clip mb-3">
                 {advert?.image ? (
-                  <Image
-                    src={{
-                      src: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/${advert?.image}`,
-                      width: 100,
-                      height: 100,
-                    }}
+                  // <Image
+                  //   src={{
+                  //     src: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/${advert?.image}`,
+                  //     width: 100,
+                  //     height: 100,
+                  //   }}
+                  //   className="w-full h-full object-cover"
+                  //   alt="profile picture"
+                  // />
+                  <img
+                    src={`${process.env.NEXT_PUBLIC_FRONTEND_URL}/${advert?.image}`}
                     className="w-full h-full object-cover"
                     alt="profile picture"
                   />

@@ -1,8 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    remotePatterns: [{ protocol: "http", hostname: "localhost" }],
-    remotePatterns: [{ hostname: "platven.ke", protocol: "https" }],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "platven.ke",
+        pathname: "/media/**",
+      },
+    ],
   },
 };
 
