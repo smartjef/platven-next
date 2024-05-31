@@ -49,7 +49,7 @@ const PropertiesTypes: FC<Props> = async ({}) => {
                 className="shadow-lg flex space-x-4 relative rounded-sm overflow-hidden bg-accent"
               >
                 <Image
-                  src={{ src: `/${icon}`, width: 100, height: 100 }}
+                  src={{ src: `/${process.env.NEXT_PUBLIC_FRONTEND_URL}/${icon}`, width: 100, height: 100 }}
                   className="w-28 h-28"
                   alt={title}
                 />
