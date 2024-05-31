@@ -134,7 +134,7 @@ const PropertyForm: FC<Props> = ({ property }) => {
                   >
                     <Image
                       src={{
-                        src: `/${image}`,
+                        src: `/${process.env.NEXT_PUBLIC_FRONTEND_URL}/${image}`,
                         width: 100,
                         height: 100,
                       }}

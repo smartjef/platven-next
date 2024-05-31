@@ -26,7 +26,11 @@ const ImageDisplay: React.FC<Props> = ({ images = [] }) => {
           images.map((image, index) => (
             <Image
               key={index}
-              src={{ src: `/${image}`, width: 800, height: 500 }}
+              src={{
+                src: `/${process.env.NEXT_PUBLIC_FRONTEND_URL}/${image}`,
+                width: 800,
+                height: 500,
+              }}
               alt={""}
               className="bg-indigo-800 object-cover w-100 h-100 hover:opacity-50 hover:cursor-pointer"
               onClick={() => setCurrentIage(image)}

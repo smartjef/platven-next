@@ -50,7 +50,7 @@ const ProfileForm: FC<Props> = ({ user }) => {
       email: user?.email ?? "",
       address: user?.address ?? "",
       name: user?.name ?? "",
-      phoneNumber: user?.phoneNumber ?? "" as any,
+      phoneNumber: user?.phoneNumber ?? ("" as any),
       identificationNumber: user?.identificationNumber ?? "",
       type: user?.type ?? "Individual",
     },
@@ -110,7 +110,7 @@ const ProfileForm: FC<Props> = ({ user }) => {
                     {user?.image ? (
                       <Image
                         src={{
-                          src: `/${user?.image}`,
+                          src: `/${process.env.NEXT_PUBLIC_FRONTEND_URL}/${user?.image}`,
                           width: 100,
                           height: 100,
                         }}

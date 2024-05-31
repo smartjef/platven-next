@@ -165,7 +165,11 @@ const AboutPage = async (props: Props) => {
                   <div className="relative rounded-[6px_6px_0px_0px]">
                     <a href="agent-details.html">
                       <Image
-                        src={{ src: `/${image}`, width: 215, height: 310 }}
+                        src={{
+                          src: `/${process.env.NEXT_PUBLIC_FRONTEND_URL}/${image}`,
+                          width: 215,
+                          height: 310,
+                        }}
                         className="w-auto h-auto block mx-auto"
                         alt={name}
                       />

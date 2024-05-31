@@ -113,7 +113,11 @@ const PropertiesPage: FC<PropsWithSearchParams> = async ({ searchParams }) => {
                   <Link href={`/properties/${id}`}>
                     <Image
                       className="rounded-t-lg"
-                      src={{ src: `/${images[0]}`, height: 500, width: 800 }}
+                      src={{
+                        src: `/${process.env.NEXT_PUBLIC_FRONTEND_URL}/${images[0]}`,
+                        height: 500,
+                        width: 800,
+                      }}
                       alt="product image"
                     />
                   </Link>

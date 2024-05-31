@@ -28,7 +28,11 @@ const HeroBanner: FC<{ adverts: Advert[] }> = ({ adverts }) => {
             style={{ transitionDelay: `${active === index ? "500ms" : "0ms"}` }}
           >
             <Image
-              src={{ src: `/${image}`, height: 800, width: 500 }}
+              src={{
+                src: `/${process.env.NEXT_PUBLIC_FRONTEND_URL}/${image}`,
+                height: 800,
+                width: 500,
+              }}
               className="w-full h-full object-cover rounded-lg shadow-lg"
               alt="Property Image"
             />
