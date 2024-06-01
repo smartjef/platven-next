@@ -11,19 +11,19 @@ import {
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Property } from "@prisma/client";
+import { Payment, Property } from "@prisma/client";
 import { useRouter } from "next/navigation";
-import { FC } from "react";
+import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { mpesaPaymentSchema } from "./schem";
 
 const formSchema = mpesaPaymentSchema;
 type UserFormValue = z.infer<typeof formSchema>;
+type PropertyWithPayment = Property & { payment?: Payment };
+type Props = { property: PropertyWithPayment };
 
-type Props = { property: Property; setOpen?: (bool: boolean) => void };
-
-const MakePaymentForm: FC<Props> = ({ property, setOpen }) => {
+const MakePaymentForm: FC<Props> = ({ property }) => {
   const form = useForm<UserFormValue>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -31,8 +31,9 @@ const MakePaymentForm: FC<Props> = ({ property, setOpen }) => {
       property: property.id,
     },
   });
-  const { refresh } = useRouter();
+  const { refresh, replace } = useRouter();
   const { toast } = useToast();
+  const [paymentInitiated, setPaymentInitiated] = useState(false);
 
   const onSubmit = async (data: UserFormValue) => {
     try {
@@ -43,14 +44,14 @@ const MakePaymentForm: FC<Props> = ({ property, setOpen }) => {
       });
       if (response.ok) {
         const data = await response.json();
-        setOpen?.(false);
-        refresh();
-        toast({
-          variant: "default",
-          title: "Success!.",
-          description:
-            "Payment Initiated successfully!.Please complete your payment",
-        });
+        setPaymentInitiated(true);
+        // refresh();
+        // toast({
+        //   variant: "default",
+        //   title: "Success!.",
+        //   description:
+        //     "Payment Initiated successfully!.Please complete your payment",
+        // });
       } else {
         if (response.status === 400) {
           const errors = await response.json();
@@ -69,9 +70,48 @@ const MakePaymentForm: FC<Props> = ({ property, setOpen }) => {
       console.log(e);
     }
   };
+
+  const handleFetchPropertyStatus = async () => {
+    try {
+      const response = await fetch(
+        `/api/properties/${property.id}/payment-status`,
+        {
+          method: "GET",
+          redirect: "follow",
+        },
+      );
+      if (response.ok) {
+        const data: PropertyWithPayment = await response.json();
+        if (data.payment?.complete) {
+          toast({
+            variant: "default",
+            title: "Success!.",
+            description:
+              "Payment has been received succesfully!.Than you for choosing platven",
+          });
+          replace(`/dashboard/properties/`);
+        } else {
+          toast({
+            variant: "destructive",
+            title: "Failure!.",
+            description: "Payment has not been received!, Please try again",
+          });
+        }
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2 w-full">
+        {paymentInitiated && (
+          <div className="rounded-md bg-muted p-4">
+            Payment has beeen initiated succesfully, Enter your pin on you phone
+            mpesa prompt to confirm payment and click the complete payment if
+            succesfull
+          </div>
+        )}
         <FormField
           control={form.control}
           name="phoneNumber"
@@ -108,13 +148,19 @@ const MakePaymentForm: FC<Props> = ({ property, setOpen }) => {
             </FormItem>
           )}
         />
-
         <Button
-          disabled={form.formState.isSubmitting}
+          disabled={form.formState.isSubmitting || paymentInitiated}
           className="ml-auto w-full"
           type="submit"
         >
           Make Payment
+        </Button>
+        <Button
+          disabled={form.formState.isSubmitting}
+          className="ml-auto w-full"
+          onClick={handleFetchPropertyStatus}
+        >
+          Complete payment
         </Button>
       </form>
     </Form>

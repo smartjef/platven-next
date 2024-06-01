@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import MakePaymentForm from "@/components/forms/payment/make-payment-form";
 import { Button } from "@/components/ui/button";
 import {
@@ -67,8 +67,10 @@ const PropertyActions: FC<Props> = ({ property }) => {
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
           {((property as any).payment?.complete === false ||
             !(property as any).payment) && (
-            <DropdownMenuItem onClick={() => setShowPrompt(!showPrompt)}>
-              Pay to list
+            <DropdownMenuItem
+              onClick={() => push(`/dashboard/properties/${property.id}/pay`)}
+            >
+              Pay for listing
             </DropdownMenuItem>
           )}
           <DropdownMenuSeparator />
@@ -87,15 +89,6 @@ const PropertyActions: FC<Props> = ({ property }) => {
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      <Dialog open={showPrompt} onOpenChange={setShowPrompt}>
-        <DialogContent className="sm:max-w-[425px]">
-          <DialogHeader>
-            <DialogTitle>{`${property.title}`}</DialogTitle>
-            <DialogDescription>Mpesa payment options</DialogDescription>
-          </DialogHeader>
-          <MakePaymentForm property={property} setOpen={setShowPrompt} />
-        </DialogContent>
-      </Dialog>
     </>
   );
 };
