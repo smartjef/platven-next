@@ -23,15 +23,19 @@ export const POST = async (request: NextRequest) => {
         { status: 400 },
       );
     // Instatiate mpesa
-    const app = new Mpesa({
-      debug: true,
-      consumerKey: process.env.MPESA_CONSUMER_KEY as string,
-      consumerSecret: process.env.MPESA_CONSUMER_SECRETE as string,
-      organizationShortCode: Number(process.env.MPESA_SHORT_CODE),
-      initiatorPassword: process.env.MPESA_INITIATOR_PASSWORD as string,
-    });
+    const app = new Mpesa(
+      {
+        debug: true,
+        consumerKey: process.env.MPESA_CONSUMER_KEY as string,
+        consumerSecret: process.env.MPESA_CONSUMER_SECRETE as string,
+        organizationShortCode: Number(process.env.MPESA_SHORT_CODE),
+        initiatorPassword: process.env.MPESA_INITIATOR_PASSWORD as string,
+      },
+      "production",
+    );
 
-    const amount = 1;
+    const amount = Number(property.price);
+    const calbackUrl = `${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/mpesa/callback`;
     // Trigger stk push
     const response = await app
       .stkPush()
@@ -40,6 +44,7 @@ export const POST = async (request: NextRequest) => {
       .accountNumber(process.env.MPESA_ACCOUNT_REF as string)
       .lipaNaMpesaPassKey(process.env.MPESA_PASS_KEY as string)
       .paymentType("CustomerBuyGoodsOnline")
+      .callbackURL(calbackUrl)
       // .description("")
       //   .shortCode("174379")
       .send();
@@ -54,7 +59,8 @@ export const POST = async (request: NextRequest) => {
       },
     } = response;
 
-    let payment = await prisma.payment.findUnique({
+    let payment;
+    payment = await prisma.payment.findUnique({
       where: { propertyId: property.id },
     });
     if (payment) {
@@ -71,6 +77,21 @@ export const POST = async (request: NextRequest) => {
           propertyId: property.id,
           phoneNumber: `254${phoneNumber}`,
         },
+        select: {
+          amount: true,
+          complete: true,
+          createdAt: true,
+          description: true,
+          id: true,
+          mpesareceiptNumber: true,
+          phoneNumber: true,
+          property: true,
+          propertyId: true,
+          transactionDate: true,
+          updatedAt: true,
+          resultCode: true,
+          resultDescription: true,
+        },
       });
     } else {
       // Create Payments
@@ -85,6 +106,21 @@ export const POST = async (request: NextRequest) => {
           description: CustomerMessage,
           propertyId: property.id,
           phoneNumber: `254${phoneNumber}`,
+        },
+        select: {
+          amount: true,
+          complete: true,
+          createdAt: true,
+          description: true,
+          id: true,
+          mpesareceiptNumber: true,
+          phoneNumber: true,
+          property: true,
+          propertyId: true,
+          transactionDate: true,
+          updatedAt: true,
+          resultCode: true,
+          resultDescription: true,
         },
       });
     }

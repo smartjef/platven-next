@@ -57,14 +57,14 @@ export const columns: ColumnDef<
     accessorKey: "property.user.name",
     header: "User",
   },
-  {
-    accessorKey: "checkoutRequestId",
-    header: "CheckutID",
-  },
-  {
-    accessorKey: "merchantRequestId",
-    header: "MerchantID",
-  },
+  // {
+  //   accessorKey: "checkoutRequestId",
+  //   header: "CheckutID",
+  // },
+  // {
+  //   accessorKey: "merchantRequestId",
+  //   header: "MerchantID",
+  // },
   {
     accessorKey: "mpesareceiptNumber",
     header: "Receipt no",
