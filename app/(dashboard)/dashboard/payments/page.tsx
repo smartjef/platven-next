@@ -19,6 +19,10 @@ const PyamentsPage: FC<PropsWithSearchParams> = async ({ searchParams }) => {
     where: {
       property: {
         userId: user.isStaff || user.isSuperUser ? undefined : user.id,
+        user: { //Ignore None paymennts for staff/superusers
+          isStaff:false,
+          isSuperUser: false
+        }
       },
     },
     include: { property: { include: { user: true } } },

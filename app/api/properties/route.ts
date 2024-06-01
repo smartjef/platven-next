@@ -59,7 +59,23 @@ export const POST = async (request: NextRequest) => {
   }
 
   const properties = await prisma.property.create({
-    data: { ...validation.data, images, userId: user!.id },
+    data: {
+      ...validation.data,
+      images,
+      userId: user!.id,
+      isActive: user.isStaff || user.isSuperUser,
+      payment:
+        user.isStaff || user.isSuperUser
+          ? {
+              create: {
+                amount: 0,
+                complete: true,
+                merchantRequestId: "None",
+                checkoutRequestId: "None",
+              },
+            }
+          : undefined,
+    },
   });
   return NextResponse.json(properties);
 };
