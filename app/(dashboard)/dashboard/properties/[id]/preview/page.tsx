@@ -10,6 +10,7 @@ import { PropsWithPathParams } from "@/types";
 import clsx from "clsx";
 import { FC } from "react";
 import PropertyPriviewAction from "./actions";
+import MarkdownRenderer from "@/components/MarkdownRenderer";
 
 const breadcrumbItems = [
   { title: "Properties", link: "/dashboard/properties" },
@@ -33,7 +34,8 @@ const PropertyPreview: FC<PropsWithPathParams> = async ({ params: { id } }) => {
         </div>
         <div className="shadow-md p-4 space-y-3 shadow-slate-400 dark:shadow-slate-700">
           <h1 className="text-2xl">Features</h1>
-          <p className="opacity-50">{property.features}</p>
+          <MarkdownRenderer markdownContent={property.features ?? ""} />
+          {/* <p className="opacity-50">{property.features}</p> */}
         </div>
         <div className="shadow-md p-4 space-y-3  shadow-slate-400 dark:shadow-slate-700">
           <h1 className="text-2xl">Details</h1>

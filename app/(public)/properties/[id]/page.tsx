@@ -1,6 +1,7 @@
 import PropertyRequestForm from "@/components/forms/properties/property-request";
 import ImageDisplay from "@/components/ImageDisplay";
 import ListLayoutWithSideBar from "@/components/layout/ListLayoutWithSideBar";
+import MarkdownRenderer from "@/components/MarkdownRenderer";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { getSessionUser } from "@/lib/auth-utils";
@@ -95,7 +96,9 @@ const PropertyDetailPage: FC<PropsWithPathParams> = async ({
                 <span>{property.size}</span>
               </div>
             </div>
-            <p className="opacity-50  bg-accent p-2">{property.features}</p>
+            <div className="opacity-50  bg-accent p-2">
+              <MarkdownRenderer markdownContent={property.features ?? ""} />
+            </div>
           </div>
           <div className="p-4 space-y-4">
             <p className="font-bold text-xl">Related properties</p>
