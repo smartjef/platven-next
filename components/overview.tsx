@@ -1,85 +1,39 @@
-"use client";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { formartCurrency } from "@/lib/utils";
+import prisma from "@/prisma/client";
+import { User } from "@prisma/client";
+import moment from "moment/moment";
 
-import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
-
-const data1 = [
-  {
-    name: "Jan",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Feb",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Mar",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Apr",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "May",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Jun",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Jul",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Aug",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Sep",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Oct",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Nov",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Dec",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-];
-
-export function Overview({
-  data,
-}: {
-  data: {
-    name: string;
-    total: number;
-  }[];
-}) {
+export async function Overview({ user }: { user: User }) {
+  const properties = await prisma.property.findMany({
+    take: 6,
+    where: {
+      userId: user.isSuperUser || user.isStaff ? undefined : user.id,
+      payment: { complete: true },
+      isActive: true,
+    },
+  });
   return (
-    <ResponsiveContainer width="100%" height={350}>
-      <BarChart data={data}>
-        <XAxis
-          dataKey="name"
-          stroke="#888888"
-          fontSize={12}
-          tickLine={false}
-          axisLine={false}
-        />
-        <YAxis
-          stroke="#888888"
-          fontSize={12}
-          tickLine={false}
-          axisLine={false}
-          tickFormatter={(value) => `Ksh.${value}`}
-        />
-        <Bar dataKey="total" fill="#adfa1d" radius={[4, 4, 0, 0]} />
-      </BarChart>
-    </ResponsiveContainer>
+    <div className="space-y-8">
+      {properties.map((property, index) => (
+        <div className="flex items-center" key={`${index}-${property.id}`}>
+          <Avatar className="h-9 w-9">
+            <AvatarImage src="/avatars/01.png" alt="Avatar" />
+            <AvatarFallback>{user.name[0]}</AvatarFallback>
+          </Avatar>
+          <div className="ml-4 space-y-1">
+            <p className="text-sm font-medium leading-none">
+              {`${property.title}`}
+            </p>
+            <p className="text-sm text-muted-foreground">
+              {moment(property.updatedAt).format("Do ddd MMM yyy hh:mm A")}
+            </p>
+          </div>
+          <div className="ml-auto font-medium">
+            {formartCurrency(Number(property.price))}
+          </div>
+        </div>
+      ))}
+    </div>
   );
 }

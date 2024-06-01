@@ -349,7 +349,7 @@ export default async function page() {
                   <CardTitle>Recent Properties</CardTitle>
                 </CardHeader>
                 <CardContent className="pl-2">
-                  <Overview data={overview} />
+                  <Overview user={user} />
                 </CardContent>
               </Card>
               <Card className="col-span-4 md:col-span-3">
