@@ -1,67 +1,49 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { formartCurrency } from "@/lib/utils";
+import prisma from "@/prisma/client";
+import { User } from "@prisma/client";
+import moment from "moment/moment";
 
-export function RecentSales() {
+interface Props {
+  user: User;
+}
+
+export async function RecentSales({ user }: Props) {
+  const payments = await prisma.payment.findMany({
+    where: {
+      property: {
+        userId: user.isSuperUser || user.isStaff ? undefined : user.id,
+        user: { isStaff: false, isSuperUser: false },
+      },
+      complete: true,
+    },
+    include: {
+      property: { include: { user: true } },
+    },
+    orderBy: { updatedAt: "desc" },
+    take: 6,
+  });
   return (
     <div className="space-y-8">
-      <div className="flex items-center">
-        <Avatar className="h-9 w-9">
-          <AvatarImage src="/avatars/01.png" alt="Avatar" />
-          <AvatarFallback>OM</AvatarFallback>
-        </Avatar>
-        <div className="ml-4 space-y-1">
-          <p className="text-sm font-medium leading-none">Olivia Martin</p>
-          <p className="text-sm text-muted-foreground">
-            olivia.martin@email.com
-          </p>
+      {payments.map((payment, index) => (
+        <div className="flex items-center" key={`${index}-${payment.id}`}>
+          <Avatar className="h-9 w-9">
+            <AvatarImage src="/avatars/01.png" alt="Avatar" />
+            <AvatarFallback>{user.name[0]}</AvatarFallback>
+          </Avatar>
+          <div className="ml-4 space-y-1">
+            <p className="text-sm font-medium leading-none">
+              {`${payment.property.user.name}(${payment.property.title})`}
+            </p>
+            <p className="text-sm text-muted-foreground">
+              {moment(payment.updatedAt).format("Do ddd MMM yyy hh:mm A")}
+            </p>
+          </div>
+          <div className="ml-auto font-medium">
+            {formartCurrency(Number(payment.amount))}
+          </div>
         </div>
-        <div className="ml-auto font-medium">+$1,999.00</div>
-      </div>
-      <div className="flex items-center">
-        <Avatar className="flex h-9 w-9 items-center justify-center space-y-0 border">
-          <AvatarImage src="/avatars/02.png" alt="Avatar" />
-          <AvatarFallback>JL</AvatarFallback>
-        </Avatar>
-        <div className="ml-4 space-y-1">
-          <p className="text-sm font-medium leading-none">Jackson Lee</p>
-          <p className="text-sm text-muted-foreground">jackson.lee@email.com</p>
-        </div>
-        <div className="ml-auto font-medium">+$39.00</div>
-      </div>
-      <div className="flex items-center">
-        <Avatar className="h-9 w-9">
-          <AvatarImage src="/avatars/03.png" alt="Avatar" />
-          <AvatarFallback>IN</AvatarFallback>
-        </Avatar>
-        <div className="ml-4 space-y-1">
-          <p className="text-sm font-medium leading-none">Isabella Nguyen</p>
-          <p className="text-sm text-muted-foreground">
-            isabella.nguyen@email.com
-          </p>
-        </div>
-        <div className="ml-auto font-medium">+$299.00</div>
-      </div>
-      <div className="flex items-center">
-        <Avatar className="h-9 w-9">
-          <AvatarImage src="/avatars/04.png" alt="Avatar" />
-          <AvatarFallback>WK</AvatarFallback>
-        </Avatar>
-        <div className="ml-4 space-y-1">
-          <p className="text-sm font-medium leading-none">William Kim</p>
-          <p className="text-sm text-muted-foreground">will@email.com</p>
-        </div>
-        <div className="ml-auto font-medium">+$99.00</div>
-      </div>
-      <div className="flex items-center">
-        <Avatar className="h-9 w-9">
-          <AvatarImage src="/avatars/05.png" alt="Avatar" />
-          <AvatarFallback>SD</AvatarFallback>
-        </Avatar>
-        <div className="ml-4 space-y-1">
-          <p className="text-sm font-medium leading-none">Sofia Davis</p>
-          <p className="text-sm text-muted-foreground">sofia.davis@email.com</p>
-        </div>
-        <div className="ml-auto font-medium">+$39.00</div>
-      </div>
+      ))}
     </div>
   );
 }

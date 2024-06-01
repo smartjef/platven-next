@@ -346,7 +346,7 @@ export default async function page() {
             <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-7">
               <Card className="col-span-4">
                 <CardHeader>
-                  <CardTitle>Overview</CardTitle>
+                  <CardTitle>Recent Properties</CardTitle>
                 </CardHeader>
                 <CardContent className="pl-2">
                   <Overview data={overview} />
@@ -354,13 +354,10 @@ export default async function page() {
               </Card>
               <Card className="col-span-4 md:col-span-3">
                 <CardHeader>
-                  <CardTitle>Recent Sales</CardTitle>
-                  <CardDescription>
-                    You made 265 sales this month.
-                  </CardDescription>
+                  <CardTitle>Recent Payments</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <RecentSales />
+                  <RecentSales user={user} />
                 </CardContent>
               </Card>
             </div>
