@@ -27,9 +27,7 @@ const page: FC<PropsWithPathParams> = async ({ params: { id } }) => {
         <BreadCrumb items={breadcrumbItems} />
         <Card className="max-w-md">
           <CardHeader>
-            <CardTitle>
-              {`Pay Ksh ${property.price} to list ${property.title}`}
-            </CardTitle>
+            <CardTitle>{`Pay Ksh. 100 to list ${property.title}`}</CardTitle>
           </CardHeader>
           <CardContent>
             <MakePaymentForm property={property as any} />

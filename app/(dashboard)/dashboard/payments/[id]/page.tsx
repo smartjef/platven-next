@@ -65,9 +65,7 @@ const page: FC<PropsWithPathParams> = async ({ params: { id } }) => {
                 <tbody>
                   <tr className="flex">
                     <td className="flex-1 py-1">{payment.property.title}</td>
-                    <td className="min-w-[44px]">
-                      {formartCurrency(Number(payment.amount))}
-                    </td>
+                    <td className="min-w-[44px]">{formartCurrency(100)}</td>
                   </tr>
                 </tbody>
               </table>
