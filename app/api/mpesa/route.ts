@@ -34,7 +34,7 @@ export const POST = async (request: NextRequest) => {
       "production",
     );
 
-    const amount = Number(property.price);
+    const amount = 100;
     const calbackUrl = `${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/mpesa/callback`;
     // Trigger stk push
     const response = await app
