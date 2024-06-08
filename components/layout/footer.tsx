@@ -1,3 +1,4 @@
+import config from "@/lib/config";
 import logo from "@/public/platven_logo.png";
 import { Mail, Phone } from "lucide-react";
 import Image from "next/image";
@@ -60,17 +61,17 @@ const Footer = () => {
               <li className="opacity-50">
                 <Link
                   className="flex items-center space-x-2"
-                  href={"mailto:support@platven.ke"}
+                  href={`mailto:${config.contact.email}`}
                 >
-                  <Mail /> <span>support@platven.ke</span>
+                  <Mail /> <span>{config.contact.email}</span>
                 </Link>
               </li>
               <li className="opacity-50">
                 <Link
                   className="flex items-center space-x-2"
-                  href={"tel:0720009306"}
+                  href={`tel:${config.contact.phoneNumber}`}
                 >
-                  <Phone /> <span>0720009306</span>
+                  <Phone /> <span>{config.contact.phoneNumber}</span>
                 </Link>
               </li>
               <li className="opacity-50">

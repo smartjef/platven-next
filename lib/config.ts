@@ -76,4 +76,12 @@ Best regards,
 The Platven Team
 `,
   },
+  contact: {
+    phoneNumber: "+254720009306",
+    email: "support@platven.ke",
+    contactPeople: [
+      { email: "mary.nyambura@platven.ke", name: "Mary Nyambura" },
+      { email: "Jacob.kariuki@platven.ke", name: "Jacob Kariuki" },
+    ],
+  },
 };

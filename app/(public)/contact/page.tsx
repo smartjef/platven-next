@@ -1,6 +1,7 @@
 import ContactForm from "@/components/forms/contact/contact-form";
 import HeroSection from "@/components/hero-seaction";
 import { getSessionUser } from "@/lib/auth-utils";
+import config from "@/lib/config";
 import { Mail, MapPin, PhoneCall } from "lucide-react";
 
 const ContactUs = async () => {
@@ -67,10 +68,10 @@ const ContactUs = async () => {
                   </h4>
                   <p className="font-light text-[18px] lg:max-w-[230px]">
                     <a
-                      href="tel:+25472000093006"
+                      href={`tel:${config.contact.phoneNumber}`}
                       className="hover:text-secondary"
                     >
-                      +25472000093006
+                      {config.contact.phoneNumber}
                     </a>
                   </p>
                 </div>
@@ -87,10 +88,10 @@ const ContactUs = async () => {
                   </h4>
                   <p className="font-light text-[18px] lg:max-w-[230px]">
                     <a
-                      href="mailto:support@platven.ke"
+                      href={`mailto:${config.contact.email}`}
                       className="hover:text-secondary"
                     >
-                      support@platven.ke
+                      {config.contact.email}
                     </a>
                   </p>
                 </div>
