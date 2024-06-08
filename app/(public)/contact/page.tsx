@@ -87,10 +87,10 @@ const ContactUs = async () => {
                   </h4>
                   <p className="font-light text-[18px] lg:max-w-[230px]">
                     <a
-                      href="mailto:uventures@gmail.com"
+                      href="mailto:support@platven.ke"
                       className="hover:text-secondary"
                     >
-                      uventures@gmail.com
+                      support@platven.ke
                     </a>
                   </p>
                 </div>

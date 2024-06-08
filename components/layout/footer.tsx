@@ -60,9 +60,9 @@ const Footer = () => {
               <li className="opacity-50">
                 <Link
                   className="flex items-center space-x-2"
-                  href={"mailto:uventures3@gmail.com"}
+                  href={"mailto:support@platven.ke"}
                 >
-                  <Mail /> <span>uventures3@gmail.com</span>
+                  <Mail /> <span>support@platven.ke</span>
                 </Link>
               </li>
               <li className="opacity-50">

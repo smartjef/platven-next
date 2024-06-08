@@ -43,14 +43,17 @@ export const POST = async (request: NextRequest) => {
     name,
     identificationNumber,
     type,
-    isStaff, isSuperUser
+    isStaff,
+    isSuperUser,
   } = validation.data;
 
   const errors: any = {};
 
   let user_ = await prisma.user.findUnique({ where: { email } });
   if (user_) errors["email"] = { _errors: ["User with email exists"] };
-  user_ = await prisma.user.findUnique({ where: { phoneNumber:String(phoneNumber) } });
+  user_ = await prisma.user.findUnique({
+    where: { phoneNumber: String(phoneNumber) },
+  });
   if (user_) errors["phoneNumber"] = { _errors: ["User with phone exists"] };
   user_ = await prisma.user.findUnique({ where: { identificationNumber } });
   if (user_)
@@ -87,7 +90,7 @@ export const POST = async (request: NextRequest) => {
   const newUser = await prisma.user.create({
     data: {
       email,
-      phoneNumber:String(phoneNumber),
+      phoneNumber: String(phoneNumber),
       address,
       name,
       isStaff,
@@ -110,7 +113,7 @@ export const POST = async (request: NextRequest) => {
       staff_email: newUser.email,
       staff_name: newUser.name,
       staff_password: password,
-      support_email: "uventures@gmail.com",
+      support_email: "support@platven.ke",
       platven_login_url: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/sign-in`,
     },
     config.MESSAGE.STAFF_ACCOUNT_SETUP,

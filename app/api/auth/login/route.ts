@@ -12,6 +12,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(validation.error.format(), { status: 400 });
   const user = await prisma.user.findUnique({
     where: { email: validation.data.email, isActive: true },
+
   });
   //   Check password
   if (
@@ -25,6 +26,7 @@ export async function POST(request: NextRequest) {
       },
       { status: 400 },
     );
+
   // If success
   // 1. Generate token
   const token = generateUserToken(user);

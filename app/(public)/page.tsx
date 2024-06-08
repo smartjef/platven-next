@@ -30,6 +30,8 @@ const HomePage = async (props: Props) => {
         ],
       },
     },
+    take: 12,
+    orderBy: { updatedAt: "desc" },
   });
   const propertyTypes = await prisma.propertyType.findMany({
     where: { isActive: true },

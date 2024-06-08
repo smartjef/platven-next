@@ -88,7 +88,7 @@ const page: FC<PropsWithPathParams> = async ({ params: { id } }) => {
                       fill="#000"
                     />
                   </svg>{" "}
-                  uventures3@gmail.com
+                  support@platven.ke
                 </p>
                 <p className="flex gap-2">
                   <svg

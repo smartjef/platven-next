@@ -41,6 +41,15 @@ export function middleware(request: NextRequest) {
     return redirectToAuth(request);
   }
 
+  if (!(isAuthenticated as any).accountVerified) {
+    return NextResponse.redirect(
+      new URL(
+        `/verify?callbackUrl=${encodeURIComponent(request.nextUrl.pathname)}`,
+        request.url,
+      ),
+    );
+  }
+
   const response = NextResponse.next();
   if (response.status === 401) {
     console.log(

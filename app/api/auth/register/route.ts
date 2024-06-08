@@ -1,9 +1,13 @@
 import { registerSchema } from "@/components/forms/auth/schema";
 import { authCookieConfig } from "@/constants";
 import { generateUserToken, hashPassword } from "@/lib/auth-utils";
+import config from "@/lib/config";
 import prisma from "@/prisma/client";
+import { parseMessage } from "@/services";
+import { sendMail } from "@/services/mail-service";
 import { serialize } from "cookie";
 import { isEmpty } from "lodash";
+import moment from "moment/moment";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
@@ -47,16 +51,50 @@ export async function POST(request: NextRequest) {
       password: await hashPassword(password),
     },
   });
+
   // If success
+  // generate otp
+
+  const verification = await prisma.oTPVerificatiion.create({
+    data: {
+      userId: user.id,
+      expiry: moment().add(2, "hours").toDate(),
+    },
+  });
+
+  // Send sign in email with otp
+  const message = parseMessage<{
+    user_name: string;
+    verification_link: string;
+  }>(
+    {
+      user_name: user.name ?? email,
+      verification_link: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/verify/${verification.id}`,
+    },
+    config.MESSAGE.ACCOUNT_VERIFICATION,
+  );
+
+  await sendMail({
+    toEmail: email,
+    subject: "Account Verification",
+    text: message,
+  });
+
   // 1. Generate token
-  const token = generateUserToken(user);
+  const authToken =  generateUserToken(user);
   // configur cookie
   const serializedCookieToken = serialize(
     authCookieConfig.name,
-    token ?? "",
+    authToken ?? "",
     authCookieConfig.config,
   );
   const headers = new Headers();
   headers.append("Set-Cookie", serializedCookieToken);
-  return NextResponse.json(user, { headers });
+  return NextResponse.json(
+    {
+      detail:
+        "Account created succesfully!Kindly check you email for account verification",
+    },
+    { headers },
+  );
 }

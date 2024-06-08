@@ -25,7 +25,11 @@ export async function POST(request: NextRequest) {
       { status: 400 },
     );
   let verification = await prisma.oTPVerificatiion.findFirst({
-    where: { user: { email }, expiry: { gte: new Date(Date.now()) } },
+    where: {
+      user: { email },
+      expiry: { gte: new Date(Date.now()) },
+      verified: false,
+    },
   });
   if (!verification)
     verification = await prisma.oTPVerificatiion.create({

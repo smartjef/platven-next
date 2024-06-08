@@ -67,6 +67,7 @@ model User {
   properties           Property[]
   accounts             Account[]
   OTPVerificatiions    OTPVerificatiion[]
+  accountVerified Boolean @default(false)
 }
 
 model Team {
@@ -177,7 +178,7 @@ model Payment {
 }
 
 model OTPVerificatiion {
-  id        String   @id @unique @default(cuid())
+  id        String   @id @unique @default(cuid()) //Used as the otp
   userId    String   @db.Uuid
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   verified  Boolean  @default(false)

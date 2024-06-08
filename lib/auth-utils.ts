@@ -23,7 +23,7 @@ export const hashPassword = async (password: string) => {
 
 export const generateUserToken = (user: User) => {
   const token = sign(
-    pick(user, ["id", "name", "email", "phoneNumber", "isStaff"]),
+    pick(user, ["id", "name", "email", "phoneNumber", "isStaff", "accountVerified"]),
     process.env.NEXTAUTH_SECRET as string,
     {
       expiresIn: "1d",

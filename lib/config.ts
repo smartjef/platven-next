@@ -61,5 +61,19 @@ If you didn't request a password reset, you can safely ignore this email. Howeve
     
   The Platven Team
   `,
+    ACCOUNT_VERIFICATION: `
+Dear {{user_name}},
+
+Welcome to Platven! 
+
+To complete your account setup, please verify your email by clicking the link below:
+
+Verification Link: {{verification_link}}
+
+If you did not sign up for a Platven account, please ignore this email.
+
+Best regards,  
+The Platven Team
+`,
   },
 };

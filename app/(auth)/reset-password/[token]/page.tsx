@@ -9,7 +9,11 @@ const ResetPasswordPage: FC<PropsWithPathParams> = async ({
   params: { token },
 }) => {
   const verification = await prisma.oTPVerificatiion.findUnique({
-    where: { id: token, expiry: { gte: new Date(Date.now()) } },
+    where: {
+      id: token,
+      expiry: { gte: new Date(Date.now()) },
+      verified: false,
+    },
   });
   if (!verification) return notFound();
 
