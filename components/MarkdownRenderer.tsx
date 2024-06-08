@@ -1,7 +1,7 @@
 "use client";
-import React, { FC } from "react";
+import { MDXRemote } from "next-mdx-remote";
 import { serialize } from "next-mdx-remote/serialize";
-import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
+import { FC } from "react";
 
 interface Props {
   markdownContent: string;

@@ -98,7 +98,7 @@ const PropertyDetailPage: FC<PropsWithPathParams> = async ({
                 <span>{property.size}</span>
               </div>
             </div>
-            <div className="opacity-50  bg-accent p-2">
+            <div className="bg-accent p-2">
               <MarkdownRenderer markdownContent={property.features ?? ""} />
             </div>
           </div>

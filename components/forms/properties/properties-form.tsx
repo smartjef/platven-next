@@ -214,9 +214,7 @@ const PropertyForm: FC<Props> = ({ property }) => {
                   name="size"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>
-                        Size (sqft size if Landed else capacity)
-                      </FormLabel>
+                      <FormLabel>Size (squire feet size)</FormLabel>
                       <FormControl>
                         <Input
                           type="text"
