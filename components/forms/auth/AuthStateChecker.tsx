@@ -9,13 +9,18 @@ const AuthStateChecker = () => {
   const searchParams = useSearchParams();
   useEffect(() => {
     if (user) {
-      console.log("Redirecting to: ", searchParams.get("callbackUrl") ?? "/");
-      const callBack = searchParams.get("callbackUrl");
-      try {
-        const decoded = callBack ? decodeURIComponent(callBack) : "/";
-        replace(decoded);
-      } catch (error) {
-        replace("/");
+      if (!user.accountVerified) {
+        // TODO Do something if acoount is not verified
+        replace("/verify");
+      } else {
+        console.log("Redirecting to: ", searchParams.get("callbackUrl") ?? "/");
+        const callBack = searchParams.get("callbackUrl");
+        try {
+          const decoded = callBack ? decodeURIComponent(callBack) : "/";
+          replace(decoded);
+        } catch (error) {
+          replace("/");
+        }
       }
     }
   }, [user]);

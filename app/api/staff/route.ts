@@ -99,6 +99,7 @@ export const POST = async (request: NextRequest) => {
       password: hash,
       identificationNumber,
       type,
+      accountVerified: true,
     },
   });
 

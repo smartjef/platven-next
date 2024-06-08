@@ -81,7 +81,7 @@ export async function POST(request: NextRequest) {
   });
 
   // 1. Generate token
-  const authToken =  generateUserToken(user);
+  const authToken = generateUserToken(user);
   // configur cookie
   const serializedCookieToken = serialize(
     authCookieConfig.name,
@@ -90,11 +90,5 @@ export async function POST(request: NextRequest) {
   );
   const headers = new Headers();
   headers.append("Set-Cookie", serializedCookieToken);
-  return NextResponse.json(
-    {
-      detail:
-        "Account created succesfully!Kindly check you email for account verification",
-    },
-    { headers },
-  );
+  return NextResponse.json(user, { headers });
 }
