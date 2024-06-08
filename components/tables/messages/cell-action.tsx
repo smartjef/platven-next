@@ -69,7 +69,7 @@ const MessageAction: FC<Props> = ({ message }) => {
         onConfirm={handleDelete}
         loading={loading}
       />
-      <DropdownMenu>
+      <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="h-8 w-8 p-0">
             <span className="sr-only">Open menu</span>
@@ -93,7 +93,9 @@ const MessageAction: FC<Props> = ({ message }) => {
             {message.isAddressed ? "Mark Un addressed" : "Mark as Addressed"}
           </DropdownMenuItem>
           {(user?.isStaff || user?.isSuperUser) && (
-            <DropdownMenuItem onClick={() => setOpen(true)}>Delete</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setOpen(true)}>
+              Delete
+            </DropdownMenuItem>
           )}
         </DropdownMenuContent>
       </DropdownMenu>

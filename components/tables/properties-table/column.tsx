@@ -8,7 +8,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import clsx from "clsx";
 import { BadgeCheck, BadgeX } from "lucide-react";
 import moment from "moment";
-import PropertyActions from "./property-actions";
+import { PropertyActions } from "./property-actions";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.

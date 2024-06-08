@@ -1,13 +1,6 @@
 "use client";
-import MakePaymentForm from "@/components/forms/payment/make-payment-form";
+import { AlertModal } from "@/components/modal/alert-modal";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -21,14 +14,12 @@ import { Property } from "@prisma/client";
 import { MoreHorizontal } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { FC, useState } from "react";
-import { AlertModal } from "@/components/modal/alert-modal";
 
 type Props = {
   property: Property;
 };
 
-const PropertyActions: FC<Props> = ({ property }) => {
-  const [showPrompt, setShowPrompt] = useState(false);
+export const PropertyActions: FC<Props> = ({ property }) => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const { push, refresh } = useRouter();
@@ -56,7 +47,7 @@ const PropertyActions: FC<Props> = ({ property }) => {
         onConfirm={handleDelete}
         loading={loading}
       />
-      <DropdownMenu>
+      <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="h-8 w-8 p-0">
             <span className="sr-only">Open menu</span>
@@ -92,5 +83,3 @@ const PropertyActions: FC<Props> = ({ property }) => {
     </>
   );
 };
-
-export default PropertyActions;
