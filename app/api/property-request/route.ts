@@ -47,9 +47,40 @@ export const POST = async (request: NextRequest) => {
       subject: "Property Request",
       text: clientMessage,
     }),
-    ...adminUsers.map((user) =>
+    ...adminUsers
+      .filter(
+        (user) =>
+          config.contact.contactPeople.findIndex(
+            (person) => person.email === user.email,
+          ) !== -1,
+      )
+      .map((user) =>
+        sendMail({
+          toEmail: user.email,
+          subject: "Property Request",
+          text: parseMessage<{
+            staff_name: string;
+            client_name: string;
+            property_title: string;
+            client_phone: string;
+            client_email: string;
+            property_link: string;
+          }>(
+            {
+              staff_name: user.name,
+              client_name: propertyRequest.name,
+              property_title: propertyRequest.property.title,
+              client_phone: propertyRequest.phoneNumber,
+              client_email: propertyRequest.email,
+              property_link: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/properties/${propertyRequest.propertyId}`,
+            },
+            config.MESSAGE.REQUEST_PROPERTY_ADMIN,
+          ),
+        }),
+      ),
+    ...config.contact.contactPeople.map((person) =>
       sendMail({
-        toEmail: user.email,
+        toEmail: person.email,
         subject: "Property Request",
         text: parseMessage<{
           staff_name: string;
@@ -60,7 +91,7 @@ export const POST = async (request: NextRequest) => {
           property_link: string;
         }>(
           {
-            staff_name: user.name,
+            staff_name: person.name,
             client_name: propertyRequest.name,
             property_title: propertyRequest.property.title,
             client_phone: propertyRequest.phoneNumber,
