@@ -16,7 +16,7 @@ export default async function page() {
   });
   return (
     <>
-      <div className="flex-1 space-y-4  p-4 md:p-8 pt-6">
+      <div className="flex flex-col space-y-4  p-4 md:p-8 pt-6  h-full">
         <BreadCrumb items={breadcrumbItems} />
         <div className="flex items-start justify-between">
           <Heading
@@ -25,7 +25,9 @@ export default async function page() {
           />
         </div>
         <Separator />
-        <UsersDataTable users={users} />
+        <div className="w-full h-full overflow-auto">
+          <UsersDataTable users={users} />
+        </div>
       </div>
     </>
   );

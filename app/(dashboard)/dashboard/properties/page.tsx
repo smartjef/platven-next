@@ -1,6 +1,7 @@
 import BreadCrumb from "@/components/breadcrumb";
 import PropertyTable from "@/components/tables/properties-table/property-table";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { Heading } from "@/components/ui/heading";
+import { Separator } from "@/components/ui/separator";
 import { getSessionUser } from "@/lib/auth-utils";
 import prisma from "@/prisma/client";
 import { PropsWithSearchParams } from "@/types";
@@ -44,12 +45,17 @@ const Properties: FC<PropsWithSearchParams> = async ({ searchParams }) => {
     include: { type: true, requests: true, user: true, payment: true },
   });
   return (
-    <ScrollArea className="h-full">
-      <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
-        <BreadCrumb items={breadcrumbItems} />
-        <PropertyTable properties={JSON.parse(JSON.stringify(properties))} />
+    <div className="flex flex-col space-y-4  p-4 md:p-8 pt-6  h-full">
+      <BreadCrumb items={breadcrumbItems} />
+      <div className="flex items-start justify-between">
+        <Heading
+          title={`Properties (${properties.length})`}
+          description="Manage Properties"
+        />
       </div>
-    </ScrollArea>
+      <Separator />
+      <PropertyTable properties={JSON.parse(JSON.stringify(properties))} />
+    </div>
   );
 };
 

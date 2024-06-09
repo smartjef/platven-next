@@ -32,6 +32,7 @@ import { PlusIcon, SlidersHorizontal, Trash2 } from "lucide-react";
 import React from "react";
 import { Button } from "../ui/button";
 import FilterHeader from "./FilterHeader";
+import SizedLayout from "../layout/SizedLayout";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -69,7 +70,7 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <div className="space-y-4 overflow-x-auto">
+    <div className="space-y-4 w-full relative flex flex-col">
       <div className="flex flex-col max-lg:space-y-2  lg:flex-row lg:items-center lg:space-x-2 lg:overflow-y-auto">
         <div className="flex-1">
           <FilterHeader />
@@ -137,8 +138,11 @@ export function DataTable<TData, TValue>({
           {table.getFilteredRowModel().rows.length} row(s) selected.
         </div> */}
 
-      <div className="rounded-md border">
-        <Table>
+      <div className="rounded-md border p-6 relative">
+        {/* <SizedLayout>
+          {(width) => (
+            <div className={`w-[${width}px] overflow-y-auto`}> */}
+        <Table className="overflow-y-auto relative">
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
@@ -187,6 +191,9 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
+      {/* )}
+        </SizedLayout>
+      </div> */}
       <div className="flex items-center justify-end space-x-2 py-4">
         <Button
           variant="outline"

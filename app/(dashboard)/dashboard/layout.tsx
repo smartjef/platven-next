@@ -3,8 +3,8 @@ import Sidebar from "@/components/layout/sidebar";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Next Shadcn Dashboard Starter",
-  description: "Basic dashboard with Next.js and Shadcn",
+  title: "Platven Limited Dashboard",
+  description: "Dashboard",
 };
 
 export default function DashboardLayout({
@@ -13,12 +13,14 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <>
+    <div className="w-full h-screen">
       <Header />
-      <div className="flex h-screen overflow-hidden">
+      <div className="h-full w-full flex ">
         <Sidebar />
-        <main className="w-full pt-16">{children}</main>
+        <main className="w-full flex flex-col pt-16 h-full overflow-visible">
+          {children}
+        </main>
       </div>
-    </>
+    </div>
   );
 }

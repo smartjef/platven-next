@@ -22,7 +22,7 @@ export default async function page() {
         <div className="flex items-start justify-between">
           <Heading
             title={`Staffs (${users.length})`}
-            description="Manage users"
+            description="Manage Staffs"
           />
         </div>
         <Separator />

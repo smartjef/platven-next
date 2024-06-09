@@ -1,7 +1,7 @@
 import BreadCrumb from "@/components/breadcrumb";
 import MessagesTable from "@/components/tables/messages/messages-table";
 import { Heading } from "@/components/ui/heading";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
 import { getSessionUser } from "@/lib/auth-utils";
 import prisma from "@/prisma/client";
 import { PropsWithSearchParams } from "@/types";
@@ -43,14 +43,18 @@ const Contact: FC<PropsWithSearchParams> = async ({ searchParams }) => {
     },
   });
   return (
-    <ScrollArea className="h-full">
-      <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
-        <BreadCrumb items={breadcrumbItems} />
-
-        <Heading title="Messages" description="" />
-        <MessagesTable messages={contacts} />
+    <div className="flex flex-col space-y-4  p-4 md:p-8 pt-6  h-full">
+      <BreadCrumb items={breadcrumbItems} />
+      <div className="flex items-start justify-between">
+        <Heading
+          title={`Messages (${contacts.length})`}
+          description="Manage Messages"
+        />
       </div>
-    </ScrollArea>
+      <Separator />
+      <Heading title="Messages" description="" />
+      <MessagesTable messages={contacts} />
+    </div>
   );
 };
 

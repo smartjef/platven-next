@@ -49,14 +49,14 @@ const PropertyRequestsPage: FC<PropsWithSearchParams> = async ({
     },
   });
   return (
-    <ScrollArea className="h-full">
+    <div className="flex flex-col space-y-4  p-4 md:p-8 pt-6  h-full">
       <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
         <BreadCrumb items={breadcrumbItems} />
         <Heading title="Property request" description="" />
         <Separator />
         <PropertyRequestTable messages={propertyRequest} />
       </div>
-    </ScrollArea>
+    </div>
   );
 };
 
