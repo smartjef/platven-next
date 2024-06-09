@@ -15,6 +15,18 @@ import { MoreHorizontal } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { AlertModal } from "@/components/modal/alert-modal";
 
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+
 import { FC, useState } from "react";
 
 interface Props {
@@ -26,6 +38,7 @@ const MessageAction: FC<Props> = ({ message }) => {
   const { toast } = useToast();
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [openMessage, setOpenMessage] = useState(false);
   const handleToggle = async () => {
     const response = await fetch(`/api/contact/${message.id}`, {
       method: "PUT",
@@ -69,6 +82,17 @@ const MessageAction: FC<Props> = ({ message }) => {
         onConfirm={handleDelete}
         loading={loading}
       />
+      <AlertDialog open={openMessage} onOpenChange={setOpenMessage}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>{message.subject}</AlertDialogTitle>
+            <AlertDialogDescription>{message.message}</AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogAction>Ok</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="h-8 w-8 p-0">
@@ -89,6 +113,9 @@ const MessageAction: FC<Props> = ({ message }) => {
             Reply
           </DropdownMenuItem>
           <DropdownMenuSeparator />
+          <DropdownMenuItem onClick={() => setOpenMessage(true)}>
+            View Message
+          </DropdownMenuItem>
           <DropdownMenuItem onClick={handleToggle}>
             {message.isAddressed ? "Mark Un addressed" : "Mark as Addressed"}
           </DropdownMenuItem>
