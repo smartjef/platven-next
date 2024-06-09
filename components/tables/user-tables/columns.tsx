@@ -6,6 +6,7 @@ import { User } from "@prisma/client";
 import { ColumnDef } from "@tanstack/react-table";
 import clsx from "clsx";
 import { CellAction } from "./cell-action";
+import { BadgeCheck, BadgeX } from "lucide-react";
 
 export const columns = (isStaff = false) =>
   [
@@ -112,6 +113,17 @@ export const columns = (isStaff = false) =>
       cell(props) {
         const name = props.renderValue() as string | undefined;
         return <span>{name ? name : "-"}</span>;
+      },
+    },
+    {
+      accessorKey: "accountVerified",
+      header: "Account Verified",
+      cell(props) {
+        return props.renderValue() ? (
+          <BadgeCheck className="text-green-600" />
+        ) : (
+          <BadgeX className="text-destructive" />
+        );
       },
     },
     {
