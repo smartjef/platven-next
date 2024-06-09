@@ -10,7 +10,6 @@ const AuthStateChecker = () => {
   useEffect(() => {
     if (user) {
       if (!user.accountVerified) {
-        // TODO Do something if acoount is not verified
         replace("/verify");
       } else {
         console.log("Redirecting to: ", searchParams.get("callbackUrl") ?? "/");

@@ -1,5 +1,8 @@
 "use client";
 import { useToast } from "@/components/ui/use-toast";
+import useSessionContext from "@/hooks/useSessionContext";
+import { redirect } from "next/dist/server/api-utils";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import PuffLoader from "react-spinners/PuffLoader";
 
@@ -7,6 +10,11 @@ const VerifyPage = () => {
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
+  const { user } = useSessionContext();
+  const { replace } = useRouter();
+  useEffect(() => {
+    if (user?.accountVerified) return replace("/dashboard");
+  }, [user]);
 
   const handleRequestLink = async () => {
     try {
