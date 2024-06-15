@@ -29,6 +29,7 @@ const AdvertCardControlls: FC<Props> = ({ advert: { id, title } }) => {
         title: "Success!",
         description: "Advert deleted successfully!",
       });
+      setOpen(false);
     }
   };
 

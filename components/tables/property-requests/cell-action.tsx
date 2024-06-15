@@ -58,6 +58,7 @@ const PropertyRequestAction: FC<Props> = ({ message }) => {
         title: "Success!",
         description: "Property deleted successfully!",
       });
+      setOpen(false);
     }
   };
   return (

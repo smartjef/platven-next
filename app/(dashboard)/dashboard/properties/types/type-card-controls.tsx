@@ -45,6 +45,8 @@ const TypeCardControlls: FC<Props> = ({ type: { isActive, id, title } }) => {
         title: "Success!",
         description: "Property type deleted successfully!",
       });
+      setOpen(false);
+
     }
   };
 

@@ -37,6 +37,8 @@ export const PropertyActions: FC<Props> = ({ property }) => {
         title: "Success!",
         description: "Property deleted successfully!",
       });
+      setOpen(false);
+
     }
   };
   return (

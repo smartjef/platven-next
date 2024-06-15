@@ -68,6 +68,8 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
         title: "Success!",
         description: "User deleted successfully!",
       });
+      setOpen(false);
+
     }
   };
 
