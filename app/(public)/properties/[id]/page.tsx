@@ -36,7 +36,7 @@ const PropertyDetailPage: FC<PropsWithPathParams> = async ({
       </div>
       <ListLayoutWithSideBar
         sideBar={
-          <div className="p-4 shadow shadow-slate-300 dark:shadow-slate-700 rounded-md space-y-4">
+          <div className="p-4 shadow shadow-slate-300 dark:shadow-slate-700 rounded-md space-y-4 hidden lg:block">
             <h1 className="font-bold text-xl">Request Property</h1>
             <PropertyRequestForm
               property={property as any}
@@ -102,6 +102,13 @@ const PropertyDetailPage: FC<PropsWithPathParams> = async ({
               <MarkdownRenderer markdownContent={property.features ?? ""} />
             </div>
           </div>
+          <div className="p-4 shadow shadow-slate-300 dark:shadow-slate-700 rounded-md space-y-4 block lg:hidden">
+            <h1 className="font-bold text-xl">Request Property</h1>
+            <PropertyRequestForm
+              property={property as any}
+              user={user as any}
+            />
+          </div>
           <div className="p-4 space-y-4">
             <p className="font-bold text-xl">Related properties</p>
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-2 lg:gap-4">
@@ -151,13 +158,13 @@ const PropertyDetailPage: FC<PropsWithPathParams> = async ({
                       <div className="flex flex-col justify-center mt-2.5 mb-5">
                         {`${county} ${subCounty}`}
                       </div>
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-center justify-between flex-wrap space-y-6">
                         <span className="text-xl font-bold text-gray-900 dark:text-white">
                           {formartCurrency(Number(price))}
                         </span>
                         <Link
                           href={`/properties/${id}`}
-                          className="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                          className="w-full text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
                         >
                           View Detail
                         </Link>
