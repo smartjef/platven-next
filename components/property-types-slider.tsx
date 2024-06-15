@@ -18,7 +18,10 @@ const PropertyTypesSlider: FC<{
         <div className="flex space-x-4 lg:space-x-16 animate-loop-scroll group-hover:paused w-full">
           {[...propertyTypes, ...propertyTypes].map(
             ({ createdAt, icon, id, title, _count: { properties } }, index) => (
-              <div key={index} className="flex space-x-2">
+              <div
+                key={index}
+                className="flex flex-col lg:flex-row lg:space-x-2 max-lg:space-y-2"
+              >
                 {/* <Image
                   src={{
                     src: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/${icon}`,

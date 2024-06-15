@@ -20,7 +20,7 @@ const PropertyDetailPage: FC<PropsWithPathParams> = async ({
 }) => {
   const property = await prisma.property.findUnique({
     where: { id, listed: true, isActive: true, payment: { complete: true } },
-    include: { type: true },
+    include: { type: true },    
   });
   if (!property) return notFound();
   const relatedProperties = await prisma.property.findMany({
