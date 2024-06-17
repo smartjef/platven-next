@@ -85,14 +85,14 @@ const PropertyForm: FC<Props> = ({ property }) => {
           redirect: "follow",
         });
       if (response.ok) {
-        const property: Property = await response.json();
-        push("/dashboard/properties");
+        const _property: Property = await response.json();
+        push(`/dashboard/properties/${_property.id}/pay`);
         toast({
           variant: "default",
           title: "Success!.",
           description: `Property ${
             property ? "updated" : "created"
-          } successfully!.`,
+          } successfully!.KIndly complete payment to complete the process`,
         });
       } else {
         if (response.status === 400) {
@@ -121,53 +121,6 @@ const PropertyForm: FC<Props> = ({ property }) => {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-4">
-          <Card className="lg:col-span-2 h-fit">
-            <CardHeader>
-              <CardTitle>Property images</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="flex space-x-3 overflow-x-auto">
-                {property?.images.map((image, index) => (
-                  <div
-                    key={index}
-                    className="w-28 h-28 bg-accent rounded-full overflow-clip mb-3"
-                  >
-                    {/* <Image
-                      src={{
-                        src: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/${image}`,
-                        width: 100,
-                        height: 100,
-                      }}
-                      className="w-full h-full object-cover"
-                      alt="profile picture"
-                    /> */}
-                    <img
-                      src={`${process.env.NEXT_PUBLIC_FRONTEND_URL}/${image}`}
-                      className="w-full h-full object-cover"
-                      alt="profile picture"
-                    />
-                  </div>
-                ))}
-              </div>
-              <FileInput
-                maxFiles={6}
-                value={images}
-                onValueChange={(files) => {
-                  if (files.length <= 6)
-                    setImages(
-                      files.filter((file) => file.type.includes("image")),
-                    );
-                }}
-              />
-              <Button
-                disabled={form.formState.isSubmitting}
-                className="ml-auto w-full"
-                type="submit"
-              >
-                Submit
-              </Button>
-            </CardContent>
-          </Card>
           <Card className="lg:col-span-3">
             <CardHeader>
               <CardTitle>Property Details</CardTitle>
@@ -324,6 +277,54 @@ const PropertyForm: FC<Props> = ({ property }) => {
                   </FormItem>
                 )}
               />
+            </CardContent>
+          </Card>
+
+          <Card className="lg:col-span-2 h-fit">
+            <CardHeader>
+              <CardTitle>Property images</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="flex space-x-3 overflow-x-auto">
+                {property?.images.map((image, index) => (
+                  <div
+                    key={index}
+                    className="w-28 h-28 bg-accent rounded-full overflow-clip mb-3"
+                  >
+                    {/* <Image
+                      src={{
+                        src: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/${image}`,
+                        width: 100,
+                        height: 100,
+                      }}
+                      className="w-full h-full object-cover"
+                      alt="profile picture"
+                    /> */}
+                    <img
+                      src={`${process.env.NEXT_PUBLIC_FRONTEND_URL}/${image}`}
+                      className="w-full h-full object-cover"
+                      alt="property image"
+                    />
+                  </div>
+                ))}
+              </div>
+              <FileInput
+                maxFiles={6}
+                value={images}
+                onValueChange={(files) => {
+                  if (files.length <= 6)
+                    setImages(
+                      files.filter((file) => file.type.includes("image")),
+                    );
+                }}
+              />
+              <Button
+                disabled={form.formState.isSubmitting}
+                className="ml-auto w-full"
+                type="submit"
+              >
+                Submit
+              </Button>
             </CardContent>
           </Card>
         </div>

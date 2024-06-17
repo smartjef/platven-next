@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import prisma from "@/prisma/client";
 import { PropsWithPathParams } from "@/types";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { FC } from "react";
 import { z } from "zod";
 
@@ -20,6 +20,8 @@ const page: FC<PropsWithPathParams> = async ({ params: { id } }) => {
     include: { user: true, payment: true },
   });
   if (!property) return notFound();
+
+  if(property.payment?.complete) redirect("/dashboard/properties")
 
   return (
     <ScrollArea className="h-full">
