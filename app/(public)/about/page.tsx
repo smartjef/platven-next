@@ -10,7 +10,10 @@ import Link from "next/link";
 type Props = {};
 
 const AboutPage = async (props: Props) => {
-  const agents = await prisma.team.findMany({ include: { user: true } });
+  const agents = await prisma.team.findMany({
+    include: { user: true },
+    where: { isActive: true },
+  });
   const user = await getSessionUser();
 
   return (
@@ -165,7 +168,7 @@ const AboutPage = async (props: Props) => {
               ) => (
                 <div key={index} className="text-center group mb-[30px]">
                   <div className="relative rounded-[6px_6px_0px_0px]">
-                    <a href="agent-details.html">
+                    <Link href="@">
                       {/* <Image
                         src={{
                           src: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/${image}`,
@@ -180,7 +183,7 @@ const AboutPage = async (props: Props) => {
                         className="w-auto h-auto block mx-auto"
                         alt={name}
                       />
-                    </a>
+                    </Link>
                     <ul className="flex flex-col absolute w-full top-[30px] left-0 overflow-hidden">
                       <li className="translate-x-[0px] group-hover:translate-x-[30px] opacity-0 group-hover:opacity-100 transition-all duration-300 mb-[15px]">
                         <a
