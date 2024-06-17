@@ -12,7 +12,7 @@ type Props = {};
 const AboutPage = async (props: Props) => {
   const agents = await prisma.team.findMany({
     include: { user: true },
-    where: { isActive: true },
+    where: { isActive: true , user: {isActive: true}},
   });
   const user = await getSessionUser();
 
