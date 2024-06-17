@@ -1,5 +1,6 @@
 import HeroSection from "@/components/hero-seaction";
 import { coreValues, services } from "@/constants/data";
+import { getSessionUser } from "@/lib/auth-utils";
 import prisma from "@/prisma/client";
 import aboutRound from "@/public/about-circle.png";
 import service from "@/public/service.png";
@@ -10,6 +11,7 @@ type Props = {};
 
 const AboutPage = async (props: Props) => {
   const agents = await prisma.team.findMany({ include: { user: true } });
+  const user = await getSessionUser();
 
   return (
     <div className="flex flex-col  space-y-10">
