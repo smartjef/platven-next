@@ -23,7 +23,14 @@ export const hashPassword = async (password: string) => {
 
 export const generateUserToken = (user: User) => {
   const token = sign(
-    pick(user, ["id", "name", "email", "phoneNumber", "isStaff", "accountVerified"]),
+    pick(user, [
+      "id",
+      "name",
+      "email",
+      "phoneNumber",
+      "isStaff",
+      "accountVerified",
+    ]),
     process.env.NEXTAUTH_SECRET as string,
     {
       expiresIn: "1d",
@@ -94,7 +101,10 @@ export async function getSessionUser() {
   const prisma = await import("@/prisma/client");
   const userId = await getUserIdFromToken();
   if (!userId) return null;
-  return await prisma.prisma.user.findUnique({ where: { id: userId } });
+  return await prisma.prisma.user.findUnique({
+    where: { id: userId },
+    include: { team: true },
+  });
 }
 
 export function saveMediaFileName(

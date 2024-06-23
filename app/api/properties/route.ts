@@ -70,8 +70,8 @@ export const POST = async (request: NextRequest) => {
               create: {
                 amount: 0,
                 complete: true,
-                merchantRequestId: "None",
-                checkoutRequestId: "None",
+                merchantRequestId: null,
+                checkoutRequestId: null,
               },
             }
           : undefined,

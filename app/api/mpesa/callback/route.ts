@@ -14,6 +14,8 @@ export const POST = async (request: NextRequest) => {
         },
       },
     } = await request.json();
+    if (!MerchantRequestID || !CheckoutRequestID)
+      return NextResponse.json({ detail: "Bad REquest" }, { status: 400 });
     const data = (Item as any[]).reduce((prev, curr) => {
       if (curr.Name === "Amount") return { ...prev, amount: curr.Value };
       else if (curr.Name === "MpesaReceiptNumber")

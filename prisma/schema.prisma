@@ -166,8 +166,8 @@ model Payment {
   property           Property @relation(fields: [propertyId], onDelete: Cascade, references: [id])
   complete           Boolean  @default(false)
   description        String?  @db.Text
-  merchantRequestId  String   @unique
-  checkoutRequestId  String
+  merchantRequestId  String?   @unique
+  checkoutRequestId  String? 
   resultCode         String?
   resultDescription  String?
   mpesareceiptNumber String?
