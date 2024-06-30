@@ -16,7 +16,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import useSessionContext from "@/hooks/useSessionContext";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { User } from "@prisma/client";
 import { useForm } from "react-hook-form";
@@ -31,18 +30,17 @@ const formSchema = registerSchema;
 type UserFormValue = z.infer<typeof formSchema>;
 
 const RegisterForm = (props: Props) => {
-  const { setUser } = useSessionContext();
   const { refresh } = useRouter();
   const router = useRouter();
   const form = useForm<UserFormValue>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      email: "p1@mail.com",
-      password: "hello",
-      confirmPassword: "hello",
-      phoneNumber: "0712345678" as any,
-      identificationNumber: "4",
-      name: "P",
+      email: "",
+      password: "",
+      confirmPassword: "",
+      phoneNumber: "" as any,
+      identificationNumber: "",
+      name: "",
       type: "Individual",
     },
   });
@@ -56,9 +54,7 @@ const RegisterForm = (props: Props) => {
         redirect: "follow",
       });
       if (response.ok) {
-        const user: User = await response.json();
         router.push(`${process.env.NEXT_PUBLIC_FRONTEND_URL}/sign-in`)
-        refresh();
       } else {
         if (response.status === 400) {
           const errors = await response.json();
@@ -139,7 +135,6 @@ const RegisterForm = (props: Props) => {
                     }
                     disabled={form.formState.isSubmitting}
                     {...field}
-                    value={"L"}
                   />
                 </FormControl>
                 <FormMessage />
