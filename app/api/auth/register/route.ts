@@ -74,11 +74,11 @@ export async function POST(request: NextRequest) {
     config.MESSAGE.ACCOUNT_VERIFICATION,
   );
 
-  await sendMail({
-    toEmail: email,
-    subject: "Account Verification",
-    text: message,
-  });
+  // await sendMail({
+  //   toEmail: email,
+  //   subject: "Account Verification",
+  //   text: message,
+  // });
 
   // 1. Generate token
   const authToken = generateUserToken(user);
