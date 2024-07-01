@@ -87,6 +87,25 @@ const PropertyTypesSlider: FC<{
         <CarouselPrevious className="absolute -left-8 sm:-left-12 top-1/2 -translate-y-1/2" />
         <CarouselNext className="absolute -right-8 sm:-right-12 top-1/2 -translate-y-1/2" />
       </Carousel>
+      {/* <div
+          className="flex space-x-4 lg:space-x-16 animate-loop-scroll group-hover:paused"
+          aria-hidden="true"
+        >
+          {[...propertyTypes, ...propertyTypes].map(
+            ({ createdAt, icon, id, title, properties }, index) => (
+              <div key={index} className="flex space-x-2">
+                <Image
+                  src={{ src: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/${icon}`, width: 100, height: 100 }}
+                  alt={title}
+                />
+                <div className="flex flex-col justify-center">
+                  <h1 className="font-bold">{title}</h1>
+                  <p>{`${properties.length} properties`}</p>
+                </div>
+              </div>
+            ),
+          )}
+        </div> */}
     </div>
   );
 };
