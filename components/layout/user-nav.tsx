@@ -58,8 +58,8 @@ export function UserNav() {
     </DropdownMenu>
   ) : (
     <div className={cn("flex items-center rounded-full border border-gray-300 px-4 py-2 bg-white")}>
-      <Link href={"/sign-in"}>
-      <User2 className="w-6 h-6" />
+      <Link href="/sign-in" className="block md:hidden">
+        <User2 className="w-6 h-6" />
       </Link>
       <div className="hidden md:flex items-center">
         <Link href="/sign-in">
