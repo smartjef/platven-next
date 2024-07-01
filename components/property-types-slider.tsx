@@ -1,6 +1,7 @@
 import prisma from "@/prisma/client";
 import { PropertyType } from "@prisma/client";
 import Image from "next/image";
+import Link from "next/link";
 import { FC } from "react";
 
 type ProperTypeWithCount = PropertyType & {
@@ -18,21 +19,14 @@ const PropertyTypesSlider: FC<{
         <div className="flex space-x-4 lg:space-x-16 animate-loop-scroll group-hover:paused w-full">
           {[...propertyTypes, ...propertyTypes].map(
             ({ createdAt, icon, id, title, _count: { properties } }, index) => (
-              <div
+              <Link
                 key={index}
-                className="flex flex-col lg:flex-row lg:space-x-2 max-lg:space-y-2"
+                href={`/properties?typeId=${id}`}
+                passHref
               >
-                {/* <Image
-                  src={{
-                    src: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/${icon}`,
-                    width: 100,
-                    height: 100,
-                  }}
-                  alt={title}
-                /> */}
                 <img
                   src={`${process.env.NEXT_PUBLIC_FRONTEND_URL}/${icon}`}
-                  alt=""
+                  alt={title}
                   width={100}
                   height={100}
                 />
@@ -40,7 +34,7 @@ const PropertyTypesSlider: FC<{
                   <h1 className="font-bold">{title}</h1>
                   <p>{`${properties} properties`}</p>
                 </div>
-              </div>
+              </Link>
             ),
           )}
         </div>
