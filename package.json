@@ -19,7 +19,7 @@
     "@dnd-kit/utilities": "^3.2.2",
     "@hookform/resolvers": "^3.3.2",
     "@next/mdx": "^14.2.3",
-    "@prisma/client": "^5.13.0",
+    "@prisma/client": "^5.16.1",
     "@radix-ui/react-accordion": "^1.1.2",
     "@radix-ui/react-alert-dialog": "^1.0.5",
     "@radix-ui/react-avatar": "^1.0.4",
@@ -64,11 +64,9 @@
     "next-auth": "^4.24.4",
     "next-mdx-remote": "^5.0.0",
     "next-themes": "^0.2.1",
-    "nodemailer": "^6.9.13",
     "path": "^0.12.7",
     "postcss": "8.4.28",
     "pretty-bytes": "^6.1.1",
-    "prisma": "^5.13.0",
     "react": "^18.2.0",
     "react-day-picker": "^8.9.1",
     "react-dom": "^18.2.0",
@@ -102,6 +100,7 @@
     "@types/uuid": "^9.0.7",
     "@typescript-eslint/eslint-plugin": "^6.11.0",
     "morgan": "^1.10.0",
-    "prettier": "3.0.3"
+    "prettier": "3.0.3",
+    "prisma": "^5.16.1"
   }
 }
