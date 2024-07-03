@@ -60,25 +60,23 @@ const NavBar = (props: Props) => {
           <div className={cn("hidden lg:!block")}>
             <PublicNavItems />
           </div>
-
           <div className="flex items-center gap-2">
             <UserNav />
             <ThemeToggle />
           </div>
         </div>
-        <div className="hidden lg:flex h-16 bg-accent">
+        <div className="hidden md:flex h-16 bg-accent">
           <div className="bg-green-700 h-full w-1/12" />
-
-          <div className="bg-primary h-full w-2/12 flex items-center space-x-2 text-green-500 p-3">
+          <div className="bg-primary h-full w-3/12 flex items-center space-x-2 text-green-500 p-3">
             <NavigationMenu>
               <NavigationMenuList>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger className="bg-transparent flex items-center space-x-2 rounded-none hover:bg-transparent hover:text-green-500 active:bg-transparent active:text-green-500 focus:bg-transparent focus:text-green-500 data-[state=open]:bg-transparent">
+                  <NavigationMenuTrigger className="bg-transparent flex items-center space-x-2 rounded-none hover:bg-transparent hover:text-green-500 active:bg-transparent active:text-green-500 focus:bg-transparent focus:text-green-500 data-[state=open]:bg-transparent text-sm">
                     <Text />
-                    <span>Browse category</span>
+                    <span>Browse categories</span>
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <ul className="grid w-[300px] gap-3 p-4 grid-cols-1">
+                    <ul className="grid w-[400px] gap-3 p-4 grid-cols-1">
                       {types.map((component, index) => (
                         <Link
                           href={`/properties?typeId=${component.id}`}
@@ -86,7 +84,7 @@ const NavBar = (props: Props) => {
                           className="p-2 hover:bg-green-700 hover:bg-opacity-20 flex space-x-2 items-center rounded"
                         >
                           <Check className="mr-2 h-4 w-4" />
-                          <span>{component.title}</span>
+                          <span className="text-sm">{component.title}</span>
                         </Link>
                       ))}
                     </ul>
@@ -96,29 +94,28 @@ const NavBar = (props: Props) => {
             </NavigationMenu>
           </div>
           <Input
-            className="w-5/12 h-full outline-none active:outline-none rounded-none"
+            className="w-4/12 h-full outline-none active:outline-none rounded-none text-sm"
             placeholder="Search property ..."
             defaultValue={search}
             onChange={({ target: { value } }) => setSearch(value)}
           />
           <Link
-            className="bg-green-700 flex items-center w-1/12  text-background justify-center"
+            className="bg-green-700 flex items-center w-1/12 h-full text-background justify-center"
             href={`/properties?search=${search}`}
           >
             <Search />
           </Link>
-
-          <div className="bg-primary w-2/12 flex text-background items-center p-3 space-x-4">
-            <User2 className="w-12 h-12" />
+          <div className="bg-primary w-2/12 h-full flex text-background items-center p-3 space-x-2">
+            <User2 className="w-8 h-8" />
             <Link
-              className="flex flex-col"
+              className="flex flex-col text-sm"
               href={user ? "/dashboard/profile" : "/sign-in"}
             >
               <span>My Account</span>
               <span>{user ? user.name ?? user.email : "Hello, sign in"}</span>
             </Link>
           </div>
-          <div className="w-1/12 bg-green-700" />
+          <div className="w-1/12 bg-green-700 h-full" />
         </div>
       </nav>
     </div>
