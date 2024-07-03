@@ -49,7 +49,7 @@ const PropertyTypesSlider: FC<{
         }}
         className="w-full"
       >
-        <CarouselContent className="-ml-2 md:-ml-4">
+        <CarouselContent className="ml-2 p-3 md:-ml-4">
           {[...propertyTypes, ...propertyTypes, ...propertyTypes].map(
             ({ icon, id, title, _count: { properties } }, index) => (
               <CarouselItem

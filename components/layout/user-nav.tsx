@@ -69,7 +69,7 @@ export function UserNav() {
               "opacity-80 hover:opacity-100"
             )}
           >
-            Sign In
+            Login
           </span>
         </Link>
         <span className="mx-2 opacity-80">|</span>
