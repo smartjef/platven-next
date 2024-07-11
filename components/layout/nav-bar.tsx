@@ -50,7 +50,7 @@ const NavBar = (props: Props) => {
       <nav>
         <div className="h-14 flex items-center justify-between px-4">
           <div className="hidden lg:block">
-            <Link href={"/"} target="_blank">
+            <Link href={"/"}>
               <Logo />
             </Link>
           </div>
