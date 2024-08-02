@@ -43,11 +43,10 @@ const HeroBanner: FC<{ adverts: Advert[] }> = ({ adverts }) => {
             />
             <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-start p-4">
               <div className="flex flex-col p-10 text-white font-bold justify-center space-y-10">
-                <p>This Week Only for World Premier</p>
                 <p className="text-4xl">
                   Explore top-tier
                   <br />
-                  properties
+                  properties by clicking the button below
                 </p>
                 <Button className=" w-fit space-x-2 bg-green-700">
                   <Link
@@ -68,7 +67,6 @@ const HeroBanner: FC<{ adverts: Advert[] }> = ({ adverts }) => {
         />
         <div className="absolute bg-black opacity-50 w-full h-full" />
         <div className="absolute w-full h-full flex flex-col p-10 text-white font-bold justify-center space-y-10">
-          <p>This Week Only for World Premier</p>
           <p className="text-4xl">
             New Top Product
             <br />
