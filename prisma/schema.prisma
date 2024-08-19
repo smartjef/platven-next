@@ -20,6 +20,11 @@ model County {
   subscounties SubCounty[]
 }
 
+model Click {
+  id    String @id @default(uuid()) @db.Uuid
+  count Int    @default(0)
+}
+
 model SubCounty {
   code       String @id @unique
   countyCode String
@@ -67,7 +72,7 @@ model User {
   properties           Property[]
   accounts             Account[]
   OTPVerificatiions    OTPVerificatiion[]
-  accountVerified Boolean @default(false)
+  accountVerified      Boolean            @default(false)
 }
 
 model Team {
@@ -166,8 +171,8 @@ model Payment {
   property           Property @relation(fields: [propertyId], onDelete: Cascade, references: [id])
   complete           Boolean  @default(false)
   description        String?  @db.Text
-  merchantRequestId  String?   @unique
-  checkoutRequestId  String? 
+  merchantRequestId  String?  @unique
+  checkoutRequestId  String?
   resultCode         String?
   resultDescription  String?
   mpesareceiptNumber String?

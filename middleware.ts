@@ -1,11 +1,7 @@
-// Protecting routes with next-auth
-// https://next-auth.js.org/configuration/nextjs#middleware
-// https://nextjs.org/docs/app/building-your-application/routing/middleware
-
-import { NextRequest, NextResponse } from "next/server";
-import { authCookieConfig } from "./constants";
-import { decode, JwtPayload } from "jsonwebtoken";
-import { serialize } from "cookie";
+import { NextRequest, NextResponse } from 'next/server';
+import { authCookieConfig } from './constants';
+import { decode, JwtPayload } from 'jsonwebtoken';
+import { serialize } from 'cookie';
 
 const redirectToAuth = (request: NextRequest) => {
   const authCookie = request.cookies.get(authCookieConfig.name)?.value;
@@ -21,7 +17,7 @@ const redirectToAuth = (request: NextRequest) => {
   );
 
   const headers = new Headers();
-  headers.append("Set-Cookie", serializedCookieToken);
+  headers.append('Set-Cookie', serializedCookieToken);
   return NextResponse.redirect(
     new URL(
       `/sign-in?callbackUrl=${encodeURIComponent(callbackUrl)}`,
@@ -31,12 +27,11 @@ const redirectToAuth = (request: NextRequest) => {
   );
 };
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const authCookie = request.cookies.get(authCookieConfig.name)?.value;
-  const isAuthenticated = decode(authCookie ?? "") as JwtPayload | null;
-  const isProtected = request.nextUrl.pathname.startsWith("/dashboard");
+  const isAuthenticated = decode(authCookie ?? '') as JwtPayload | null;
+  const isProtected = request.nextUrl.pathname.startsWith('/dashboard');
 
-  //   // TODO Specify protected routes
   if (!isAuthenticated && isProtected) {
     return redirectToAuth(request);
   }
@@ -50,17 +45,23 @@ export function middleware(request: NextRequest) {
     );
   }
 
-  const response = NextResponse.next();
-  if (response.status === 401) {
-    console.log(
-      "----------------------------------------------------------",
-      "Redirect user to auth screen",
-      "----------------------------------------------------------",
-    );
 
-    return redirectToAuth(request);
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000" }/api/increment-click`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      console.error('Failed to increment click count:', await response.text());
+    }
+  } catch (error) {
+    console.error('Failed to increment click count:', error);
   }
-  return response;
+
+  return NextResponse.next();
 }
 
-export const config = { matcher: ["/dashboard/:path*"] };
+export const config = { matcher: ['/dashboard/:path*'] };
