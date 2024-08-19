@@ -1,4 +1,5 @@
-const { PrismaClient } = require("@prisma/client");
+const { PrismaClient } = require('@prisma/client');
+const bcrypt = require('bcrypt');
 
 type Constiuency = {
   name: string;
@@ -11,14 +12,15 @@ type County = {
   capital: string;
   constituencies: Constiuency[];
 };
+
 async function seedKenyanDemographicUnits() {
   const prisma = new PrismaClient();
-  const counties = require("./counties.json") as County[];
-  console.log(`[+] Clearing demgraphic unit tables ....`);
+  const counties = require('./counties.json') as County[];
+  console.log('[+] Clearing demographic unit tables ....');
   await prisma.county.deleteMany({
     where: { code: { in: counties.map((c) => c.number) } },
   });
-  console.log(`[+] Clearing demgraphic unit tables ....`);
+  console.log('[+] Cleared demographic unit tables ....');
 
   const tasks = counties.map(({ capital, constituencies, name, number }) =>
     prisma.county.create({
@@ -35,16 +37,68 @@ async function seedKenyanDemographicUnits() {
   return await Promise.all(tasks);
 }
 
+async function createSuperUser() {
+  const prisma = new PrismaClient();
+  const args = process.argv.slice(2);
+  const [_flag, email, password, name, identificationNumber, phoneNumber] = args;
+
+  if (!email || !password || !name || !identificationNumber) {
+    console.error('Missing required command-line arguments');
+    console.error('Usage: npm run createsuperuser <email> <password> <name> <identificationNumber> <phoneNumber>');
+    process.exit(1);
+  }
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  try {
+    const user = await prisma.user.create({
+      data: {
+        email,
+        password: hashedPassword,
+        name,
+        identificationNumber,
+        phoneNumber,
+        type: 'Individual',
+        isActive: true,
+        isStaff: true,
+        isSuperUser: true,
+        accountVerified: true,
+      },
+    });
+
+    console.log(`Superuser created: ${user.email}`);
+  } catch (error) {
+    console.error('Error creating superuser:', error);
+  } finally {
+    await prisma.$disconnect();
+  }
+}
+
 async function main() {
-  console.log("[+]Starting seed ...");
-  const counties = await seedKenyanDemographicUnits();
-  console.log(`[+] Finished. Seeded ${counties.length} counties`);
+  const args = process.argv.slice(2);
+  const isCreatingSuperUser = args.includes('-c');
+  const isSeeding = args.includes('-s');
+
+  if (isSeeding) {
+    try {
+      console.log('[+] Starting seed ...');
+      const counties = await seedKenyanDemographicUnits();
+      console.log(`[+] Finished. Seeded ${counties.length} counties`);
+    } catch (error) {
+      console.log(`[+] Failed to seed counties: ${error}`);
+    }
+  }
+
+  if (isCreatingSuperUser) {
+    try {
+      console.log('[+] Creating superuser ...');
+      await createSuperUser();
+      console.log(`[+] Superuser created`);
+    } catch (error) {
+      console.error(`[+] Failed to create superuser: ${error}`)
+    }
+  }
 }
 
 main().catch((err) => {
-  console.error(
-    "An error occurred while attempting to seed the database:",
-    err,
-  );
+  console.error('An error occurred:', err);
 });
-
