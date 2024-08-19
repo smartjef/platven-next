@@ -44,23 +44,6 @@ export async function middleware(request: NextRequest) {
       ),
     );
   }
-
-
-  try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000" }/api/increment-click`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    if (!response.ok) {
-      console.error('Failed to increment click count:', await response.text());
-    }
-  } catch (error) {
-    console.error('Failed to increment click count:', error);
-  }
-
   return NextResponse.next();
 }
 

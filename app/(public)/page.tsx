@@ -33,6 +33,26 @@ const HomePage = async (props: Props) => {
     take: 12,
     orderBy: { updatedAt: "desc" },
   });
+
+
+  if (!(user?.isStaff || user?.isSuperUser)) {
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000"}/api/increment-click`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        console.error('Failed to increment click count:', await response.text());
+      }
+    } catch (error) {
+      console.error('Failed to increment click count:', error);
+    }
+  }
+
+
   const propertyTypes = await prisma.propertyType.findMany({
     where: { isActive: true },
     include: { _count: true },
