@@ -6,6 +6,7 @@
     "dev": "next dev",
     "seed": "npx ts-node scripts/seed.ts -s",
     "createsuperuser": "npx ts-node scripts/seed.ts -c",
+    "temp": "npx ts-node scripts/seed.ts -t",
     "build": "next build",
     "start": "next start",
     "start-all": "concurrently \"next start\" \"node server.express.js\"",

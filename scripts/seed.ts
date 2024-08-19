@@ -1,6 +1,7 @@
 const { PrismaClient } = require('@prisma/client');
 const bcrypt = require('bcrypt');
 
+const prisma = new PrismaClient();
 type Constiuency = {
   name: string;
   code: string;
@@ -14,7 +15,6 @@ type County = {
 };
 
 async function seedKenyanDemographicUnits() {
-  const prisma = new PrismaClient();
   const counties = require('./counties.json') as County[];
   console.log('[+] Clearing demographic unit tables ....');
   await prisma.county.deleteMany({
@@ -38,7 +38,6 @@ async function seedKenyanDemographicUnits() {
 }
 
 async function createSuperUser() {
-  const prisma = new PrismaClient();
   const args = process.argv.slice(2);
   const [_flag, email, password, name, identificationNumber, phoneNumber] = args;
 
@@ -73,10 +72,39 @@ async function createSuperUser() {
   }
 }
 
+async function resetClicks() {
+  try {
+
+    let clickRecord = await prisma.click.findFirst();
+
+    if (!clickRecord) {
+
+      clickRecord = await prisma.click.create({
+        data: {
+          count: 1,
+        },
+      });
+    } else {
+
+      clickRecord = await prisma.click.update({
+        where: { id: clickRecord.id },
+        data: { count: 0 },
+      });
+    }
+
+    console.log('Click record updated:', clickRecord);
+    return clickRecord;
+  } catch (error) {
+    console.error('Error ensuring single Click record:', error);
+    throw error;
+  }
+}
+
 async function main() {
   const args = process.argv.slice(2);
   const isCreatingSuperUser = args.includes('-c');
   const isSeeding = args.includes('-s');
+  const isTemp = args.includes('-t');
 
   if (isSeeding) {
     try {
@@ -96,6 +124,10 @@ async function main() {
     } catch (error) {
       console.error(`[+] Failed to create superuser: ${error}`)
     }
+  }
+
+  if (isTemp) {
+    resetClicks().catch((error) => console.error('Unexpected error:', error));
   }
 }
 
