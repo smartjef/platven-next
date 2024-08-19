@@ -11,10 +11,9 @@ type County = {
   capital: string;
   constituencies: Constiuency[];
 };
-
 async function seedKenyanDemographicUnits() {
-  const counties = require("./counties.json") as County[];
   const prisma = new PrismaClient();
+  const counties = require("./counties.json") as County[];
   console.log(`[+] Clearing demgraphic unit tables ....`);
   await prisma.county.deleteMany({
     where: { code: { in: counties.map((c) => c.number) } },
@@ -48,3 +47,4 @@ main().catch((err) => {
     err,
   );
 });
+

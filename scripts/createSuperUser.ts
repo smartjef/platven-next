@@ -1,25 +1,25 @@
-const { PrismaClient } = require('@prisma/client')
-const bcrypt = require('bcrypt')
+const { PrismaClient_ } = require("@prisma/client");
+const { UserType } = require("@prisma/client");
+const bcrypt = require('bcrypt');
 
-const prisma = new PrismaClient()
+async function createSuperUser() {
+    const prisma = new PrismaClient_();
+    const args = process.argv.slice(2);
+    const [email, password, name, identificationNumber, phoneNumber, type, address, image] = args;
 
-async function main() {
-    // Read from environment variables
-    const email = process.env.SUPERUSER_EMAIL
-    const password = process.env.SUPERUSER_PASSWORD
-    const name = process.env.SUPERUSER_NAME
-    const identificationNumber = process.env.SUPERUSER_ID_NUMBER
-    const phoneNumber = process.env.SUPERUSER_PHONE
-    const type = process.env.SUPERUSER_TYPE
-
-    // Check if required environment variables are set
     if (!email || !password || !name || !identificationNumber || !type) {
-        console.error('Missing required environment variables')
-        process.exit(1)
+        console.error('Missing required command-line arguments');
+        console.error('Usage: node createSuperuser.js <email> <password> <name> <identificationNumber> <phoneNumber>');
+        process.exit(1);
     }
 
-    // Hash the password
-    const hashedPassword = await bcrypt.hash(password, 10)
+    const validTypes = ['ADMIN', 'USER', 'GUEST'];
+    if (!validTypes.includes(type.toUpperCase())) {
+        console.error('Invalid user type');
+        process.exit(1);
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     try {
         const user = await prisma.user.create({
@@ -29,22 +29,20 @@ async function main() {
                 name,
                 identificationNumber,
                 phoneNumber,
-                type,
+                type: UserType.Individual,
                 isActive: true,
                 isStaff: true,
                 isSuperUser: true,
                 accountVerified: true,
-                address: process.env.SUPERUSER_ADDRESS,
-                image: process.env.SUPERUSER_IMAGE,
+                address: address || null,
+                image: image || null,
             },
-        })
+        });
 
-        console.log(`Superuser created: ${user.email}`)
+        console.log(`Superuser created: ${user.email}`);
     } catch (error) {
-        console.error('Error creating superuser:', error)
+        console.error('Error creating superuser:', error);
     } finally {
-        await prisma.$disconnect()
+        await prisma.$disconnect();
     }
 }
-
-main()
