@@ -13,10 +13,12 @@ The Platven Team
     CUSTOM_REQUEST_PROPERTY_ADMIN: `
 Hello {{staff_name}},
 
-A new custom property request has been submitted by {{client_name}} for {{property_title}}. Please review the client's inquiry and follow up promptly to assist them with their request.
+A new custom property request has been submitted by {{client_name}} for a custom property. Please review the client's inquiry and follow up promptly to assist them with their request.
 
     Client Contact: {{client_phone}}, {{client_email}}
-    Requested Property: {{property_link}}
+    Requested Property Details: 
+
+    {{features}}
 
 Thank you for your prompt attention to this request.
 
