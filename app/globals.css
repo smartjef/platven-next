@@ -70,6 +70,7 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground box-border;
   }
@@ -77,12 +78,20 @@
 
 @layer utilities {
   .min-h-screen {
-    min-height: 100vh; /* Fallback */
+    min-height: 100vh;
+    /* Fallback */
     min-height: 100dvh;
   }
+
   .h-screen {
-    height: 100vh; /* Fallback */
+    height: 100vh;
+    /* Fallback */
     height: 100dvh;
   }
 }
 
+.features-editor .CodeMirror,
+.features-editor .CodeMirror-scroll {
+  height: auto;
+  max-height: 200px;
+}

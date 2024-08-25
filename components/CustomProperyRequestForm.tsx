@@ -181,7 +181,11 @@ const CustomProperyRequestForm = () => {
                             <FormItem>
                                 <FormLabel>Features</FormLabel>
                                 <FormControl>
-                                    <SimpleMDE placeholder="Enter features ..." {...field} />
+                                    <SimpleMDE
+                                        placeholder="Enter features ..."
+                                        {...field}
+                                        className="features-editor"
+                                    />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
