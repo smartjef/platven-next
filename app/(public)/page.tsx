@@ -11,6 +11,7 @@ import { Icons } from "@/components/icons";
 import { steps, whyUs } from "@/constants/data";
 import clsx from "clsx";
 import { getSessionUser } from "@/lib/auth-utils";
+import CustomProperyRequestForm from "@/components/CustomProperyRequestForm";
 
 type Props = {};
 
@@ -67,6 +68,8 @@ const HomePage = async (props: Props) => {
         {/* Banner */}
         <HeroBanner adverts={adverts} />
         {/* Banner */}
+        {/* CUstom Propery Request */}
+        <CustomProperyRequestForm />
         {/* How it works */}
         <div className="my-10">
           <h1 className="font-bold text-3xl">How it works</h1>

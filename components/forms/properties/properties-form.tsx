@@ -22,12 +22,9 @@ import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { propertyFormSchema } from "./schema";
-
 import { Checkbox } from "@/components/ui/checkbox";
-
 import PropertyLocationPicker from "./location-picker";
 import TypeStatusInput from "./type-status";
-
 import {
   Select,
   SelectContent,

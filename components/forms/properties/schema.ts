@@ -45,3 +45,14 @@ export const propertyRequestFormSchema = z.object({
 export const propertyRejectionSchema = z.object({
   reason: z.string().min(1, { message: "Reason for rejection required" }),
 });
+
+export const customPropertyRequestFormSchema = z.object({
+  name: z.string().min(1, { message: "Name required" }),
+  email: z.string().email({ message: "A valid email is required" }),
+  phoneNumber: z.coerce.number().refine((numb) => {
+    const n = String(numb);
+    return n.length === 9 && (n.startsWith("1") || n.startsWith("7"));
+  }, "Invalid number, must follow 710000000"),
+  propertyType: z.enum(["Land", "Apartment", "Home", "Rental"]).default("Land"),
+  features: z.string().min(10, { message: "Please add features you'd want the property to have" })
+});
