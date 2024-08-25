@@ -91,5 +91,5 @@ export const POST = async (request: NextRequest) => {
     ];
     const info = await Promise.all(tasks);
     console.log(info);
-    return NextResponse.json({});
+    return NextResponse.json({message: "Custom"});
 };
