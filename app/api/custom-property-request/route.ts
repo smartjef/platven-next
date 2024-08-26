@@ -84,7 +84,7 @@ export const POST = async (request: NextRequest) => {
                         client_phone: validation.data.phoneNumber.toString(),
                         client_email: validation.data.email,
                     },
-                    config.MESSAGE.REQUEST_PROPERTY_ADMIN,
+                    config.MESSAGE.CUSTOM_REQUEST_PROPERTY_ADMIN,
                 ),
             }),
         ),
