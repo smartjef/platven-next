@@ -5,7 +5,7 @@ Dear {{client_name}},
 
 Thank you for your interest finding a propery on Platven. We have received your request and one of our agents will reach out to you shortly with further details or to schedule a viewing as soon as we find a property that fits your needs.
         
-If you have any immediate questions, feel free to reply to this email or call our support line at +254720009306.
+If you have any immediate questions, feel free to contact us via email on support@platven.ke or call our support line at +254720009306.
         
 Best regards,  
 The Platven Team
