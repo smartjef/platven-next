@@ -84,14 +84,14 @@ const CustomProperyRequestForm = () => {
 
     return (
         <>
-            <div>
+            <div className='text-center'>
                 <Heading title={"Can't Get Your Choice Of Property?"} description={"Kindly Email Us Your Preferred Property Details Right Here."} />
             </div>
             <Separator />
             <Form {...form}>
                 <form
                     onSubmit={form.handleSubmit(onSubmit)}
-                    className="w-4/5"
+                    className="w-full p-2"
                 >
                     <div className='flex flex-col md:grid md:grid-cols-2 md:gap-5'>
                         <FormField

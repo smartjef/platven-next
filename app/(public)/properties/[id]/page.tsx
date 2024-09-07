@@ -1,3 +1,4 @@
+import CustomProperyRequestForm from "@/components/CustomProperyRequestForm";
 import PropertyRequestForm from "@/components/forms/properties/property-request";
 import ImageDisplay from "@/components/ImageDisplay";
 import ListLayoutWithSideBar from "@/components/layout/ListLayoutWithSideBar";
@@ -20,7 +21,7 @@ const PropertyDetailPage: FC<PropsWithPathParams> = async ({
 }) => {
   const property = await prisma.property.findUnique({
     where: { id, listed: true, isActive: true, payment: { complete: true } },
-    include: { type: true },    
+    include: { type: true },
   });
   if (!property) return notFound();
   const relatedProperties = await prisma.property.findMany({
@@ -31,9 +32,15 @@ const PropertyDetailPage: FC<PropsWithPathParams> = async ({
   const user = await getSessionUser();
   return (
     <div className="flex flex-col space-y-2">
-      <div className="h-[60vh]">
-        <ImageDisplay images={property.images} />
+      <div className="flex flex-col md:flex-row gap-5 m-4">
+        <div className="w-full md:w-3/4 h-[40vh] md:h-[70vh]">
+          <ImageDisplay images={property.images} />
+        </div>
+        <div className="w-full md:w-1/4 mt-5 md:mt-0 border-2 border-red-700">
+          <CustomProperyRequestForm />
+        </div>
       </div>
+
       <ListLayoutWithSideBar
         sideBar={
           <div className="p-4 shadow shadow-slate-300 dark:shadow-slate-700 rounded-md space-y-4 hidden lg:block">

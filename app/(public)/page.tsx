@@ -69,7 +69,9 @@ const HomePage = async (props: Props) => {
         <HeroBanner adverts={adverts} />
         {/* Banner */}
         {/* CUstom Propery Request */}
-        <CustomProperyRequestForm />
+        <div className="w-3/5">
+          <CustomProperyRequestForm />
+        </div>
         {/* How it works */}
         <div className="my-10">
           <h1 className="font-bold text-3xl">How it works</h1>
