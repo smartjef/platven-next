@@ -46,10 +46,10 @@ const ImageDisplay: React.FC<Props> = ({ images = [] }) => {
             // />
             <img
               key={index}
-              src={`${process.env.NEXT_PUBLIC_FRONTEND_URL}/${image}`}
-              alt={""}
-              className="bg-indigo-800 object-cover w-100 h-100 hover:opacity-50 hover:cursor-pointer"
-              onClick={() => setCurrentIage(image)}
+            src={`${process.env.NEXT_PUBLIC_FRONTEND_URL}/${image}`}
+            alt={""}
+            className="bg-indigo-800 object-cover w-32 md:w-52 h-3w-32 md:h-52 hover:opacity-50 hover:cursor-pointer"
+            onClick={() => setCurrentIage(image)}
             />
           ))
         ) : (
