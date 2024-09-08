@@ -8,6 +8,7 @@ import {
     WhatsappIcon,
 } from 'react-share';
 import { Clipboard, ClipboardCheck, Share2 } from 'lucide-react';
+import { useToast } from './ui/use-toast';
 
 interface SharePropertyProps {
     propertyUrl: string;
@@ -16,6 +17,7 @@ interface SharePropertyProps {
 }
 
 const ShareProperty: React.FC<SharePropertyProps> = ({ propertyUrl, title, imageUrl }) => {
+    const { toast } = useToast();
     const [copied, setCopied] = useState<boolean>(false);
     const [showOptions, setShowOptions] = useState<boolean>(false);
 
@@ -23,7 +25,8 @@ const ShareProperty: React.FC<SharePropertyProps> = ({ propertyUrl, title, image
         navigator.clipboard.writeText(propertyUrl).then(() => {
             setCopied(true);
             setTimeout(() => setCopied(false), 2000);
-            hideOptions(); // Hide options after copying
+            showToast('Property link copied to clipboard successfully!');
+            setShowOptions(false);
         });
     };
 
@@ -31,7 +34,16 @@ const ShareProperty: React.FC<SharePropertyProps> = ({ propertyUrl, title, image
         setShowOptions(!showOptions);
     };
 
-    const hideOptions = (): void => {
+    const showToast = (message: string): void => {
+        toast({
+            variant: "default",
+            title: "Success!",
+            description: message,
+        });
+    };
+
+    const handleShare = (platform: string): void => {
+        showToast(`Opening ${platform} to share property link!`);
         setShowOptions(false);
     };
 
@@ -57,21 +69,21 @@ const ShareProperty: React.FC<SharePropertyProps> = ({ propertyUrl, title, image
                             {copied ? <ClipboardCheck size={24} /> : <Clipboard size={24} />}
                         </button>
                         {/* Facebook Share Button */}
-                        <FacebookShareButton 
-                            url={propertyUrl} 
+                        <FacebookShareButton
+                            url={propertyUrl}
                             className="focus:outline-none"
-                            onClick={hideOptions} // Hide options when clicked
+                            onClick={() => handleShare('Facebook')}
                         >
                             <div className="flex items-center justify-center bg-blue-600 rounded-full p-3 transition duration-200">
                                 <FacebookIcon size={32} round />
                             </div>
                         </FacebookShareButton>
                         {/* WhatsApp Share Button */}
-                        <WhatsappShareButton 
-                            url={propertyUrl} 
-                            title={title} 
+                        <WhatsappShareButton
+                            url={propertyUrl}
+                            title={title}
                             className="focus:outline-none"
-                            onClick={hideOptions} // Hide options when clicked
+                            onClick={() => handleShare('WhatsApp')}
                         >
                             <div className="flex items-center justify-center bg-green-600 rounded-full p-3 transition duration-200">
                                 <WhatsappIcon size={32} round />

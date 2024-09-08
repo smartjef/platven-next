@@ -37,7 +37,7 @@ const PropertyDetailPage: FC<PropsWithPathParams> = async ({
   const user = await getSessionUser();
 
   const propertyUrl = `${process.env.NEXT_PUBLIC_FRONTEND_URL}/properties/${property.id}`;
-  const imageUrl = property.images[0];
+  const imageUrl = `${process.env.NEXT_PUBLIC_FRONTEND_URL}/${property.images[0]}`;
 
   return (
     <>
