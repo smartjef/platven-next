@@ -27,7 +27,7 @@ const ImageDisplay: React.FC<Props> = ({ images = [] }) => {
             : "/"
         }
         alt={""}
-        className="bg-green-500  object-contain h-full w-full"
+        className="bg-gray-50  object-contain h-full w-full"
       />
       {/* Thumbnailes */}
       <div className="flex grow overflow-x-auto justify-center space-x-2 my-2">
@@ -50,7 +50,7 @@ const ImageDisplay: React.FC<Props> = ({ images = [] }) => {
                   key={index}
                   src={`${process.env.NEXT_PUBLIC_FRONTEND_URL}/${image}`}
                   alt={""}
-                  className="bg-green-500 object-fit w-32 h-32 md:w-40 md:h-40 hover:opacity-50 hover:cursor-pointer overflow-hidden"
+                  className="bg-gray-50 object-fit w-32 h-32 md:w-40 md:h-40 hover:opacity-50 hover:cursor-pointer overflow-hidden"
                   onClick={() => setCurrentIage(image)}
                 />
               </div>
