@@ -54,10 +54,10 @@ const PropertyDetailPage: FC<PropsWithPathParams> = async ({
 
       <div className="flex flex-col space-y-2">
         <div className="flex flex-col md:flex-row gap-5 m-4">
-          <div className="w-full md:w-3/4 h-[40vh] md:h-[70vh]">
+          <div className="w-full lg:w-3/4 h-[40vh] lg:h-[70vh]">
             <ImageDisplay images={property.images} />
           </div>
-          <div className="w-full md:w-1/4 mt-5 md:mt-0">
+          <div className="w-full hidden lg:block md:w-1/4 mt-5 md:mt-0">
             <CustomProperyRequestForm />
           </div>
         </div>
@@ -138,6 +138,9 @@ const PropertyDetailPage: FC<PropsWithPathParams> = async ({
                 property={property as any}
                 user={user as any}
               />
+            </div>
+            <div className="w-full lg:hidden mt-5">
+              <CustomProperyRequestForm />
             </div>
             <div className="p-4 space-y-4">
               <p className="font-bold text-xl">Related properties</p>
