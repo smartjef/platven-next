@@ -21,13 +21,14 @@ const ImageDisplay: React.FC<Props> = ({ images = [] }) => {
         className="bg-indigo-800  object-cover h-[80%] w-full"
       /> */}
       <img
-        src={
-          currentImage
-            ? `${process.env.NEXT_PUBLIC_FRONTEND_URL}/${currentImage}`
-            : "/"
-        }
+        src="/media/properties/patven-1720262650598-whatsapp-image-2024-02-08-at-17.26.43-(1)-(2).jpeg"
+        // src={
+        //   currentImage
+        //     ? `${process.env.NEXT_PUBLIC_FRONTEND_URL}/${currentImage}`
+        //     : "/"
+        // }
         alt={""}
-        className="bg-gray-50 h-96 w-full"
+        className="bg-gray-50 object-contain h-80 md:h-96 lg:h-[450px] w-full"
       />
       {/* Thumbnailes */}
       <div className="flex grow overflow-x-auto justify-center space-x-2 my-2">
@@ -50,7 +51,7 @@ const ImageDisplay: React.FC<Props> = ({ images = [] }) => {
                   key={index}
                   src={`${process.env.NEXT_PUBLIC_FRONTEND_URL}/${image}`}
                   alt={""}
-                  className="bg-gray-50 object-fit w-32 h-32 md:w-40 md:h-40 hover:opacity-50 hover:cursor-pointer overflow-hidden"
+                  className="bg-gray-50 object-fit w-32 h-32 md:w-32 md:h-32 lg:w-40 lg:h-40 hover:opacity-50 hover:cursor-pointer overflow-hidden"
                   onClick={() => setCurrentIage(image)}
                 />
               </div>
