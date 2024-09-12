@@ -1,72 +1,86 @@
 "use client";
-import Image from "next/image";
-import React, { useState } from "react";
+import React from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 interface Props {
   images?: string[];
 }
 
-const ImageDisplay: React.FC<Props> = ({ images = [] }) => {
-  const [currentImage, setCurrentIage] = useState<string>(images[0]);
+const ImageCarousel: React.FC<Props> = ({ images = [] }) => {
+  images = [
+    "/media/properties/patven-1720262650598-whatsapp-image-2024-02-08-at-17.26.43-(1)-(2).jpeg",
+    "/media/properties/patven-1720262650598-whatsapp-image-2024-02-08-at-17.26.43-(1)-(2).jpeg",
+    "/media/properties/patven-1720262650598-whatsapp-image-2024-02-08-at-17.26.43-(1)-(2).jpeg",
+    "/media/properties/patven-1720262650598-whatsapp-image-2024-02-08-at-17.26.43-(1)-(2).jpeg",
+    "/media/properties/patven-1720262650598-whatsapp-image-2024-02-08-at-17.26.43-(1)-(2).jpeg",
+    "/media/properties/patven-1720262650598-whatsapp-image-2024-02-08-at-17.26.43-(1)-(2).jpeg",
+    "/media/properties/patven-1720262650598-whatsapp-image-2024-02-08-at-17.26.43-(1)-(2).jpeg",
+    "/media/properties/patven-1720262650598-whatsapp-image-2024-02-08-at-17.26.43-(1)-(2).jpeg",
+    "/media/properties/patven-1720262650598-whatsapp-image-2024-02-08-at-17.26.43-(1)-(2).jpeg",
+  ];
+
   return (
-    <div className="w-full h-full flex flex-col items-center">
-      {/* Carousel */}
-      {/* <Image
-        src={{
-          src: currentImage ? `/${currentImage}` : "/",
-          width: 800,
-          height: 500,
-        }}
-        alt={""}
-        className="bg-indigo-800  object-cover h-[80%] w-full"
-      /> */}
-      <img
-        // src="/media/properties/patven-1720262650598-whatsapp-image-2024-02-08-at-17.26.43-(1)-(2).jpeg"
-        src={
-          currentImage
-            ? `${process.env.NEXT_PUBLIC_FRONTEND_URL}/${currentImage}`
-            : "/"
-        }
-        alt={""}
-        className="bg-gray-50 object-contain h-80 md:h-96 lg:h-[450px] w-full"
-      />
-      {/* Thumbnailes */}
-      <div className="flex grow overflow-x-auto justify-center space-x-2 my-2">
-        {images.length > 0 ? (
-          images.map((image, index) => (
-            // <Image
-            //   key={index}
-            //   src={{
-            //     src: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/${image}`,
-            //     width: 800,
-            //     height: 500,
-            //   }}
-            //   alt={""}
-            //   className="bg-indigo-800 object-cover w-100 h-100 hover:opacity-50 hover:cursor-pointer"
-            //   onClick={() => setCurrentIage(image)}
-            // />
-            <>
-              <div className="overflow-hidden">
+    <Carousel className="relative w-full max-w-screen-xl mx-auto">
+      <CarouselContent>
+        {images.map((image, index) => (
+          <CarouselItem key={index}>
+            <Card className="w-full">
+              <CardContent className="p-0 rounded-lg overflow-hidden">
                 <img
-                  key={index}
-                  src={`${process.env.NEXT_PUBLIC_FRONTEND_URL}/${image}`}
-                  alt={""}
-                  className="bg-gray-50 object-fit w-32 h-32 md:w-32 md:h-32 lg:w-40 lg:h-40 hover:opacity-50 hover:cursor-pointer overflow-hidden"
-                  onClick={() => setCurrentIage(image)}
+                  src={image}
+                  alt={`Slide ${index + 1}`}
+                  className="w-full h-[60vh] object-contain transition-transform duration-300 ease-in-out"
                 />
-              </div>
-            </>
-          ))
-        ) : (
-          <img
-            src={`https://via.placeholder.com/1200x400?text=Thumnail`}
-            alt={""}
-            className="bg-indigo-800 object-cover w-100 h-100 hover:opacity-50 hover:cursor-pointer"
+              </CardContent>
+            </Card>
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+      <CarouselPrevious className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-3 rounded-full shadow-lg hover:bg-opacity-75 transition-all duration-300 z-10 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-14 lg:h-14">
+        <span className="sr-only">Previous</span>
+        <svg
+          className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-12 lg:h-12"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 6 10"
+        >
+          <path
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M5 1 1 5l4 4"
           />
-        )}
-      </div>
-    </div>
+        </svg>
+      </CarouselPrevious>
+      <CarouselNext className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-3 rounded-full shadow-lg hover:bg-opacity-75 transition-all duration-300 z-10 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-14 lg:h-14">
+        <span className="sr-only">Next</span>
+        <svg
+          className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-12 lg:h-12"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 6 10"
+        >
+          <path
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="m1 9 4-4-4-4"
+          />
+        </svg>
+      </CarouselNext>
+    </Carousel>
   );
 };
 
-export default ImageDisplay;
+export default ImageCarousel;
