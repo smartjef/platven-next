@@ -27,7 +27,7 @@ const ImageDisplay: React.FC<Props> = ({ images = [] }) => {
             : "/"
         }
         alt={""}
-        className="bg-gray-50  object-contain h-full w-full"
+        className="bg-gray-50 h-96 w-full"
       />
       {/* Thumbnailes */}
       <div className="flex grow overflow-x-auto justify-center space-x-2 my-2">
