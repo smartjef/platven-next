@@ -27,7 +27,12 @@ const ImageCarousel: React.FC<Props> = ({ images = [] }) => {
   // ];
 
   return (
-    <Carousel className="relative w-full max-w-screen-xl mx-auto">
+    <Carousel
+      className="relative w-full max-w-screen-xl mx-auto"
+      opts={{
+        loop: true
+      }}
+    >
       <CarouselContent>
         {images.map((image, index) => (
           <CarouselItem key={index}>
@@ -35,8 +40,8 @@ const ImageCarousel: React.FC<Props> = ({ images = [] }) => {
               <CardContent className="p-0 rounded-lg overflow-hidden">
                 <img
                   src={`${process.env.NEXT_PUBLIC_FRONTEND_URL}/${image}`}
-                  alt={`Slide ${index + 1}`}
-                  className="w-full h-[60vh] object-contain transition-transform duration-300 ease-in-out"
+                  alt="..."
+                  className="w-full lg:h-[85vh] object-contain transition-transform duration-300 ease-in-out"
                 />
               </CardContent>
             </Card>
