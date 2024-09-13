@@ -14,34 +14,34 @@ interface Props {
 }
 
 const ImageCarousel: React.FC<Props> = ({ images = [] }) => {
-  // images = [
-  //   "/media/properties/patven-1720262650598-whatsapp-image-2024-02-08-at-17.26.43-(1)-(2).jpeg",
-  //   "/media/properties/patven-1720262650598-whatsapp-image-2024-02-08-at-17.26.43-(1)-(2).jpeg",
-  //   "/media/properties/patven-1720262650598-whatsapp-image-2024-02-08-at-17.26.43-(1)-(2).jpeg",
-  //   "/media/properties/patven-1720262650598-whatsapp-image-2024-02-08-at-17.26.43-(1)-(2).jpeg",
-  //   "/media/properties/patven-1720262650598-whatsapp-image-2024-02-08-at-17.26.43-(1)-(2).jpeg",
-  //   "/media/properties/patven-1720262650598-whatsapp-image-2024-02-08-at-17.26.43-(1)-(2).jpeg",
-  //   "/media/properties/patven-1720262650598-whatsapp-image-2024-02-08-at-17.26.43-(1)-(2).jpeg",
-  //   "/media/properties/patven-1720262650598-whatsapp-image-2024-02-08-at-17.26.43-(1)-(2).jpeg",
-  //   "/media/properties/patven-1720262650598-whatsapp-image-2024-02-08-at-17.26.43-(1)-(2).jpeg",
-  // ];
+  images = [
+    "/media/properties/patven-1720262650598-whatsapp-image-2024-02-08-at-17.26.43-(1)-(2).jpeg",
+    "/media/properties/patven-1720262650598-whatsapp-image-2024-02-08-at-17.26.43-(1)-(2).jpeg",
+    "/media/properties/patven-1720262650598-whatsapp-image-2024-02-08-at-17.26.43-(1)-(2).jpeg",
+    "/media/properties/patven-1720262650598-whatsapp-image-2024-02-08-at-17.26.43-(1)-(2).jpeg",
+    "/media/properties/patven-1720262650598-whatsapp-image-2024-02-08-at-17.26.43-(1)-(2).jpeg",
+    "/media/properties/patven-1720262650598-whatsapp-image-2024-02-08-at-17.26.43-(1)-(2).jpeg",
+    "/media/properties/patven-1720262650598-whatsapp-image-2024-02-08-at-17.26.43-(1)-(2).jpeg",
+    "/media/properties/patven-1720262650598-whatsapp-image-2024-02-08-at-17.26.43-(1)-(2).jpeg",
+    "/media/properties/patven-1720262650598-whatsapp-image-2024-02-08-at-17.26.43-(1)-(2).jpeg",
+  ];
 
   return (
     <Carousel
-      className="relative w-full max-w-screen-xl mx-auto"
+      className="relative w-full h-full max-w-screen-xl mx-auto"
       opts={{
         loop: true
       }}
     >
-      <CarouselContent>
+      <CarouselContent className="h-fulll">
         {images.map((image, index) => (
-          <CarouselItem key={index}>
-            <Card className="w-full">
+          <CarouselItem key={index} className="h-full">
+            <Card className="w-full h-full">
               <CardContent className="p-0 rounded-lg overflow-hidden">
                 <img
                   src={`${process.env.NEXT_PUBLIC_FRONTEND_URL}/${image}`}
                   alt="..."
-                  className="w-full lg:h-[85vh] object-contain transition-transform duration-300 ease-in-out"
+                  className="w-full lg:h-[87vh] xl:h-[62vh] object-contain transition-transform duration-300 ease-in-out"
                 />
               </CardContent>
             </Card>
