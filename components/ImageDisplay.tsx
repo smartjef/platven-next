@@ -34,7 +34,7 @@ const ImageCarousel: React.FC<Props> = ({ images = [] }) => {
             <Card className="w-full">
               <CardContent className="p-0 rounded-lg overflow-hidden">
                 <img
-                  src={image}
+                  src={`${process.env.NEXT_PUBLIC_FRONTEND_URL}/${image}`}
                   alt={`Slide ${index + 1}`}
                   className="w-full h-[60vh] object-contain transition-transform duration-300 ease-in-out"
                 />
