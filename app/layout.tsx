@@ -10,6 +10,14 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Platven LTD",
   description: "Real estate platform",
+  openGraph: {
+    title: "Platven LTD - Real Estate Platform",
+    description:
+      "Discover amazing properties on Platven, your go-to real estate platform.",
+    url: "https://platven.ke",
+    siteName: "Platven LTD",
+    type: "website",
+  },
 };
 
 export default async function RootLayout({
