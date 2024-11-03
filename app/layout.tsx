@@ -18,6 +18,14 @@ export const metadata: Metadata = {
     url: "https://platven.ke",
     siteName: "Platven LTD",
     type: "website",
+    images: [
+      {
+        url: "https://platven.ke/opengraph-image.png?edfa185fc7879921",
+        width: 1670,
+        height: 926,
+        type: "image/png",
+      },
+    ],
   },
 };
 
