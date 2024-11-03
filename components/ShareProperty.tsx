@@ -13,10 +13,9 @@ import { useToast } from './ui/use-toast';
 interface SharePropertyProps {
     propertyUrl: string;
     title: string;
-    imageUrl: string;
 }
 
-const ShareProperty: React.FC<SharePropertyProps> = ({ propertyUrl, title, imageUrl }) => {
+const ShareProperty: React.FC<SharePropertyProps> = ({ propertyUrl, title }) => {
     const { toast } = useToast();
     const [copied, setCopied] = useState<boolean>(false);
     const [showOptions, setShowOptions] = useState<boolean>(false);

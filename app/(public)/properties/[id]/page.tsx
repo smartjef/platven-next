@@ -15,9 +15,8 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FC } from "react";
-import Head from 'next/head';
 
-const ShareProperty = dynamic(() => import('@/components/ShareProperty'), {
+const ShareProperty = dynamic(() => import("@/components/ShareProperty"), {
   ssr: false,
 });
 
@@ -37,21 +36,9 @@ const PropertyDetailPage: FC<PropsWithPathParams> = async ({
   const user = await getSessionUser();
 
   const propertyUrl = `${process.env.NEXT_PUBLIC_FRONTEND_URL}/properties/${property.id}`;
-  const imageUrl = `${process.env.NEXT_PUBLIC_FRONTEND_URL}/${property.images[0]}`;
 
   return (
     <>
-      <Head>
-        <title>{property.title}</title>
-        <meta property="og:title" content={property.title} />
-        <meta property="og:description" content="Check out this amazing property!" />
-        <meta property="og:image" content={imageUrl} />
-        <meta property="og:url" content={propertyUrl} />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta property="og:type" content="website" />
-      </Head>
-
       <div className="flex flex-col space-y-2">
         <div className="flex flex-col md:flex-row gap-5 m-4">
           <div className="w-full lg:w-3/4">
@@ -86,7 +73,10 @@ const PropertyDetailPage: FC<PropsWithPathParams> = async ({
                     <Heart />
                   </Button>
                   <Button>
-                    <ShareProperty propertyUrl={propertyUrl} title="View this property on platven.ke" imageUrl={imageUrl} />
+                    <ShareProperty
+                      propertyUrl={propertyUrl}
+                      title="View this property on platven.ke"
+                    />
                   </Button>
                 </div>
               </div>
