@@ -11,6 +11,8 @@ import prisma from "@/prisma/client";
 import { PropsWithPathParams } from "@/types";
 import { Bookmark, Calendar, Heart } from "lucide-react";
 import moment from "moment/moment";
+import { Metadata } from "next";
+import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -20,13 +22,44 @@ const ShareProperty = dynamic(() => import("@/components/ShareProperty"), {
   ssr: false,
 });
 
-const PropertyDetailPage: FC<PropsWithPathParams> = async ({
-  params: { id },
-}) => {
-  const property = await prisma.property.findUnique({
+const getProperty = async (id: string) => {
+  return await prisma.property.findUnique({
     where: { id, listed: true, isActive: true, payment: { complete: true } },
     include: { type: true },
   });
+};
+
+export const generateMetadata = async ({
+  params,
+}: Params): Promise<Metadata | undefined> => {
+  const property = await getProperty(params.id);
+  if (!property) return;
+
+  return {
+    title: property.title,
+    description: property.features,
+    openGraph: {
+      title: `${property.title} | Platven LTD - Real Estate Platform`,
+      description: `${property.features}. Visit https://platven.ke to browse the best property.`,
+      url: `https://platven.ke/properties/${params.id}`,
+      siteName: "Platven LTD",
+      type: "article",
+      locale: "en_US",
+      images: [
+        {
+          url: `https://platven.ke/${property.images[0]}`,
+          width: 1200,
+          height: 630,
+        },
+      ],
+    },
+  };
+};
+
+const PropertyDetailPage: FC<PropsWithPathParams> = async ({
+  params: { id },
+}) => {
+  const property = await getProperty(id);
   if (!property) return notFound();
   const relatedProperties = await prisma.property.findMany({
     include: { type: true },
