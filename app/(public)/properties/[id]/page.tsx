@@ -3,6 +3,7 @@ import PropertyRequestForm from "@/components/forms/properties/property-request"
 import ImageDisplay from "@/components/ImageDisplay";
 import ListLayoutWithSideBar from "@/components/layout/ListLayoutWithSideBar";
 import MarkdownRenderer from "@/components/MarkdownRenderer";
+import ShareProperty from "@/components/ShareProperty";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { getSessionUser } from "@/lib/auth-utils";
@@ -12,15 +13,9 @@ import { PropsWithPathParams } from "@/types";
 import { Bookmark, Calendar, Heart } from "lucide-react";
 import moment from "moment/moment";
 import { Metadata } from "next";
-import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
-import dynamic from "next/dynamic";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FC } from "react";
-
-const ShareProperty = dynamic(() => import("@/components/ShareProperty"), {
-  ssr: false,
-});
 
 const getProperty = async (id: string) => {
   return await prisma.property.findUnique({
@@ -31,7 +26,9 @@ const getProperty = async (id: string) => {
 
 export const generateMetadata = async ({
   params,
-}: Params): Promise<Metadata | undefined> => {
+}: {
+  params: { id: string };
+}): Promise<Metadata | undefined> => {
   const property = await getProperty(params.id);
   if (!property) return;
 
