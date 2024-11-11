@@ -37,7 +37,7 @@ export const generateMetadata = async ({
     description: property.features,
     openGraph: {
       title: `${property.title} | Platven LTD - Real Estate Platform`,
-      description: `${property.features}. Visit https://platven.ke to browse the best property.`,
+      description: `${property.features ?? ""}. Visit https://platven.ke to browse the best property.`,
       url: `https://platven.ke/properties/${params.id}`,
       siteName: "Platven LTD",
       type: "article",
