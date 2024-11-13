@@ -4,9 +4,11 @@ import { FC } from "react";
 
 interface Props {
   serializedContent: MDXRemoteSerializeResult;
+  property?: any
 }
 
-const MarkdownRenderer: FC<Props> = ({ serializedContent }) => {
+const MarkdownRenderer: FC<Props> = ({ serializedContent, property }) => {
+  console.log(property);
   return <MDXRemote {...serializedContent} />;
 };
 
