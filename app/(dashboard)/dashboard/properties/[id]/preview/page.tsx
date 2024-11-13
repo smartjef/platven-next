@@ -11,6 +11,7 @@ import clsx from "clsx";
 import { FC } from "react";
 import PropertyPriviewAction from "./actions";
 import MarkdownRenderer from "@/components/MarkdownRenderer";
+import { serializeMarkdown } from "@/lib/utils";
 
 const breadcrumbItems = [
   { title: "Properties", link: "/dashboard/properties" },
@@ -22,7 +23,10 @@ const PropertyPreview: FC<PropsWithPathParams> = async ({ params: { id } }) => {
     where: { id },
     include: { type: true, user: true },
   });
+
   if (!property) return <div>Not found!</div>;
+
+  const serializedContent = await serializeMarkdown(property.features ?? "");
   return (
     <ScrollArea className="h-full">
       <div className="flex-1 space-y-4 p-4 md:p-8 pt-6 lg:w-[50%]">
@@ -34,7 +38,7 @@ const PropertyPreview: FC<PropsWithPathParams> = async ({ params: { id } }) => {
         </div>
         <div className="shadow-md p-4 space-y-3 shadow-slate-400 dark:shadow-slate-700">
           <h1 className="text-2xl">Features</h1>
-          <MarkdownRenderer markdownContent={property.features ?? ""} />
+          <MarkdownRenderer serializedContent={serializedContent} />
           {/* <p className="opacity-50">{property.features}</p> */}
         </div>
         <div className="shadow-md p-4 space-y-3  shadow-slate-400 dark:shadow-slate-700">
