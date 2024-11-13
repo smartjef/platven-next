@@ -3,6 +3,7 @@ import { TaskDragData } from "@/components/kanban/task-card";
 import { Active, DataRef, Over } from "@dnd-kit/core";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { serialize } from "next-mdx-remote/serialize";
 
 type DraggableData = ColumnDragData | TaskDragData;
 
@@ -124,3 +125,7 @@ export const formartCurrency = (amount: number) => {
   }).format(amount);
   return formatted;
 };
+
+export async function serializeMarkdown(content: string) {
+  return await serialize(content);
+}

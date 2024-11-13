@@ -7,7 +7,7 @@ import ShareProperty from "@/components/ShareProperty";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { getSessionUser } from "@/lib/auth-utils";
-import { formartCurrency } from "@/lib/utils";
+import { formartCurrency, serializeMarkdown } from "@/lib/utils";
 import prisma from "@/prisma/client";
 import { PropsWithPathParams } from "@/types";
 import { Bookmark, Calendar, Heart } from "lucide-react";
@@ -37,7 +37,9 @@ export const generateMetadata = async ({
     description: property.features,
     openGraph: {
       title: `${property.title} | Platven LTD - Real Estate Platform`,
-      description: `${property.features ?? ""}. Visit https://platven.ke to browse the best property.`,
+      description: `${
+        property.features ?? ""
+      }. Visit https://platven.ke to browse the best property.`,
       url: `https://platven.ke/properties/${params.id}`,
       siteName: "Platven LTD",
       type: "article",
@@ -66,6 +68,7 @@ const PropertyDetailPage: FC<PropsWithPathParams> = async ({
   const user = await getSessionUser();
 
   const propertyUrl = `${process.env.NEXT_PUBLIC_FRONTEND_URL}/properties/${property.id}`;
+  const serializedContent = await serializeMarkdown(property.features ?? "");
 
   return (
     <>
@@ -149,7 +152,7 @@ const PropertyDetailPage: FC<PropsWithPathParams> = async ({
                 </div>
               </div>
               <div className="bg-accent p-2">
-                <MarkdownRenderer markdownContent={property.features ?? ""} />
+                <MarkdownRenderer serializedContent={serializedContent} />
               </div>
             </div>
             <div className="p-4 shadow shadow-slate-300 dark:shadow-slate-700 rounded-md space-y-4 block lg:hidden">

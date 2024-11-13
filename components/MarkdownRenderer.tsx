@@ -1,15 +1,13 @@
 "use client";
-import { MDXRemote } from "next-mdx-remote";
-import { serialize } from "next-mdx-remote/serialize";
+import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
 import { FC } from "react";
 
 interface Props {
-  markdownContent: string;
+  serializedContent: MDXRemoteSerializeResult;
 }
 
-const MarkdownRenderer: FC<Props> = async ({ markdownContent }) => {
-  const mdxSource = await serialize(markdownContent);
-  return <MDXRemote {...mdxSource} />;
+const MarkdownRenderer: FC<Props> = ({ serializedContent }) => {
+  return <MDXRemote {...serializedContent} />;
 };
 
 export default MarkdownRenderer;
