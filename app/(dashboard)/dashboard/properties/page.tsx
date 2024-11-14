@@ -5,6 +5,7 @@ import { Separator } from "@/components/ui/separator";
 import { getSessionUser } from "@/lib/auth-utils";
 import prisma from "@/prisma/client";
 import { PropsWithSearchParams } from "@/types";
+import { orderBy } from "lodash";
 import { FC } from "react";
 
 const breadcrumbItems = [
@@ -43,6 +44,9 @@ const Properties: FC<PropsWithSearchParams> = async ({ searchParams }) => {
       ],
     },
     include: { type: true, requests: true, user: true, payment: true },
+    orderBy: {
+      views: "desc",
+    },
   });
   return (
     <div className="flex flex-col space-y-4  p-4 md:p-8 pt-6  h-full">
