@@ -185,7 +185,7 @@ const PropertyDetailPage: FC<PropsWithPathParams> = async ({
             </div>
             <div className="p-4 space-y-4">
               <p className="font-bold text-xl">Related properties</p>
-              <div className="grid grid-cols-1 lg:grid-cols-4 gap-2 lg:gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 {relatedProperties.map(
                   (
                     {
@@ -202,34 +202,51 @@ const PropertyDetailPage: FC<PropsWithPathParams> = async ({
                   ) => (
                     <div
                       key={index}
-                      className="w-full border rounded-lg shadow relative"
+                      className="flex flex-col h-full border rounded-lg shadow relative bg-white dark:bg-gray-800"
                     >
-                      <Badge className="absolute top-2 left-2 bg-green-700">
-                        {status === "onRent" ? "On rent" : "On sales"}
+                      <Badge className="absolute top-2 left-2 z-10 bg-green-700">
+                        {status === "onRent" ? "On rent" : "On sale"}
                       </Badge>
-                      <Link href={`/properties/${id}`}>
-                        <img
-                          className="rounded-t-lg"
-                          src={`${process.env.NEXT_PUBLIC_FRONTEND_URL}/${images[0]}`}
-                          alt="product image"
-                        />
-                      </Link>
-                      <div className="px-5 pb-5">
+
+                      {/* Image container with fixed aspect ratio */}
+                      <div className="aspect-[4/3] relative">
                         <Link href={`/properties/${id}`}>
-                          <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
-                            {`${title}`}
+                          <img
+                            className="rounded-t-lg object-cover w-full h-full"
+                            src={`${process.env.NEXT_PUBLIC_FRONTEND_URL}/${images[0]}`}
+                            alt={title}
+                          />
+                        </Link>
+                      </div>
+
+                      {/* Content container */}
+                      <div className="flex flex-col flex-grow p-5">
+                        {/* Title */}
+                        <Link href={`/properties/${id}`}>
+                          <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white line-clamp-2 min-h-[3.5rem]">
+                            {title}
                           </h5>
                         </Link>
-                        <div className="flex flex-col justify-center mt-2.5 mb-5">
+
+                        {/* Location */}
+                        <div className="text-sm text-gray-600 dark:text-gray-300 mt-2">
                           {`${county} ${subCounty}`}
                         </div>
-                        <div className="flex items-center justify-between flex-wrap space-y-6">
-                          <span className="text-xl font-bold text-gray-900 dark:text-white">
+
+                        {/* Property type */}
+                        <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                          {type}
+                        </div>
+
+                        {/* Price and button - pushed to bottom */}
+                        <div className="mt-auto pt-4 space-y-3">
+                          <div className="text-xl font-bold text-gray-900 dark:text-white">
                             {formartCurrency(Number(price))}
-                          </span>
+                          </div>
+
                           <Link
                             href={`/properties/${id}`}
-                            className="w-full text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                            className="block w-full text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 transition-colors"
                           >
                             View Detail
                           </Link>
