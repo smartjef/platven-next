@@ -154,7 +154,6 @@ const PropertyDetailPage: FC<PropsWithPathParams> = async ({
               <div className="bg-accent p-2">
                 <MarkdownRenderer
                   serializedContent={serializedContent}
-                  property={property}
                 />
               </div>
             </div>
