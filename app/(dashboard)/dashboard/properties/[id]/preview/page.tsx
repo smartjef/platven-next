@@ -44,6 +44,10 @@ const PropertyPreview: FC<PropsWithPathParams> = async ({ params: { id } }) => {
         <div className="shadow-md p-4 space-y-3  shadow-slate-400 dark:shadow-slate-700">
           <h1 className="text-2xl">Details</h1>
           <div className="grid grid-cols-2">
+            <span>Views</span>
+            <span>{property.views}</span>
+          </div>
+          <div className="grid grid-cols-2">
             <span>County</span>
             <span>{property.county}</span>
           </div>

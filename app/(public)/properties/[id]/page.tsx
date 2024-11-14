@@ -17,19 +17,36 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FC } from "react";
 
-const getProperty = async (id: string) => {
-  return await prisma.property.findUnique({
-    where: { id, listed: true, isActive: true, payment: { complete: true } },
-    include: { type: true },
+const incrementPropertyView = async (id: string) => {
+  return await prisma.property.update({
+    where: { id },
+    data: {
+      views: {
+        increment: 1,
+      },
+    },
   });
 };
 
+const getPropertyWithoutIncrement = async (id: string) => {
+  return await prisma.property.findUnique({
+    where: {
+      id,
+      listed: true,
+      isActive: true,
+      payment: { complete: true },
+    },
+    include: {
+      type: true,
+    },
+  });
+};
 export const generateMetadata = async ({
   params,
 }: {
   params: { id: string };
 }): Promise<Metadata | undefined> => {
-  const property = await getProperty(params.id);
+  const property = await incrementPropertyView(params.id);
   if (!property) return;
 
   return {
@@ -58,8 +75,9 @@ export const generateMetadata = async ({
 const PropertyDetailPage: FC<PropsWithPathParams> = async ({
   params: { id },
 }) => {
-  const property = await getProperty(id);
+  const property = await getPropertyWithoutIncrement(id);
   if (!property) return notFound();
+
   const relatedProperties = await prisma.property.findMany({
     include: { type: true },
     take: 8,
@@ -152,9 +170,7 @@ const PropertyDetailPage: FC<PropsWithPathParams> = async ({
                 </div>
               </div>
               <div className="bg-accent p-2">
-                <MarkdownRenderer
-                  serializedContent={serializedContent}
-                />
+                <MarkdownRenderer serializedContent={serializedContent} />
               </div>
             </div>
             <div className="p-4 shadow shadow-slate-300 dark:shadow-slate-700 rounded-md space-y-4 block lg:hidden">

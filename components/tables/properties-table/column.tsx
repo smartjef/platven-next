@@ -56,6 +56,10 @@ export const columns: ColumnDef<Property & { type: PropertyType }>[] = [
     header: "Title",
   },
   {
+    accessorKey: "views",
+    header: "Views",
+  },
+  {
     accessorKey: "type.title",
     header: "Types",
   },
