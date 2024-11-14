@@ -32,27 +32,33 @@ const HomePage = async (props: Props) => {
       },
     },
     take: 12,
-    orderBy: { updatedAt: "desc" },
+    orderBy: { views: "desc" },
   });
-
 
   if (!(user?.isStaff || user?.isSuperUser)) {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000"}/api/increment-click`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      const response = await fetch(
+        `${
+          process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000"
+        }/api/increment-click`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
         },
-      });
+      );
 
       if (!response.ok) {
-        console.error('Failed to increment click count:', await response.text());
+        console.error(
+          "Failed to increment click count:",
+          await response.text(),
+        );
       }
     } catch (error) {
-      console.error('Failed to increment click count:', error);
+      console.error("Failed to increment click count:", error);
     }
   }
-
 
   const propertyTypes = await prisma.propertyType.findMany({
     where: { isActive: true },
@@ -130,71 +136,60 @@ const HomePage = async (props: Props) => {
           <h1 className="font-bold text-3xl">Popular Properties</h1>
         </div>
         {properties.length > 0 ? (
-          <div className=" grid grid-cols-1 lg:grid-cols-4 gap-2 lg:gap-4">
-            {properties
-              .map(
-                (
-                  {
-                    id,
-                    title,
-                    images,
-                    price,
-                    county,
-                    subCounty,
-                    type: { title: type },
-                    status,
-                  },
-                  index,
-                ) => (
-                  <div
-                    key={index}
-                    className="w-full border  rounded-lg shadow relative"
-                  >
-                    <Badge className="absolute top-2 left-2 bg-green-700">
-                      {status === "onRent" ? "On rent" : "On sales"}
-                    </Badge>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {properties.map(
+              (
+                { id, status, images, title, county, subCounty, price },
+                index,
+              ) => (
+                <div
+                  key={index}
+                  className="flex flex-col h-full border rounded-lg shadow relative bg-white dark:bg-gray-800"
+                >
+                  <Badge className="absolute top-2 left-2 z-10 bg-green-700">
+                    {status === "onRent" ? "On rent" : "On sale"}
+                  </Badge>
+
+                  {/* Image Container - Fixed height */}
+                  <div className="aspect-[4/3] relative">
                     <Link href={`/properties/${id}`}>
-                      {/* <Image
-                        className="rounded-t-lg"
-                        src={{
-                          src: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/${images[0]}`,
-                          height: 500,
-                          width: 800,
-                        }}
-                        alt="product image"
-                      /> */}
                       <img
-                        className="rounded-t-lg"
+                        className="rounded-t-lg object-cover w-full h-full"
                         src={`${process.env.NEXT_PUBLIC_FRONTEND_URL}/${images[0]}`}
-                        alt="product image"
+                        alt={title}
                       />
                     </Link>
-                    <div className="px-5 pb-5 ">
-                      <Link href={`/properties/${id}`}>
-                        <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
-                          {`${title}`}
-                        </h5>
-                      </Link>
-                      <div className="flex flex-col justify-center mt-2.5 mb-5">
-                        {`${county} ${subCounty}`}
-                      </div>
-                      <div className="flex items-center justify-between flex-wrap space-y-6">
-                        <span className="text-xl font-bold text-gray-900 dark:text-white">
-                          {formartCurrency(Number(price))}
-                        </span>
+                  </div>
 
-                        <Link
-                          href={`/properties/${id}`}
-                          className="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 w-full"
-                        >
-                          View Detail
-                        </Link>
+                  {/* Content Container */}
+                  <div className="flex flex-col flex-grow p-5">
+                    <Link href={`/properties/${id}`} className="mb-2">
+                      <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white line-clamp-2">
+                        {title}
+                      </h5>
+                    </Link>
+
+                    <div className="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                      {`${county} ${subCounty}`}
+                    </div>
+
+                    {/* Price and Button - Always at bottom */}
+                    <div className="mt-auto space-y-4">
+                      <div className="text-xl font-bold text-gray-900 dark:text-white">
+                        {formartCurrency(Number(price))}
                       </div>
+
+                      <Link
+                        href={`/properties/${id}`}
+                        className="block text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                      >
+                        View Detail
+                      </Link>
                     </div>
                   </div>
-                ),
-              )
-              .slice(0, 12)}
+                </div>
+              ),
+            )}
           </div>
         ) : (
           <div className="p-2 bg-accent rounded-md text-center w-full">
