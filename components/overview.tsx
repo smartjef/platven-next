@@ -7,7 +7,7 @@ import moment from "moment/moment";
 export async function Overview({ user }: { user: User }) {
   const properties = await prisma.property.findMany({
     take: 6,
-    orderBy: { updatedAt: "desc" },
+    orderBy: { views: "desc" },
     where: {
       userId: user.isSuperUser || user.isStaff ? undefined : user.id,
       payment: { complete: true },

@@ -81,7 +81,7 @@ const PropertyDetailPage: FC<PropsWithPathParams> = async ({
   const relatedProperties = await prisma.property.findMany({
     include: { type: true },
     take: 8,
-    orderBy: { updatedAt: "desc" },
+    orderBy: { views: "desc" },
   });
   const user = await getSessionUser();
 
