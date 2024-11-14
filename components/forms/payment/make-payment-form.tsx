@@ -107,7 +107,7 @@ const MakePaymentForm: FC<Props> = ({ property }) => {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2 w-full">
         {paymentInitiated && (
           <div className="rounded-md bg-muted p-4">
-            Payment has beeen initiated succesfully, Enter your pin on you phone
+            Payment has been initiated succesfully, Enter your pin on you phone
             mpesa prompt to confirm payment and click the complete payment if
             succesfull
           </div>
