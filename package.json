@@ -10,7 +10,7 @@
     "script": "npx ts-node scripts/script.ts",
     "build": "next build",
     "start": "next start",
-    "start-all": "concurrently \"next start\" \"node server.express.js\"",
+    "start-all": "concurrently \"next start -p 3002\" \"node server.express.js\"",
     "files": "node server.express.js",
     "lint": "next lint",
     "prettier": "prettier . --write"
