@@ -1,7 +1,8 @@
+import prisma from "@/prisma/client";
+
 const { PrismaClient } = require('@prisma/client');
 const bcrypt = require('bcrypt');
 
-const prisma = new PrismaClient();
 type Constiuency = {
   name: string;
   code: string;
